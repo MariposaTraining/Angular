@@ -51,13 +51,13 @@ angular.module('mariposa-training').service('PersonalInfo', ['$http', 'Account',
     };
     
     this.updateFacilityByCode = function(facilityCode, memberSoid){
-        if(Session.userRoles.includes(USER_ROLES.manager))
+        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager))
             Management.facilitiesLoaded = false;
         return $http.post("/Api/SetChangeFacilityByCode", {memberSoid: memberSoid, facilityCode: facilityCode});    
     };
     
     this.updateFacility = function(facilitySoid, memberSoid){
-        if(Session.userRoles.includes(USER_ROLES.manager))
+        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager))
             Management.facilitiesLoaded = false;
     
         if(facilitySoid == null)
