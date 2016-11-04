@@ -1,0 +1,28 @@
+<div ng-include="'account/accountTabs.html'"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="well">
+            <p ng-show="Session.member.CountScheduled == 0" class="font-larger">You do not have any scheduled courses.</p>
+            <div ng-show="Account.items.scheduled.length < Session.member.CountScheduled" class="margin-xl-top-bottom text-center">
+              <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i>
+            </div>
+            <div class="list-group">
+              <div ng-repeat="c in Account.items.scheduled track by c.Soid" class="list-group-item padding-none margin-md-bottom">
+                <div class="row-picture vertical-align-top">
+                  <img class="list-item-icon-larger pointer-cursor" src="{{c.CourseObject.thumbSrc}}" alt="icon">
+                </div>
+                <div class="row-content">
+                  <h4 class="list-group-item-heading pointer-cursor"><span>{{c.CourseName}}</span><button class="btn btn-sm bg-watch-btn btn-raised white pull-right margin-md" ng-click="playLecture(c)">Watch</button>
+                <div class="list-group-item-text">
+                    <div class="display-inline-block padding-md"><span>{{c.CourseObject.CeuCount}}</span> CEU</div>
+                    <div class="display-inline-block padding-md">Length: <span>{{c.CourseObject.Length}}</span> minutes</div>
+                    <div class="display-inline-block padding-md">Author: <span>{{c.CourseObject.InstructorName}}</span></div>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

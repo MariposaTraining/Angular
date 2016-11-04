@@ -1,0 +1,38 @@
+<div ng-include='"main/catalogTabs.html"'></div>
+
+<div class="well bundle" ng-repeat="(index, c) in certifications">
+  <h4>
+    <strong><span>{{c.Name}}</span></strong> 
+    <button ng-show="Session.userId == null || (Session.userId != null && Session.member.Certifications.indexOf(c.Soid) == -1)" class="pull-right btn btn-raised bg-buy-btn white btn-sm" ng-click="buy(c)">Buy ${{c.Price}}</button>
+    <span ng-show="Session.userId != null && Session.member.Certifications.indexOf(c.Soid) != -1" class="label label-success pull-right">Included</span>
+  </h4>
+  <p class="font-larger">{{c.Description}}</p>
+  <div>
+    <button class="btn-empty" ng-click="showCourses[index] = !showCourses[index]">
+        <i class="material-icons vertical-align-middle green" ng-show="!showCourses[index]">keyboard_arrow_right</i>
+        <i class="material-icons vertical-align-middle green" ng-show="showCourses[index]">keyboard_arrow_down</i>
+        <span class="vertical-align-middle">{{c.Courses.length}} Courses</span>
+    </button>
+    <div class="list-group padding-md" ng-show="showCourses[index]">
+      <div class="list-group-item padding-none margin-md-bottom" ng-repeat="course in c.Courses">
+        <div class="row-picture vertical-align-top">
+          <img class="list-item-icon-larger pointer-cursor" src="{{course.thumbSrc || course.CourseObject.thumbSrc}}" ng-click="learnMore(course)" alt="icon">
+        </div>
+        <div class="row-content">
+          <h4 class="list-group-item-heading">
+            <span ng-click="learnMore(course)"  class="pointer-cursor">{{course.Name || course.CourseObject.Name}}</span>
+            <div>
+              <button class="btn btn-sm bg-purple btn-raised white pull-right" ng-click="learnMore(course)">Learn More</button>
+            </div>
+          </h4>
+          <div class="list-group-item-text">
+            <div class="display-inline-block padding-md">{{course.CeuCount || course.CourseObject.CeuCount}} CEU</div>
+            <div class="display-inline-block padding-md">Length: {{course.Length || course.CourseObject.Length}} minutes</div>
+            <div class="display-inline-block padding-md">Author: {{course.InstructorName || course.CourseObject.InstructorName}}</div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>

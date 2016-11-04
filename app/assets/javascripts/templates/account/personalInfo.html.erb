@@ -1,0 +1,376 @@
+<div class="well padding-md">    
+    <div class="row">
+        <h3 class="padding-md-left"><strong>Personal Info</strong></h3>
+        <div class="margin-lg">
+            <div class="alert alert-success" ng-show="success">
+              {{message}}
+            </div>
+            <div class="alert alert-danger" ng-show="error">
+              {{message}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4 class="margin-md-top-bottom"><strong>Account</strong></h4>
+            <hr>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>User Name</label>   
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="user.UserName" required ng-blur="updateField('UserName', user.UserName)"/>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'UserName' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'UserName' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Password</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control" ng-model="psw" ng-minlength="6"/>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-raised btn-sm" ng-click="changePassword()" ng-disabled="psw == '' || psw == null">Save</button>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Screen Name</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="user.ScreenName" required ng-blur="updateField('ScreenName', user.ScreenName)"/>    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'ScreenName' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'ScreenName' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <h4 class="margin-md-top-bottom"><strong>Personal Info</strong></h4>
+            <hr>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Title</label>   
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="user.Title" ng-blur="updateField('Title', user.Title)"/>    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Title' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Title' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>First Name</label>    
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="member.NameFirst" required ng-blur="updateField('NameFirst', member.NameFirst)"/>    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'NameFirst' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'NameFirst' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Last Name</label>   
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="member.NameLast" required ng-blur="updateField('NameLast', member.NameLast)"/>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'NameLast' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'NameLast' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Profession</label>   
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="member.Profession" ng-blur="updateField('Profession', member.Profession)"/>    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Profession' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Profession' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Student Type</label>    
+                </div>
+                <div class="col-md-7">
+                    <select class="form-control" required ng-model="member.StudentTypeSoid" ng-change="updateField('StudentTypeSoid', member.StudentTypeSoid)"  ng-options="st.Soid as st.Name for st in studentTypes">
+                        <option value="">-- select --</option>
+                    </select>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'StudentTypeSoid' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'StudentTypeSoid' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>License State</label>   
+                </div>
+                <div class="col-md-7">
+                    <select class="form-control" ng-model="member.LicenseState" ng-change="updateField('LicenseState', member.LicenseState)">
+                        <option value="">-- select --</option>
+                        <option value="XX">I am not licensed</option>
+                        <option ng-repeat="s in US_STATES.vals" value="{{s.value}}">{{s.name}}</option>
+                    </select>    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'LicenseState' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'LicenseState' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>License Renewal Date</label>    
+                </div>
+                <div class="col-md-7">
+                    <util-date ng-model="member.LicenseRenewalDate" ng-change="updateField('LicenseRenewalDate', member.LicenseRenewalDate)"></util-date>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'LicenseRenewalDate' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'LicenseRenewalDate' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Year Hired</label>    
+                </div>
+                <div class="col-md-7">
+                    <input type="number" class="form-control" ng-model="member.YearHired" ng-change="updateField('YearHired', member.YearHired)"/>    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'YearHired' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'YearHired' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Time Zone</label>    
+                </div>
+                <div class="col-md-7">
+                    <select class="form-control" ng-model="member.TimeZone" ng-change="updateField('TimeZone', member.TimeZone)">
+                        <option value="">-- select --</option>
+                        <option ng-repeat="t in timeZones" value="{{t.value}}">{{t.label}}</option>
+                    </select>    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'TimeZone' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'TimeZone' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4 class="margin-md-top-bottom"><strong>Address</strong></h4>
+            <hr>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Street</label>    
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="member.AddrStreet" ng-blur="updateField('AddrStreet', member.AddrStreet)">    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrStreet' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrStreet' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Line 2</label>    
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="member.AddrLine2" ng-blur="updateField('AddrLine2', member.AddrLine2)">    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrLine2' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrLine2' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>City</label>    
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="member.AddrCity" ng-blur="updateField('AddrCity', member.AddrCity)">
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrCity' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrCity' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>State</label>    
+                </div>
+                <div class="col-md-7">
+                    <select class="form-control" ng-model="member.AddrState" ng-change="updateField('AddrState', member.AddrState)">
+                        <option value="">-- select --</option>
+                        <option ng-repeat="s in US_STATES.vals" value="{{s.value}}">{{s.name}}</option>
+                    </select>    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrState' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrState' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Zip Code</label>    
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="member.AddrZip" ng-blur="updateField('AddrZip', member.AddrZip)">    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrZip' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'AddrZip' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <h4 class="form-group-bottom"><strong>Communication</strong></h4>
+            <hr>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Phone 1</label>    
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="member.Phone1" data-toggle="tooltip" data-trigger="focus" data-placement="bottom" title="" data-original-title="(###) ###-####" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/" ng-blur="updateField('Phone1', member.Phone1)">    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Phone1' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Phone1' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Phone 1 Type</label>    
+                </div>
+                <div class="col-md-7">
+                    <select class="form-control" ng-model="member.Phone1Type" ng-change="updateField('Phone1Type', member.Phone1Type)">
+                        <option value="">-- select --</option>
+                        <option value="cell">Cell</option>
+                        <option value="work">Work</option>
+                        <option value="home">Home</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Phone1Type' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Phone1Type' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Phone 2</label>    
+                </div>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="member.Phone2" data-toggle="tooltip" data-trigger="focus" data-placement="bottom" title="" data-original-title="(###) ###-####" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/" ng-blur="updateField('Phone2', member.Phone2)">    
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Phone2' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Phone2' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Phone 2 Type</label>    
+                </div>
+                <div class="col-md-7">
+                    <select class="form-control" ng-model="member.Phone2Type" ng-change="updateField('Phone2Type', member.Phone2Type)">
+                        <option value="">-- select --</option>
+                        <option value="cell">Cell</option>
+                        <option value="work">Work</option>
+                        <option value="home">Home</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Phone2Type' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'Phone2Type' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>e-Mail Address</label>    
+                </div>
+                <div class="col-md-7">
+                    <input type="email" class="form-control" ng-model="user.EmailAddress" required ng-blur="updateField('EmailAddress', user.EmailAddress)">
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'EmailAddress' && fieldSaved == true">
+                    <i class="material-icons green padding-md-top">check_circle</i>
+                </div>
+                <div class="col-md-1" ng-show="fieldName == 'EmailAddress' && fieldSaved == false">
+                    <i class="material-icons dark-red padding-md-top">info</i>
+                </div>
+            </div>
+            <h4 class="margin-md-top-bottom"><strong>Facility</strong></h4>
+            <hr>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Facility Code</label>    
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control" ng-model="Session.member.FacilityCode">   
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-success btn-raised btn-sm" ng-click="updateFacility(false)">Submit</button>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4 padding-md-top">
+                    <label>Facility</label>    
+                </div>
+                <div class="col-md-7">
+                    <span>{{Session.member.FacilityName}}</span>    
+                </div>
+                <a class="pointer-cursor" ng-click="updateFacility(true)">release</a>
+            </div>
+        </div>
+    </div>
+</div>

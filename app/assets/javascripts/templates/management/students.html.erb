@@ -1,0 +1,249 @@
+<div ng-include="'management/managementTabs.html'"></div>
+
+<div class="margin-xl-top-bottom well">
+    <button class="margin-lg-top-bottom btn btn-raised btn-default" ng-click="addStudentVisible = true">Add Student</button>
+    <div add-student visible="addStudentVisible" ng-show="addStudentVisible"></div>
+    <div ng-show="Session.userRoles.includes(USER_ROLES.manager) && Management.facilitiesLoaded">
+        <h2>Facilties</h2>
+        <div class="row" ng-show="Management.facilities.length > 10">
+            <div class="col-sm-6 padding-md">
+                Show     
+                <select ng-model="numPerPage" ng-options="value for value in numsPerPage"></select>
+                facilities per page
+            </div>
+            <div class="col-sm-6 text-right" ng-show="pagesNumber > 1">
+                <ul class="pagination searchlist-pagination">
+                  <li><a ng-click="updatePage(-1)" class="pointer-cursor">Previous</a></li>
+                  <li><a>{{currentPage}} / {{pagesNumber}}</a></li>
+                  <li><a ng-click="updatePage(1)" class="pointer-cursor">Next</a></li>
+                </ul>
+            </div>
+            <hr>
+        </div>
+        <div class="margin-xl-top-bottom">
+            <div class="margin-xl-top-bottom" ng-repeat-start="f in displayedFacilities">
+                <div class="facility-name-container font-larger">{{::f.Name}}</div>
+                <div class="margin-md-top-bottom">{{f.Students.length}} students</div>
+            <!--    <div class="table-responsive" ng-if="f.Students.length > 0">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Email Address</th>
+                                <th>CEU #</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat-start="s in f.Students">
+                                <td><label class="label label-info font-12" ng-if="s.IsEmployee">Manager</label></td>
+                                <td>{{s.FullName}}</td>
+                                <td>{{s.EmailAddress}}</td>
+                                <td>{{s.CountCompleted + s.CountArchived}}</td>
+                                <td>
+                                    <button class="btn btn-xs btn-raised white bg-edit-btn margin-none-top-bottom" ng-click="toggleEdit($parent.$index, $index, s)">
+                                        <span ng-show="showEdit[$parent.$index][$index]">close</span>
+                                        <span ng-show="!showEdit[$parent.$index][$index]">edit</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr ng-repeat-end ng-show="showEdit[$parent.$index][$index]">
+                                <td colspan="4">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label class="padding-md-top">First Name</label>
+                                                    <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='NameFirst' && fieldSaved" class="material-icons green padding-md-left">check_circle</i>
+                                                    <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='NameFirst' && !fieldSaved" class="material-icons dark-red padding-md-left">info</i>
+                                                    <input ng-model="tmpMember[$parent.$index][$index].NameFirst" type="text" class="form-control" ng-blur="updateField('NameFirst', tmpMember[$parent.$index][$index].NameFirst, tmpMember[$parent.$index][$index].Soid, $parent.$index, $index)"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="padding-md-top">Email Address</label>
+                                                    <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='EmailAddress' && fieldSaved" class="material-icons green padding-md-left">check_circle</i>
+                                                    <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='EmailAddress' && !fieldSaved" class="material-icons dark-red padding-md-left">info</i>
+                                                    <input type="email" ng-model="tmpMember[$parent.$index][$index].EmailAddress" class="form-control" ng-blur="updateField('EmailAddress', tmpMember[$parent.$index][$index].EmailAddress, tmpMember[$parent.$index][$index].Soid, $parent.$index, $index)"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label class="padding-md-top">Last Name</label>
+                                                    <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='NameLast' && fieldSaved" class="material-icons green padding-md-left">check_circle</i>
+                                                    <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='NameLast' && !fieldSaved" class="material-icons dark-red padding-md-left">info</i>
+                                                    <input type="text" class="form-control" ng-model="tmpMember[$parent.$index][$index].NameLast" ng-blur="updateField('NameLast', tmpMember[$parent.$index][$index].NameLast, tmpMember[$parent.$index][$index].Soid, $parent.$index, $index)"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="padding-md-top">Facility</label>
+                                                    <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='FacilitySoid' && fieldSaved" class="material-icons green padding-md-left">check_circle</i>
+                                                    <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='FacilitySoid' && !fieldSaved" class="material-icons dark-red padding-md-left">info</i>
+                                                    <select class="form-control" ng-model="tmpMember[$parent.$index][$index].FacilitySoid" ng-change="updateField('FacilitySoid', tmpMember[$parent.$index][$index].FacilitySoid, tmpMember[$parent.$index][$index].Soid, $parent.$index, $index)">
+                                                        <option value="">-- select --</option>
+                                                        <option ng-repeat="fac in Management.facilities" value="{{fac.Soid}}">{{fac.Name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="password-container form-group padding-md">
+                                                    <label>Password</label>
+                                                    <div class="row">
+                                                        <div class="col-sm-1 padding-md-top">
+                                                            <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='password' && fieldSaved" class="material-icons green">check_circle</i>
+                                                            <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='password' && !fieldSaved" class="material-icons dark-red">info</i>
+                                                        </div>
+                                                        <div class="col-sm-7">
+                                                            <input class="form-control" type="text" ng-model="tmpMember[$parent.$index][$index].psw"/>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <i class="material-icons padding-md-top info-blue" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="At least 6 characters.">info</i>
+                                                        </div>
+                                                        <div class="col-sm-2 pointer-cursor" ng-click="updatePassword(tmpMember[$parent.$index][$index].Soid, tmpMember[$parent.$index][$index].psw)">
+                                                            <i class="material-icons padding-md-top green font-30">forward</i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 margin-xl-top-bottom">
+                                                <p class="margin-md-top-bottom font-larger">
+                                                    Created on <strong>{{tmpMember[$parent.$index][$index].CreatedOn}}</strong> 
+                                                    <span ng-show="isValidDate(tmpMember[$parent.$index][$index].LastAccessedOn)">- Last Activity on <strong>{{tmpMember[$parent.$index][$index].LastAccessedOn}}</strong></span>
+                                                </p>
+                                                <p class="font-larger"><strong>Schedule a course</strong></p>
+                                                <div class="margin-xl-top-bottom form-group">
+                                                    <div class="col-sm-1">
+                                                        <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='courseScheduled' && fieldSaved" class="material-icons green">check_circle</i>
+                                                        <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='courseScheduled' && !fieldSaved" class="material-icons dark-red">info</i>
+                                                    </div>
+                                                    <div class="col-sm-4 padding-md-top">
+                                                        <select class="form-control" ng-model="tmpMember[$parent.$index][$index].courseSoidToSchedule">
+                                                            <option value="">-- select --</option>
+                                                            <option ng-repeat="c in Management.getManagerCourses()" value="{{c.Soid}}">{{c.Name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6 text-center">
+                                                        <util-date ng-model="tmpMember[$parent.$index][$index].dateToSchedule"></util-date>
+                                                    </div>
+                                                    <div class="col-sm-1 text-center pointer-cursor">
+                                                        <i class="material-icons padding-md-top green font-30" ng-click="schedule($parent.$index, $index)">forward</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button class="btn btn-block btn-raised bg-deactivate-btn" ng-click="deactivate($parent.$index, $index, f.Soid)">Deactivate</button>
+                                            <button ng-if="s.IsEmployee" class="btn btn-block btn-raised bg-revoke-btn white" ng-click="revokeManager($parent.$index, $index, f.Soid)">Revoke Manager</button>
+                                            <button class="btn btn-block btn-raised bg-send-password-btn white" ng-click="sendPassword($parent.$index, $index)">Send Password 
+                                                <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='passwordSent' && fieldSaved" class="material-icons white in-button">check_circle</i>
+                                                <i ng-show="memberSoid == tmpMember[$parent.$index][$index].Soid && fieldName=='passwordSent' && !fieldSaved" class="material-icons white in-button">info</i>
+                                            </button> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" ng-show="tmpMember[$parent.$index][$index].Lectures.completed.length > 0">
+                                            <p class="font-larger bold">Completed Courses</p>
+                                            <div class="margin-xl-top-bottom">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr ng-repeat="c in tmpMember[$parent.$index][$index].Lectures.completed">
+                                                            <td>{{c.CourseName}}</td>
+                                                            <td>{{c.TakenOn}}</td>
+                                                            <td><a ng-click="print(c.Soid)" class="pointer-cursor">print</a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" ng-show="tmpMember[$parent.$index][$index].Lectures.incomplete.length > 0">
+                                            <p class="font-larger bold">Incomplete Courses</p>
+                                            <div class="margin-xl-top-bottom">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr ng-repeat="c in tmpMember[$parent.$index][$index].Lectures.incomplete">
+                                                            <td>{{c.CourseName}}</td>
+                                                            <td>{{c.TakenOn}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" ng-show="tmpMember[$parent.$index][$index].Lectures.inQueue.length > 0">
+                                            <p class="font-larger bold">New Courses</p>
+                                            <div class="margin-xl-top-bottom">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr ng-repeat="c in tmpMember[$parent.$index][$index].Lectures.inQueue">
+                                                            <td>{{c.CourseName}}</td>
+                                                            <td>{{c.Scheduled}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" ng-if="tmpMember[$parent.$index][$index].Lectures.archived.length > 0">
+                                            <p class="font-larger bold">Archived Courses</p>
+                                            <div class="margin-xl-top-bottom">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr ng-repeat="c in tmpMember[$parent.$index][$index].Lectures.archived">
+                                                            <td>{{c.CourseName}}</td>
+                                                            <td>04/27/2015</td>
+                                                            <td><a ng-click="print(c.Soid)" class="pointer-cursor">print</a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" ng-if="tmpMember[$parent.$index][$index].Lectures.scheduled.length > 0">
+                                            <p class="font-larger bold">Scheduled Courses</p>
+                                            <div class="margin-xl-top-bottom">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr ng-repeat="c in tmpMember[$parent.$index][$index].Lectures.scheduled">
+                                                            <td>{{c.CourseName}}</td>
+                                                            <td>04/27/2015</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+                <div students-list students="f.Students" num-per-page="10" facility-index="$index"></div>
+            </div>
+            <div class="margin-xl-top-bottom margin-xxl-bottom" ng-repeat-end>
+                <p class="font-larger margin-lg-bottom"><strong>Dropped Students ({{f.Dropped.length}})</strong> 
+                <a ng-click="showDropped[$index] = !showDropped[$index]" class="pointer-cursor">
+                    <span ng-show="showDropped[$index]">hide</span>
+                    <span ng-show="!showDropped[$index]">show</span>
+                </a></p>
+                <div class="margin-md-top-bottom" ng-show="showDropped[$index]" ng-if="f.Dropped.length > 0">
+                    <div class="margin-md row" ng-repeat="ds in f.Dropped">
+                        <div class="col-sm-10">
+                            <p>{{::ds.CreatedOn}}</p>
+                            <p>{{::ds.FullName}} (<a href="mailto:{{ds.Email}}">{{::ds.EmailAddress}}</a>) </p>
+                        </div>
+                        <div class="col-sm-2 text-right">
+                            <button class="btn btn-raised btn-sm" ng-click="recover(ds.Soid, f.Soid)">recover</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="pagesNumber > 1">
+          <div class="col-sm-12 text-right">
+            <ul class="pagination searchlist-pagination">
+              <li><a ng-click="updatePage(-1)" class="pointer-cursor">Previous</a></li>
+              <li><a>{{currentPage}} / {{pagesNumber}}</a></li>
+              <li><a ng-click="updatePage(1)" class="pointer-cursor">Next</a></li>
+            </ul>
+          </div>
+        </div>
+    </div>
+    <div ng-show="Session.userRoles.includes(USER_ROLES.manager) && !Management.facilitiesLoaded" class="padding-md text-center">
+        <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i>
+    </div>
+</div>

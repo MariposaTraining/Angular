@@ -1,0 +1,44 @@
+<div class="well">
+    <h3 class="margin-xl-top-bottom padding-md-left"><strong>Invoices</strong></h3>
+    <div class="row">
+        <div class="table-responsive col-md-7">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Number</th>
+                        <th>Items</th>
+                        <th>Card</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="inv in invoices" ng-click="setDetailedInvoice(inv)">
+                        <td>{{inv.InvoicedOn.getMonth()+1}}/{{inv.InvoicedOn.getDate()}}/{{inv.InvoicedOn.getFullYear()}}</td>
+                        <td>{{inv.InvoiceNumber}}</td>
+                        <td>{{inv.Description}}</td>
+                        <td>xxx-{{inv.CardNumber}}</td>
+                        <td>${{inv.Total.toFixed(2)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-5" ng-show="detailedInvoice != null">
+            <h4>Invoice Details</h4>
+            <button class="btn btn-raised btn-danger btn-sm pull-right" ng-click="setDetailedInvoice(null)">Hide</button>
+            <div>
+                <p><strong>Invoice Number: </strong>{{detailedInvoice.InvoiceNumber}}</p>
+                <p><strong>Card Number: </strong>xxx-{{detailedInvoice.CardNumber}}</p>
+                <p><strong>Paid: </strong>{{detailedInvoice.Paid}}</p>
+                <p ng-repeat="payment in detailedInvoice.Payments"><strong>Paid On: </strong>{{payment.PaidOn.getMonth()+1}}/{{payment.PaidOn.getDate()}}/{{payment.PaidOn.getFullYear()}}</p>
+                <p class="font-large"><strong>Items</strong></p>
+                <div ng-repeat="item in detailedInvoice.InvoiceItems" class="padding-md-left">
+                    <p><strong>Description:</strong> {{item.Description}}</p>
+                    <p><strong>Type:</strong> {{item.ItemType}}</p>
+                    <p><strong>Price:</strong> ${{item.Price.toFixed(2)}}</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

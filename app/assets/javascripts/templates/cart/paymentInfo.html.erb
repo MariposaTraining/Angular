@@ -1,0 +1,116 @@
+<div class="row margin-xl-top-bottom">
+    <div class="col-md-12">
+        <div class="well">
+            <h3 class="font-xx-large">Cart</h3>
+            <hr>
+            <div class="row payment-info padding-lg">
+                <h4 class="padding-lg"><strong>Payment Information</strong></h4>
+                <div class="alert alert-danger" ng-show="errorMsg">
+                    {{errorMsg}}
+                </div>
+                <form class="form-horizontal" id="prepForm" ng-submit="preventSubmit()">
+                    
+                    <div class="col-md-6">
+                        <h4>Credit Card Information</h4>
+                        <hr>
+                        <div class="form-group" ng-class="{'has-error' : cardInvalid == true}">
+                            <div class="col-md-3"><label>Credit Card</label></div>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" maxlength="{{maxLength}}" size="16" data-stripe="number" ng-model="card.cardValidation"  required card-validator ng-change="checkCardValidity()"/>
+                            </div>
+                            <div class="col-md-1 dark-red" ng-show="cardInvalid">
+                                <i class="material-icons">clear</i>
+                            </div>
+                            <div class="col-md-1 green" ng-show="!cardInvalid">
+                                <i class="material-icons">done</i>
+                            </div>
+                        </div>
+                        <div class="card-image" ng-show="!cardInvalid">
+                            <img src="assets/credit-cards/visa.jpg" ng-show="cardFound == 'Visa'" />
+                            <img src="assets/credit-cards/americanexpress.png" ng-show="cardFound == 'American Express'" />
+                            <img src="assets/credit-cards/discover.png" ng-show="cardFound == 'Discover'" />
+                            <img src="assets/credit-cards/dinersclub.jpg" ng-show="cardFound == 'Diners Club'" />
+                            <img src="assets/credit-cards/jcb.png" ng-show="cardFound == 'JCB'" />
+                            <img src="assets/credit-cards/mastercard.png" ng-show="cardFound == 'MasterCard'" />
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': expiryInvalid == true}" id="expDiv">
+                            <div class="col-md-3"><label for="expYear">Expiration</label></div>
+                            <div class="col-md-8">
+                                <div class="col-md-5">
+                                    <select class="form-control" data-stripe="exp_month" ng-model="expMValidation" ng-change="checkExpiryValidity()" expiry-validator>
+                                        <option value="">-- select --</option>
+                                        <option ng-repeat="m in months" value="{{m.Id}}">{{m.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <select class="form-control" data-stripe="exp_year" ng-model="expYValidation" ng-change="checkExpiryValidity()" expiry-validator>
+                                        <option value="">-- select --</option>
+                                        <option ng-repeat="y in years" value="{{y}}">{{y}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1 dark-red" ng-show="expiryInvalid">
+                                    <i class="material-icons">clear</i>
+                                </div>
+                                <div class="col-md-1 green" ng-show="!expiryInvalid">
+                                    <i class="material-icons">done</i>
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': cvcInvalid == true}">
+                            <div class="col-md-3"><label>Security Code</label></div>
+                            <div class="col-md-7">
+                                <input type="text" size="4" maxlength="{{cardFound == 'American Express' ? 4 : 3}}" id="cvcValidation" class="form-control" required data-stripe="cvc" ng-model="cvcValidation"  ng-change="checkCVCValidity()" cvc-validator/>
+                            </div>
+                            <div class="col-md-1 dark-red" ng-show="cvcInvalid">
+                                <i class="material-icons">clear</i>
+                            </div>
+                            <div class="col-md-1 green" ng-show="!cvcInvalid">
+                                <i class="material-icons">done</i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label>Name On Card</label></div>
+                            <div class="col-md-8"><input type="text" class="form-control" required id="nameOnCard" data-stripe="name" /></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Address</h4>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-3"><label>Street</label></div>
+                            <div class="col-md-8"><input type="text" class="form-control" required data-stripe="address_line1" /></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label>Line 2</label></div>
+                            <div class="col-md-8"><input type="text" class="form-control" data-stripe="address_line2"/></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label>City</label></div>
+                            <div class="col-md-8"><input type="text" class="form-control" required data-stripe="address_city" /></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label>State</label></div>
+                            <div class="col-md-8">
+                                <select class="form-control"  data-stripe="address_state">
+                                    <option value="">-- select --</option>
+                                    <option ng-repeat="s in US_STATES" value="{{s.value}}">{{s.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label>Zip Code</label></div>
+                            <div class="col-md-8"><input type="text" class="form-control" required  data-stripe="address_zip"/></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3"><label>Phone Number</label></div>
+                            <div class="col-md-8"><input type="text" class="form-control"/></div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-default btn-raised" ng-disabled="disableBtn">Final Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

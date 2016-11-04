@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="well">
+            <h3 ng-if="showTestResults">Test Result</h3>
+            <div ng-if="!showTestResults && testPassed">
+                <h3>Diploma</h3>
+                <span class="bold font-larger">{{lecture.CeuCount}} CEU</span>
+            </div>
+            <h4 class="margin-xl-top-bottom bold">{{lecture.CourseName}}</h4>
+            <div ng-if="testPassed && !link">
+                <p class="font-larger" ng-show="showTestResults">Congratulations, you have passed the test. Your certificate is being prepared. As soon as the link appears below, click it download your certificate.</p>
+                <p class="font-larger"><a ng-click="showNameForm = true" class="pointer-cursor">Click here</a> to get your certificate.</p>
+                <div class="row padding-md" ng-show="showNameForm">
+                    <p class="font-larger">By signing my name, I certify that it was I who completed the course as well as the post-test.</p>
+                    <p class="font-larger">Enter your name as <span class="label label-warning padding-md">{{Session.member.NameFull}}</span> (not case sensitive)</p>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="enteredName" />
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-raised btn-success" ng-click="submit()" ng-disabled="enteredName.toLowerCase() != Session.member.NameFull.toLowerCase()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="link" class="font-larger padding-md">
+                Click to <a href="{{link}}" class="pointer-cursor">download your certificate.</a>
+            </div>
+            <div ng-show="errorMessage" class="alert alert-danger font-larger padding-md">
+                {{errorMessage}}
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <p class="font-larger">Tests</p>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr ng-repeat="tr in lecture.Tests" ng-class="{bold: tr.Soid == detailedTest.Soid}">
+                                <td ng-click="setDetailedTest(tr)" class="pointer-cursor link-blue">{{tr.Status}}</td>
+                                <td>{{tr.AdmisteredOn.getMonth()+1}}/{{tr.AdmisteredOn.getDate()}}/{{tr.AdmisteredOn.getFullYear()}}</td>
+                                <td>{{tr.Grade}}</td>
+                                <td>
+                                    <span ng-show="tr.Pass">PASS</span>
+                                    <span ng-show="!tr.Pass">FAIL</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-7" ng-show="detailedTest">
+                    <p class="font-larger margin-xl-bottom">Test Details                    
+                        <button class="btn btn-danger btn-raised btn-sm pull-right" ng-click="setDetailedTest(null)">Hide</button>
+                    </p>
+                    <div ng-repeat="q in detailedTest.Questions">
+                        <p class="font-larger">{{$index+1}}. {{q.Body}}</p>
+                        <div class="padding-lg-left margin-md font-larger">
+                            <div ng-repeat="o in q.Options">
+                                <span ng-show="o.Correct && o.Selected" class="green vertical-align-middle"><i class="material-icons">check_circle</i></span>
+                                <span ng-show="o.Correct && !o.Selected" class=" vertical-align-middle"><i class="material-icons">check_circle</i></span>
+                                <span ng-show="!o.Correct && o.Selected" class="dark-red vertical-align-middle"><i class="material-icons">cancel</i></span>
+                                <span ng-show="!o.Correct && !o.Selected" class=" vertical-align-middle"><i class="material-icons">cancel</i></span>
+                                <span>{{o.Body}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

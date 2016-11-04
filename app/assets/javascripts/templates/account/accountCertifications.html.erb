@@ -1,0 +1,41 @@
+<div ng-include="'account/accountTabs.html'"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="well">
+            <p ng-show="Session.member.Certifications.length == 0" class="font-larger">You do not have any certifications.</p>
+            <div class="bundle" ng-repeat="c in Account.items.certifications">
+              <h4><strong><span>{{c.Name}}</span></strong></h4>
+              <p class="font-larger">{{c.Description}}</p>
+              <div>
+                <button class="btn-empty" ng-click="showCourses[index] = !showCourses[index]">
+                    <i class="material-icons vertical-align-middle green" ng-show="!showCourses[index]">keyboard_arrow_right</i>
+                    <i class="material-icons vertical-align-middle green" ng-show="showCourses[index]">keyboard_arrow_down</i>
+                    <span class="vertical-align-middle">{{c.Courses.length}} Courses</span>
+                </button>
+                <div class="list-group padding-md" ng-show="showCourses[index]">
+                  <div class="list-group-item padding-none margin-md-bottom" ng-repeat="course in c.Courses track by course.Soid">
+                    <div class="row-picture vertical-align-top">
+                      <img class="list-item-icon-larger pointer-cursor" src="{{course.CourseObject.thumbSrc}}" alt="icon">
+                    </div>
+                    <div class="row-content">
+                      <h4 class="list-group-item-heading">
+                        <span ng-click="learnMore(course)"  class="pointer-cursor">{{course.CourseName}}</span>
+                        <button class="btn btn-sm bg-watch-btn btn-raised white pull-right margin-md" ng-click="playLecture(course)">Watch</button>
+                        <button ng-show="course.Status == ('Incomplete' && !course.Viewed) || course.Status == 'Completed'" class="btn btn-sm bg-print-btn btn-raised white pull-right margin-md" ng-click="print(course)">Print</button>
+                        <button ng-show="course.Status == 'Incomplete' && course.Viewed" class="btn btn-sm bg-test-btn btn-raised white pull-right margin-md" ng-click="test(course)">Test</button>
+                      </h4>
+                      <div class="list-group-item-text">
+                        <div class="display-inline-block padding-md">{{course.CourseObject.CeuCount}} CEU</div>
+                        <div class="display-inline-block padding-md">Length: {{course.CourseObject.Length}} minutes</div>
+                        <div class="display-inline-block padding-md">Author: {{course.CourseObject.InstructorName}}</div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

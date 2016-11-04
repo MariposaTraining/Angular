@@ -1,0 +1,74 @@
+<div class="table-responsive" ng-show="Cart.getTotalCount() > 0">
+    <table class="table table-hover text-center font-larger vertical-align-middle">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-center">Price</th>
+                <th ng-hide="Transaction.hasValidToken()"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-show="Cart.items.courses.length > 0">
+                <td colspan="5" class="text-left type-row">
+                    <strong>Courses</strong>
+                </td>
+            </tr>
+            <tr ng-repeat="c in Cart.items.courses track by $index">
+                <td>
+                    <img class="img-responsive" src="{{c.thumbSrc}}"/>
+                </td>
+                <td class="text-left">{{c.Description}}</td>
+                <td>1</td>
+                <td><span ng-show="!c.Excluded">${{c.Price.toFixed(2)}}</span> <span ng-show="c.Excluded" class="label label-success">Included</span></td>
+                <td ng-hide="Transaction.hasValidToken()"><button class="btn btn-danger btn-raised btn-sm" ng-click="removeCourse(c)">Remove</button></td>
+            </tr>
+            <tr ng-show="Cart.items.certifications.length > 0">
+                <td colspan="5" class="text-left type-row">
+                    <strong>Certifications</strong>
+                </td>
+            </tr>
+            <tr ng-repeat="c in Cart.items.certifications track by $index">
+                <td class="padding-md">
+                    <div class="certification-image">Cert</div>
+                </td>
+                <td class="text-left">{{c.Description}}</td>
+                <td>1</td>
+                <td><span ng-show="!c.Excluded">${{c.Price.toFixed(2)}}</span> <span ng-show="c.Excluded" class="label label-success">Included</span></td>
+                <td ng-hide="Transaction.hasValidToken()"><button class="btn btn-danger btn-raised btn-sm" ng-click="removeCertification(c)">Remove</button></td>
+            </tr>
+            <tr ng-show="Cart.items.bundles.length > 0">
+                <td colspan="5" class="text-left type-row">
+                    <strong>Bundles</strong>
+                </td>
+            </tr>
+            <tr ng-repeat="c in Cart.items.bundles track by $index">
+                <td>
+                    <div class="certification-image">Bundle</div>
+                </td>
+                <td class="text-left">{{c.Description}}</td>
+                <td>1</td>
+                <td><span ng-show="!c.Excluded">${{c.Price.toFixed(2)}}</span> <span ng-show="c.Excluded" class="label label-success">Included</span></td>
+                <td ng-hide="Transaction.hasValidToken()"><button class="btn btn-danger btn-raised btn-sm" ng-click="removeBundle(c)">Remove</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr class="padding-md font-19 type-row">
+                <td><strong>Total:</strong></td>
+                <td></td>
+                <td></td>
+                <td><strong>${{Cart.getTotalPrice().toFixed(2)}}</strong></td>
+                <td>
+                    <button ng-show="Session.userId == null" class="btn btn-success btn-raised" ng-click="checkout()">
+                        <i class="material-icons">shopping_cart</i> 
+                        Check out
+                    </button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div ng-show="Cart.getTotalCount() == 0" class="margin-xl-top-bottom font-larger">
+    There are no items in your cart.
+</div>

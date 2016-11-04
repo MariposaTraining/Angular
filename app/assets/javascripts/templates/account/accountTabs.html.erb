@@ -1,0 +1,27 @@
+<div class="row margin-xl-top margin-md-bottom">
+    <div class="col-md-12 text-right">
+        <a ui-sref="personalInfo" class="btn bg-account-small-btn white btn-sm">Personal Info</a>
+        <a ui-sref="invoices" class="btn bg-account-small-btn white btn-sm">Invoices</a>
+    </div>
+</div>
+
+<div class="row margin-xl-bottom margin-md-top">
+    <div class="col-lg-2">
+        <a ui-sref="accountCompleted" class="btn btn-block btn-raised font-12" ui-sref-active="bg-active-btn white">Completed [{{Session.member.CountCompleted}}]</a>
+    </div>
+    <div class="col-lg-2">
+        <a ui-sref="accountIncomplete" class="btn btn-block btn-raised font-12" ui-sref-active="bg-active-btn white">Incomplete [{{Session.member.CountIncomplete}}]</a>
+    </div>
+    <div class="col-lg-2">
+        <a ui-sref="accountNew" class="btn btn-block btn-raised font-12" ui-sref-active="bg-active-btn white">New [{{Session.member.CountInQueue}}]</a>
+    </div>
+    <div class="col-lg-2">
+        <a ui-sref="accountArchived" class="btn btn-block btn-raised font-12" ui-sref-active="bg-active-btn white">Archived [{{Session.member.CountArchived}}]</a>
+    </div>
+    <div class="col-lg-2">
+        <a ui-sref="accountScheduled" class="btn btn-block btn-raised font-12" ui-sref-active="bg-active-btn white">Scheduled [{{Session.member.CountScheduled}}]</a>
+    </div>
+    <div class="col-lg-2">
+        <a ui-sref="accountCertifications" class="btn btn-block btn-raised font-12" ui-sref-active="bg-active-btn white">Certifications [{{Session.member.CountCertifications}}]</a>
+    </div>
+</div>

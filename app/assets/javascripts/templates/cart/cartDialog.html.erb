@@ -1,0 +1,32 @@
+<div class="row margin-sm" ng-repeat="c in Cart.items.courses">
+    <div class="col-sm-3">
+        <img class="img-responsive padding-md" src="{{c.thumbSrc}}" alt="icon">
+    </div>
+    <div class="col-sm-9">
+        <h4>{{c.Description}}</h4>
+        <div class="text-right">${{c.Price.toFixed(2)}}</div>
+    </div>
+</div>
+<div class="row margin-sm" ng-repeat="c in Cart.items.certifications">
+    <div class="col-sm-3">
+        <div class="item-image ">Cert</div>
+    </div>
+    <div class="col-sm-9">
+        <h4>{{c.Description}}</h4>
+        <div class="text-right">${{c.Price.toFixed(2)}}</div>
+    </div>
+</div>
+<div class="row margin-sm" ng-repeat="c in Cart.items.bundles">
+    <div class="col-sm-3">
+        <div class=" item-image">
+            Bundle
+        </div>    
+    </div>
+    <div class="col-sm-9">
+        <h4>{{c.Description}}</h4>
+        <div class="text-right">${{c.Price.toFixed(2)}}</div>
+    </div>
+</div>
+<div class="text-right font-larger" id="totalCartDialog">
+    Total: ${{Cart.getTotalPrice().toFixed(2)}}
+</div>

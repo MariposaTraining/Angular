@@ -1,0 +1,91 @@
+<div ng-include='"main/catalogTabs.html"'></div>
+
+<div class="row same-height">
+  <div class="col-sm-8 margin-xl-top-bottom">
+    <div equal-height class=" bg-darkblue white padding-xl" id="promoLg">
+      <h3 class="margin-xl-top-bottom padding-md">We have +50 classes for the long-term care and nursing home professional</h3>
+      <div class="width70-p padding-xl font-larger">Click any button to learn more about that class and how to earn Continuing Education credits/units.</div>
+    </div>
+  </div>
+  <div class="col-sm-4 margin-xl-top-bottom">
+    <div class="bg-green white padding-xl font-19 text-center" ng-style="style" id="promoSm">"Thank you so much for your help. I have taken 9 classes<br> successfully. <br>You were so helpful and made this purchase and securing the (CEUs) so easy."</div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="well" id="filterLinks">
+      <h4 class="margin-md-bottom">Classes with CEUs</h4>
+      <ul name="CEUs">
+        <li ng-repeat="a in approvals" ng-click="filterCoursesByApproval(a)">{{a.ApprovalBody}}</li>
+      </ul>
+      <hr>
+      <h4 class="margin-md-bottom">Classes by Topic</h4>
+      <ul name="Topic">
+        <li ng-repeat="t in topics" ng-click="filterCoursesByTopic(t)">{{t.Name}}</li>
+      </ul>
+      <hr>
+      <h4 class="margin-md-bottom">Classes by Discipline</h4>
+      <ul name="Discipline">
+        <li ng-repeat="d in disciplines" ng-click="filterCoursesByDiscipline(d)">{{d.Name}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-9">
+      <div class="well">
+        <div class="row">
+          <div class="col-sm-7">
+            <div class="form-group label-floating">
+              <label class="control-label" for="filterTxt">Filter courses</label>
+              <input class="form-control" type="text" id="filterTxt" ng-model="filterText" ng-change="filterCourses()">
+            </div>
+          </div>
+          <div class="col-sm-5 font-large padding-md">
+            Filtered by <strong>{{filterType}}</strong>: {{filterName}}
+          </div>
+        </div>
+        <div class="font-larger">
+          <strong>{{displayedClasses.length}}</strong> courses found.
+        </div>
+      </div>
+      <div class="well">
+        <div class="list-group" id="searchlist">
+          <div ng-repeat="c in displayedClasses" class="list-group-item padding-none margin-md-bottom">
+            <div class="row-picture vertical-align-top">
+              <img class="list-item-icon-larger pointer-cursor" src="{{c.thumbSrc}}" ng-click="learnMore(c)" alt="icon">
+            </div>
+            <div class="row-content">
+              <h4 class="list-group-item-heading pointer-cursor">
+                <span ng-click="learnMore(c)" class="margin-md">{{c.Name}}</span>
+                <div>
+                  <button ng-show="!Account.isWatch(c.Soid)" class="btn btn-sm bg-purple btn-raised white pull-right" ng-click="learnMore(c)">Learn More</button>
+                  <button ng-show="Session.userId != null && Account.isWatch(c.Soid)" class="btn btn-sm bg-watch-btn btn-raised white pull-right" ng-click="playLecture(c)">Watch</button>
+                  <button ng-show="Session.userId != null && Account.isPrint(c.Soid)" class="btn btn-sm bg-print-btn btn-raised white pull-right" ng-click="print(c)">Print</button>
+                  <button ng-show="Session.userId != null && Account.isTest(c.Soid)" class="btn btn-sm bg-test-btn btn-raised white pull-right" ng-click="test(c)">Test</button>
+                </div>
+              </h4>
+              <div class="list-group-item-text">
+                <div class="display-inline-block padding-md"><span>{{c.CeuCount}}</span> CEU</div>
+                <div class="display-inline-block padding-md">Length: <span>{{c.Length}}</span> minutes</div>
+                <div class="display-inline-block padding-md">Author: <span>{{c.InstructorName}}</span></div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+        <!-- end searchlist 
+        <div class="row">
+          <div class="col-sm-5 form-group font-larger">
+            <strong>{{displayedClasses.length}}</strong> courses found.
+          </div>
+          <div class="col-sm-7 text-right">
+            <ul class="pagination searchlist-pagination">
+              <li><a ng-click="updatePage(-1)" class="pointer-cursor">Previous</a></li>
+              <li><a>{{currentPage}} / {{pagesNumber}}</a></li>
+              <li><a ng-click="updatePage(1)" class="pointer-cursor">Next</a></li>
+            </ul>
+          </div>
+        </div>-->
+    </div>
+  </div>
+</div>

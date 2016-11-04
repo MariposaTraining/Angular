@@ -1,0 +1,53 @@
+#navbar li.hidden-xs{
+    max-width: 250px;
+}
+
+.navbar .bg-darkblue{
+    background: #203341;
+}
+
+#sign-dialog .form-group.is-focused label, .form-group.is-focused .control-label{
+    color: #318b2f!important;
+}
+
+.form-group.is-focused label, .form-group.is-focused .control-label{
+    color: grey;
+}
+
+.form-group.is-focused .form-control.ng-valid{
+    background-image: -webkit-linear-gradient(left, #318b2f, #318b2f)!important; /* For Chrome and Safari */
+    background-image:    -moz-linear-gradient(left, #318b2f, #318b2f)!important; /* For old Fx (3.6 to 15) */
+    background-image:     -ms-linear-gradient(left, #318b2f, #318b2f)!important; /* For pre-releases of IE 10*/
+    background-image:      -o-linear-gradient(left, #318b2f, #318b2f)!important; /* For old Opera (11.1 to 12.0) */
+    background-image:         linear-gradient(to right, #318b2f, #318b2f)!important; /* Standard syntax; must be last */
+}
+
+.form-group.is-focused .form-control .has-error, .form-group.has-error .form-control, .form-group .form-control .has-error, .form-group input.ng-invalid,
+.form-group.is-focused input.ng-invalid, input.ng-invalid, select.ng-invalid, .form-group.is-focused select.ng-invalid{
+    background-image: -webkit-linear-gradient(left, #a94442, #a94442)!important; /* For Chrome and Safari */
+    background-image:    -moz-linear-gradient(left, #a94442, #a94442)!important; /* For old Fx (3.6 to 15) */
+    background-image:     -ms-linear-gradient(left, #a94442, #318b2f)!important; /* For pre-releases of IE 10*/
+    background-image:      -o-linear-gradient(left, #a94442, #a94442)!important; /* For old Opera (11.1 to 12.0) */
+    background-image:         linear-gradient(to right, #a94442, #a94442)!important; /* Standard syntax; must be last */
+}
+
+.form-group.has-error .form-control{
+    border-color: #a94442!important;
+    border-bottom-width: 2px;
+}
+
+.form-group .form-control{
+    border-bottom: 1px solid lightgrey;
+}
+
+.navbar-nav.nav-justified > li{
+    float:none;
+}
+
+#navbar .navbar-nav li a{
+    padding: 0;
+}
+
+#catalogTabs .btn.active{
+    background: #ea542b;
+}

@@ -1,0 +1,28 @@
+<div ng-controller="LoginCtrl">
+    <h4>Existing student <br> <strong>Login</strong></h4>
+    <hr>
+    <div class="alert alert-danger" ng-show="loginInvalid">
+      <strong>{{errorMessage}}</strong>
+    </div>
+    <form name="loginForm" ng-submit="login(credentials)">
+        <div class="form-group label-floating is-empty">
+          <label for="emailTxt" class="control-label">Username</label>
+          <input type="text" class="form-control" name="emailTxt" ng-model="credentials.username" required>
+          <span class="material-input"></span>
+        </div>
+        <div class="form-group label-floating is-empty">
+          <label for="passwordTxt" class="control-label">Password</label>
+          <input type="password" class="form-control" name="passwordTxt" ng-model="credentials.password" required>
+          <span class="material-input"></span>
+        </div>
+        <button class="btn btn-raised bg-active-btn white btn-block" ng-disabled="loginForm.$invalid || disableBtn" id="loginBtn" type="submit" >
+          <span ng-show="!disableBtn">Login</span> 
+          <span ng-show="disableBtn">Logining in... </span>
+          <i ng-show="disableBtn" class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i>
+          <div class="ripple-container"></div>
+        </button>
+    </form>
+    <div class="form-group">
+      <a class="pointer-cursor" ng-click="recoverPassword()">Forgot your password?</a>
+    </div>
+</div>

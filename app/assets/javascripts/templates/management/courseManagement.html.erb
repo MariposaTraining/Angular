@@ -1,0 +1,59 @@
+<div ng-include="'management/managementTabs.html'"></div>
+
+<div class="margin-xl-top-bottom well">
+    <div class="manager-list" ng-repeat="c in Management.getManagerCourses()">
+        <h4 class="pointer-cursor" ng-click="showDetails[c.Soid] = !showDetails[c.Soid]">
+            <button class="btn-empty">
+                <i class="material-icons vertical-align-middle green rotate" ng-class="{down : showDetails[c.Soid]}">play_arrow</i>
+            </button>
+            <strong><span class="vertical-align-middle">{{c.Name}}</span></strong> <span class="nowrap">[{{c.SortedStudents.completed.length}} / {{c.SortedStudents.incomplete.length}} / {{c.SortedStudents.archived.length}}]</span>
+            <i ng-show="scheduled == c.Soid" class="material-icons green">check_circle</i>
+        </h4>
+        <div class="row details" ng-show="showDetails[c.Soid]">
+            <div class="col-sm-9">
+                <div class="details padding-md-left">
+                    <div class="col-sm-12 font-larger padding-md" ng-if="c.SortedStudents.completed.length > 0">
+                        <strong>Completed</strong> [{{c.SortedStudents.completed.length}}]
+                        <div class="padding-md" ng-repeat="s in c.SortedStudents.completed">
+                            <div class="col-sm-8 margin-md-top-bottom">
+                                {{s.NameFull}}
+                            </div>
+                            <div class="col-sm-4 margin-md-top-bottom">
+                                <span class="label label-default">{{s.TakenOn}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details padding-md-left">
+                    <div class="col-sm-12 font-larger padding-md" ng-if="c.SortedStudents.incomplete.length > 0">
+                        <strong>Incomplete</strong> [{{c.SortedStudents.incomplete.length}}]
+                        <div class="padding-md" ng-repeat="s in c.SortedStudents.incomplete">
+                            <div class="col-sm-11 margin-md-top-bottom">
+                                {{s.NameFull}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details padding-md-left">
+                    <div class="col-sm-12 font-larger padding-md" ng-if="c.SortedStudents.archived.length > 0">
+                        <strong>Completed</strong> [{{c.SortedStudents.archived.length}}]
+                        <div class="padding-md" ng-repeat="s in c.SortedStudents.archived">
+                            <div class="col-sm-8 margin-md-top-bottom">
+                                {{s.NameFull}}
+                            </div>
+                            <div class="col-sm-4 margin-md-top-bottom">
+                                <span class="label label-default">{{s.TakenOn}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 text-right">
+                <button class="btn btn-raised btn-sm white btn-lg btn-default" data-toggle="modal" data-target="#scheduleStudent" ng-click="setCourse(c)">Schedule Students</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div ng-include="'management/scheduleStudentsDialog.html'"></div>

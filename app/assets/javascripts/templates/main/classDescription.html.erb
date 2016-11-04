@@ -1,0 +1,55 @@
+<div class='row margin-md-bottom'>
+  <div class="col-md-8 margin-md-bottom">
+    <div class="well font-larger" id="class-description-well">
+      <h3>
+        <strong>{{course.Name}}</strong>
+        <button ng-show="!Account.isWatch(course.Soid)" class="pull-right btn btn-raised bg-buy-btn white btn-sm margin-md" ng-click="buy()">Buy ${{course.PriceStudent}}</button>
+        <button ng-show="Session.userId != null && Account.isWatch(course.Soid)" class="btn btn-sm bg-watch-btn btn-raised margin-sm white pull-right" ng-click="watch(course)">Watch</button>
+        <button ng-show="Session.userId != null && Account.isPrint(course.Soid)" class="btn btn-sm bg-print-btn btn-raised margin-sm white pull-right" ng-click="print(course)">Print</button>
+        <button ng-show="Session.userId != null && Account.isTest(course.Soid)" class="btn btn-sm bg-test-btn btn-raised margin-sm white pull-right" ng-click="test(course)">Test</button>
+      </h3>
+      <p>{{course.Subject}}</p>
+      <div class="display-inline-block padding-md">Author: <strong>{{course.InstructorName}}</strong></div>
+      <div class="display-inline-block padding-md"><strong>{{course.CeuCount}}</strong> CEU</div>
+      <div class="display-inline-block padding-md">Length: <strong>{{course.Length}} minutes</strong></div>
+      <img class="img-responsive padding-md width100-p" src="{{course.imageSrc}}" alt="icon">
+      <div>
+        <h4 class="margin-lg-top-bottom"><strong>Topic</strong></h4>
+        <p>{{course.Subject}}</p>
+      </div>
+      <div>
+        <h4 class="margin-lg-top-bottom"><strong>Description</strong></h4>
+        <ng-bind-html
+          ng-bind-html="course.Description">
+        </ng-bind-html>
+      </div>
+      <div>
+        <h4 class="margin-lg-top-bottom"><strong>Approvals for this class</strong></h4>
+        <ul>
+          <li ng-repeat='a in course.Approvals'>{{a.CustomDescription}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 margin-md-bottom">
+    <div class="well">
+      <h4>Classes you might like</h4>
+      <hr>
+      <div class="list-group padding-md">
+        <div class="list-group-item padding-none margin-md-bottom" ng-repeat="s in suggestions">
+          <div class="row-picture vertical-align-top">
+            <img class="list-item-icon-larger pointer-cursor" src="{{s.thumbSrc}}" alt="icon" ng-click="learnMore(s)">
+          </div>
+          <div class="row-content">
+            <h4 class="list-group-item-heading font-larger pointer-cursor" ng-click="learnMore(s)">{{s.Name}}</h4>
+            <div class="list-group-item-text">
+              <div class="display-inline-block padding-sm"><strong>{{s.CeuCount}}</strong> CEU</div>
+              <div class="display-inline-block padding-sm">Author: <strong>{{s.InstructorName}}</strong></div>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

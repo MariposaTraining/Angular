@@ -1,0 +1,36 @@
+<div ng-include='"main/catalogTabs.html"'></div>
+
+<div class="well bundle" ng-repeat="(index, b) in bundles">
+  <h4>
+    <strong><span>{{b.Name}}</span></strong> 
+    <button ng-show="Session.userId == null || (Session.userId != null && Session.member.Packages.indexOf(b.Soid) == -1)" class="pull-right margin-md btn btn-raised bg-buy-btn white btn-sm" ng-click="buy(b)">Buy ${{b.Price}}</button>
+    <span ng-show="Session.userId != null && Session.member.Packages.indexOf(b.Soid) != -1" class="label label-success pull-right">Included</span>
+  </h4>
+  <p class="font-larger">{{b.Description}}</p>
+  <div>
+    <button class="btn-empty" ng-click="showCourses[index] = !showCourses[index]">
+        <i class="material-icons vertical-align-middle green" ng-show="!showCourses[index]">keyboard_arrow_right</i>
+        <i class="material-icons vertical-align-middle green" ng-show="showCourses[index]">keyboard_arrow_down</i>
+        <span class="vertical-align-middle">{{b.Courses.length}} Courses</span>
+    </button>
+    <div class="list-group padding-md" ng-show="showCourses[index]">
+      <div class="list-group-item padding-none margin-md-bottom" ng-repeat="course in b.Courses">
+        <div class="row-picture vertical-align-top">
+          <img class="list-item-icon-larger pointer-cursor" src="{{course.thumbSrc}}" ng-click="learnMore(course)" alt="icon">
+        </div>
+        <div class="row-content">
+          <h4 class="list-group-item-heading">
+            <span ng-click="learnMore(course)" class="pointer-cursor">{{course.Name}}</span> 
+            <button class="btn btn-sm bg-purple btn-raised white pull-right margin-md" ng-click="learnMore(course)">Learn More</button>
+          </h4>
+          <div class="list-group-item-text">
+            <div class="display-inline-block padding-md">{{course.CeuCount}} CEU</div>
+            <div class="display-inline-block padding-md">Length: {{course.Length}} minutes</div>
+            <div class="display-inline-block padding-md">Author: {{course.InstructorName}}</div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>

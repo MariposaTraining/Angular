@@ -1,0 +1,17 @@
+.list-item-icon-larger{
+    width: 72px!important;
+    height: 65px!important;
+}
+
+#filterLinks li{
+    cursor: pointer;
+}
+
+#promoLg div{
+    width: 70%;
+}
+
+.list-group .bg-purple, .list-group .bg-purple:active, .list-group .bg-purple:focus, .btn.btn-raised.bg-purple,  .btn.btn-raised.bg-purple:focus,
+ .btn.btn-raised.bg-purple:hover{
+    background: #800080;
+}

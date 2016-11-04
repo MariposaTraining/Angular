@@ -1,0 +1,17 @@
+<div class="form-group padding-md-top margin-none-top">
+    <div class="col-sm-3 padding-none-left padding-none-right">
+        <select ng-options="day for day in days" class="form-control" ng-model="date.day" ng-change="update()">
+            <option value="">-- select day --</option>
+        </select>
+    </div>
+    <div class="col-sm-5">
+        <select ng-options="month.value as month.name for month in months" class="form-control" ng-model="date.month" ng-change="update()">
+            <option value="">-- select month --</option>
+        </select>
+    </div>
+    <div class="col-sm-4 padding-none-right padding-none-left">
+        <select ng-options="year for year in years" class="form-control" ng-model="date.year" ng-change="update()">
+            <option value="">-- select year --</option>
+        </select>
+    </div>
+</div>

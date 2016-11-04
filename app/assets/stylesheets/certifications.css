@@ -1,0 +1,20 @@
+.hidden-list{
+    display: none;
+}
+
+.hidden-list-container > span{
+    cursor: pointer;
+    padding-bottom: 20px;
+}
+
+.bundle .bg-buy-btn{
+    background: #48b01d;
+}
+
+.bundle .bg-purple{
+    background: #800080;
+}
+
+#class-description-well .bg-buy-btn{
+    background: #48b01d;
+}
