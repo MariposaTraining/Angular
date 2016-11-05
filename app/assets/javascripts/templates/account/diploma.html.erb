@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div ng-show="link" class="font-larger padding-md">
-                Click to <a href="{{link}}" class="pointer-cursor">download your certificate.</a>
+                Click to <a ng-click="downloadCertificate()" class="pointer-cursor">download your certificate.</a>
             </div>
             <div ng-show="errorMessage" class="alert alert-danger font-larger padding-md">
                 {{errorMessage}}

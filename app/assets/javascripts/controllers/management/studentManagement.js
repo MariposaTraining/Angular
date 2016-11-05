@@ -16,13 +16,16 @@ angular.module('mariposa-training').controller('StudentManagementCtrl', ['$scope
         $scope.displayedFacilities = $scope.Management.facilities.slice(0, $scope.numPerPage);
         $scope.pagesNumber = Math.ceil($scope.Management.facilities.length / $scope.numPerPage);
         $scope.currentPage = 1;
-        if($scope.Management.facilities.length < 20) $scope.numPerPage.pop();
+        if($scope.Management.facilities.length < 20) $scope.numsPerPage.pop();
     };
     
     $scope.init = function(){
         $scope.numPerPage = 10;
         $scope.Management = Management;
         $scope.currentPage = 1;
+        
+        $scope.numsPerPage = [10, 20, 30];
+        
         if(!$scope.Management.facilitiesLoaded)
             $scope.Management.getCompleteFacilities().then(function(){
                 extractDisplayedFacilities();
@@ -30,8 +33,6 @@ angular.module('mariposa-training').controller('StudentManagementCtrl', ['$scope
         else{
             extractDisplayedFacilities();
         }
-        
-        $scope.numsPerPage = [10, 20, 30];
         
         $scope.$watch('numPerPage', extractDisplayedFacilities, true);
             

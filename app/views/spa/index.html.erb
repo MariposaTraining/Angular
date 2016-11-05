@@ -27,6 +27,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.js"></script>
   
+  
+  <script>
+    var PLAYER_URL = "<%= @player %>";
+    var SITE_URL = "<%= @site %>";
+    var API_URL = "<%= @api %>";
+  </script>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
 </head>
@@ -208,7 +214,6 @@
     });
   </script>
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-  
   <script type="text/javascript">
     Stripe.setPublishableKey('pk_test_T9utQvGrhZquuF0RZNyEzz67');
   </script>

@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state', '$q', '$sessionStorage', '$localStorage', 'Account', 'Session', 'PersonalInfo', 'US_STATES', 'TIME_ZONES',
-    function ($scope, $state, $q, $sessionStorage, $localStorage, Account, Session, PersonalInfo, US_STATES, TIME_ZONES) {
+angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state', '$q', '$sessionStorage', '$localStorage', '$window', 'Account', 'Session', 'PersonalInfo', 'US_STATES', 'TIME_ZONES',
+    function ($scope, $state, $q, $sessionStorage, $localStorage, $window, Account, Session, PersonalInfo, US_STATES, TIME_ZONES) {
     
     $scope.init = function(){
         $sessionStorage.newState = null;
@@ -38,6 +38,10 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
     };
     
     $scope.init();
+    
+    $scope.downloadCertificate = function(){
+        $window.open($scope.link);
+    }
     
     $scope.setDetailedTest = function(test){
         if($scope.testPassed)

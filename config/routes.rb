@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   get   '/Api/:endpoint' => 'spa#api'
   post  '/Api/:endpoint' => 'spa#api'
   get   '/Eventbrite' => 'spa#eventbrite'
-  get   '/*path' => redirect("/?goto=%{path}")
+  get   '/Class/TestResult/:param' => 'spa#show_test_result'
 end

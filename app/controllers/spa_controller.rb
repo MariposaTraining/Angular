@@ -1,4 +1,6 @@
 class SpaController < ApplicationController
+  before_action :set_endpoints
+  
   def index
     render :index, layout: false
   end
@@ -34,5 +36,15 @@ class SpaController < ApplicationController
     uri = URI("#{EVENTBRITE_URL}")
     res = Net::HTTP::get(uri)
     render :plain => res
+  end
+  
+  def show_test_result
+    redirect_to "/#/Class/TestResult/#{params['param'].split('-').first}"  
+  end
+  
+  def set_endpoints
+    @player = PLAYER_URL
+    @site = SITE_URL
+    @api = API_URL
   end
 end

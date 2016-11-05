@@ -57,7 +57,7 @@ angular.module("mariposa-training")
                 visible: '=visible'
             },
             restrict: 'A',
-            templateUrl: "addStudent.html",
+            templateUrl: "directive/manager/addStudent.html",
             link: link
         };
     }]);

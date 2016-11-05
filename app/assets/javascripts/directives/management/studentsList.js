@@ -1,8 +1,8 @@
 /* global angular */
 
 angular.module("mariposa-training")
-    .directive("studentsList", ['$timeout', 'AuthService', 'Management', 'PersonalInfo',
-    function($timeout, AuthService, Management, PersonalInfo){
+    .directive("studentsList", ['$window', '$timeout', 'AuthService', 'Management', 'PersonalInfo',
+    function($window, $timeout, AuthService, Management, PersonalInfo){
         
         function link(scope, element, attrs){
             scope.updatePage = function(i){
@@ -72,10 +72,14 @@ angular.module("mariposa-training")
             
             scope.updateField = function(fieldName, fieldValue, memberSoid, parentIndex, index){
                 
+                var oldFieldValue = null;
+                if(fieldName == 'FacilitySoid') oldFieldValue = scope.Management.facilities[parentIndex].Soid;
+                
                 PersonalInfo.managerUpdateField(fieldName, fieldValue, memberSoid).then(function success(response){
                     if(fieldName == "FacilitySoid" && response.data.ok){
-                       scope.Management.facilitiesLoaded = false;
-                       scope.Management.getCompleteFacilities();
+                        //scope.Management.reloadFacility(fieldValue);
+                        //scope.Management.reloadFacility(oldFieldValue);
+                        $window.location.reload();
                     }else{
                         scope.memberSoid = memberSoid;
                         scope.fieldName = fieldName;

@@ -1,4 +1,5 @@
 /* global angular */
+/* global PLAYER_URL, SITE_URL */
 
 angular.module('mariposa-training').service('Account', ['$http', '$window', '$sessionStorage', '$localStorage', '$state', 'Session', 'Catalog', 
     function ($http, $window, $sessionStorage, $localStorage, $state, Session, Catalog) {
@@ -423,14 +424,14 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
             $http.post("/Api/SetMemberCleanup", {memberSoid: Session.userId});
         });
         
-        var url = "http://player.mariposatraining.com/lectures/" + soid + "/play?endpoint=http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Api";
+        var url = PLAYER_URL + "/lectures/" + soid + "/play?endpoint=http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Api";
         $window.open(url);
         
         self.reloadNeeded = true;
     };
     
     this.test = function(soid){
-        var url = "http://player.mariposatraining.com/lectures/" + soid + "/test?endpoint=http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Api&site=https://mariposa-front-end-markomedia.c9users.io/Class/TestResult";
+        var url = PLAYER_URL + "/lectures/" + soid + "/test?endpoint=http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Api&site="+ SITE_URL;
 
         $sessionStorage.newState="testResult";
         $localStorage.lectureSoidToReload = soid;
