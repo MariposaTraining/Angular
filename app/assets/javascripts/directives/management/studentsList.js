@@ -60,6 +60,7 @@ angular.module("mariposa-training")
                 };
                 
                 for(var i = 0; i < lectures.length; i++){
+                    lectures[i].TakenOn = getDateStringFromISOString(lectures[i].TakenOn);
                     switch(lectures[i].Status){
                         case "Completed": member.Lectures.completed.push(lectures[i]); break;
                         case "Incomplete": member.Lectures.incomplete.push(lectures[i]); break;
