@@ -39,10 +39,6 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
     
     $scope.init();
     
-    $scope.downloadCertificate = function(){
-        $window.open($scope.link);
-    }
-    
     $scope.setDetailedTest = function(test){
         if($scope.testPassed)
             $scope.detailedTest = test;
