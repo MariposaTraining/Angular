@@ -1,8 +1,8 @@
 /* global angular */
 
 var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSanitize', 'ngStorage'])
-  .controller('ApplicationCtrl', ['$scope', '$state', '$sessionStorage', '$localStorage', '$rootScope', 'AuthService', 'Cart', 'Session', 'Catalog', 'Transaction', 'Account', 'Management', 'USER_ROLES', 'NO_ORGANIZATION_SOID',
-  function($scope, $state, $sessionStorage, $localStorage, $rootScope, AuthService, Cart, Session, Catalog, Transaction, Account, Management, USER_ROLES, NO_ORGANIZATION_SOID){
+  .controller('ApplicationCtrl', ['$scope', '$state', '$sessionStorage', '$localStorage', '$rootScope', '$window', 'AuthService', 'Cart', 'Session', 'Catalog', 'Transaction', 'Account', 'Management', 'USER_ROLES', 'NO_ORGANIZATION_SOID',
+  function($scope, $state, $sessionStorage, $localStorage, $rootScope, $window, AuthService, Cart, Session, Catalog, Transaction, Account, Management, USER_ROLES, NO_ORGANIZATION_SOID){
     
     $rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams){ 
@@ -51,6 +51,10 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
         $state.go("accountNew");
       else
         $state.go("home");
+    };
+    
+    $scope.reloadPage = function(){
+      $window.location.reload();
     };
     
 }]);
