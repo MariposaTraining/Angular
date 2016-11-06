@@ -56,4 +56,9 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
         });
     };
     
+    $scope.retakeTest = function(){
+        if($scope.lecture && $scope.lecture.Soid)
+            $scope.Account.test($scope.lecture.Soid);  
+    };
+    
 }]);

@@ -6,7 +6,9 @@
                 <h3>Diploma</h3>
                 <span class="bold font-larger">{{lecture.CeuCount}} CEU</span>
             </div>
-            <h4 class="margin-xl-top-bottom bold">{{lecture.CourseName}}</h4>
+            <h4 class="margin-xl-top-bottom bold">{{lecture.CourseName}}
+                <button class="btn btn-sm bg-test-btn white btn-raised pull-right" ng-show="!testPassed" ng-click="retakeTest()">Retake test</button>
+            </h4>
             <div ng-if="testPassed && !link">
                 <p class="font-larger" ng-show="showTestResults">Congratulations, you have passed the test. Your certificate is being prepared. As soon as the link appears below, click it download your certificate.</p>
                 <p class="font-larger"><a ng-click="showNameForm = true" class="pointer-cursor">Click here</a> to get your certificate.</p>

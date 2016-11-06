@@ -64,24 +64,25 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     var processLoadedLecture = function(result, soid){
         
         var lecture = popFromItemsArray(soid);
-        
-        adaptMemberToStatusCount(lecture.Status, result.data.data.Status);
-        
-        lecture.Status = result.data.data.Status;
-        lecture.Tests = result.data.data.Tests;
-        
-        lecture.Tests.forEach(function(el){
-            var v = el.AdmisteredOn.substr(6, 13);
-            el.AdmisteredOn = new Date(Number(v)); 
-        });
-        
-        lecture.Tests.sort(function(a, b){
-            return a - b;
-        });
-        
-        addToItemsArray(lecture);
-        
-        addLectureToCertifications(lecture);
+        if(lecture){
+            adaptMemberToStatusCount(lecture.Status, result.data.data.Status);
+            
+            lecture.Status = result.data.data.Status;
+            lecture.Tests = result.data.data.Tests;
+            
+            lecture.Tests.sort(function(a, b){
+                return a.AdmisteredOn - b.AdmisteredOn;
+            });
+            
+            lecture.Tests.forEach(function(el){
+                var v = el.AdmisteredOn.substr(6, 13);
+                el.AdmisteredOn = new Date(Number(v)); 
+            });
+            
+            addToItemsArray(lecture);
+            
+            addLectureToCertifications(lecture);
+        }
     };
     
     var adaptMemberToStatusCount = function(oldStatus, newStatus){
