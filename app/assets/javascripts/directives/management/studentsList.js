@@ -73,13 +73,8 @@ angular.module("mariposa-training")
             
             scope.updateField = function(fieldName, fieldValue, memberSoid, parentIndex, index){
                 
-                var oldFieldValue = null;
-                if(fieldName == 'FacilitySoid') oldFieldValue = scope.Management.facilities[parentIndex].Soid;
-                
                 PersonalInfo.managerUpdateField(fieldName, fieldValue, memberSoid).then(function success(response){
                     if(fieldName == "FacilitySoid" && response.data.ok){
-                        //scope.Management.reloadFacility(fieldValue);
-                        //scope.Management.reloadFacility(oldFieldValue);
                         $window.location.reload();
                     }else{
                         scope.memberSoid = memberSoid;
@@ -162,6 +157,7 @@ angular.module("mariposa-training")
                     }
                     
                     hideOnTimeout();
+                    scope.Management.managerCoursesAttemptedLoad = false;
                 }, function(response){
                     scope.fieldName = "courseScheduled";
                     scope.fieldSaved = response.ok;
