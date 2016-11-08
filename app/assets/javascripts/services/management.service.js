@@ -58,6 +58,9 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
                         if(self.managerCourses[i].Students[j].TakenOn){
                             var v = new Date(Number(self.managerCourses[i].Students[j].TakenOn.substr(6, 13)));
                             self.managerCourses[i].Students[j].TakenOn = v.getMonth() + 1 + " / " + v.getDate() + " / " + v.getFullYear();
+                        }else if(self.managerCourses[i].Students[j].ScheduledOn){
+                            var v = new Date(Number(self.managerCourses[i].Students[j].ScheduledOn.substr(6, 13)));
+                            self.managerCourses[i].Students[j].ScheduledOn = v.getMonth() + 1 + " / " + v.getDate() + " / " + v.getFullYear();
                         }
                         
                         switch(self.managerCourses[i].Students[j].Status){
