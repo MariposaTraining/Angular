@@ -1,31 +1,33 @@
 <div class="modal" id="scheduleStudent">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title"><strong>Course</strong> {{courseToSchedule.Name}}</h4>
-      </div>
-      <div class="modal-body font-larger">
-        <p><strong>Select students:</strong></p>
-        <div class="margin-md students-container bg-white" ng-repeat="f in Management.facilities">
-            <h4>{{f.Name}}</h4>
-            <div class="checkbox margin-md" ng-repeat="s in f.Students">
-                <label>
-                    <input type="checkbox" ng-model="s.toSchedule[courseToSchedule.Soid]"><span class="checkbox-material"><span class="check"></span></span> {{s.FullName}}
-                </label>
-            </div>
+      <div class="scrollable">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title"><strong>Course</strong> {{courseToSchedule.Name}}</h4>
         </div>
-        <div class="margin-md row">
-            <div class="col-sm-3 padding-lg-top text-right bold">
-                Select date
-            </div>
-            <div class="col-sm-9">
-                <util-date ng-model="$parent.dateToSchedule" min="date"></util-date>
-            </div>
+        <div class="modal-body font-larger">
+          <p><strong>Select students:</strong></p>
+          <div class="margin-md students-container bg-white" ng-repeat="f in Management.facilities">
+              <h4>{{f.Name}}</h4>
+              <div class="checkbox margin-md" ng-repeat="s in f.Students">
+                  <label>
+                      <input type="checkbox" ng-model="s.toSchedule[courseToSchedule.Soid]"><span class="checkbox-material"><span class="check"></span></span> {{s.FullName}}
+                  </label>
+              </div>
+          </div>
+          <div class="margin-md row">
+              <div class="col-sm-3 padding-lg-top text-right bold">
+                  Select date
+              </div>
+              <div class="col-sm-9">
+                  <util-date ng-model="$parent.dateToSchedule" min="date"></util-date>
+              </div>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">{{$parent.dateToSchedule.$invalid}}
-        <button class="btn bg-active-btn btn-raised btn-lg white" ng-click="scheduleCourse()" ng-disabled="showScheduling || $parent.dateToSchedule == null || $parent.dateToSchedule.$invalid">Submit <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000" ng-show="showScheduling"></i></button>
+        <div class="modal-footer">{{$parent.dateToSchedule.$invalid}}
+          <button class="btn bg-active-btn btn-raised btn-lg white" ng-click="scheduleCourse()" ng-disabled="showScheduling || $parent.dateToSchedule == null || $parent.dateToSchedule.$invalid">Submit <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000" ng-show="showScheduling"></i></button>
+        </div>
       </div>
     </div>
   </div>
