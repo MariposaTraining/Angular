@@ -13,9 +13,10 @@
                   <img class="list-item-icon-larger pointer-cursor" src="{{c.CourseObject.thumbSrc}}" alt="icon">
                 </div>
                 <div class="row-content">
-                  <h4 class="list-group-item-heading pointer-cursor"><span>{{c.CourseName}}</span><button class="btn btn-sm bg-watch-btn btn-raised white pull-right margin-md" ng-click="playLecture(c)">Watch</button>
+                  <h4 class="list-group-item-heading pointer-cursor"><span>{{c.CourseName}}</span><button class="btn btn-sm bg-watch-btn btn-raised white pull-right margin-md" ng-click="playLecture(c)">Watch</button></h4>
                 <div class="list-group-item-text">
                     <div class="display-inline-block padding-md"><span>{{c.CourseObject.CeuCount}}</span> CEU</div>
+                    <div class="display-inline-block padding-md">Taken On: <span>{{c.TakenOn}}</span></div>
                     <div class="display-inline-block padding-md">Length: <span>{{c.CourseObject.Length}}</span> minutes</div>
                     <div class="display-inline-block padding-md">Author: <span>{{c.CourseObject.InstructorName}}</span></div>
                   </div>
