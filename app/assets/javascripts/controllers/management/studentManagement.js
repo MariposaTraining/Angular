@@ -18,6 +18,7 @@ angular.module('mariposa-training').controller('StudentManagementCtrl', ['$scope
         $scope.currentPage = 1;
         
         resetActiveStudents();
+        resetDroppedStudents();
             
         if($scope.Management.facilities.length < 20) $scope.numsPerPage.pop();
     };
