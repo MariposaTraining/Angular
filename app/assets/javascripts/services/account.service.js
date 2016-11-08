@@ -76,7 +76,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
             
             lecture.Tests.forEach(function(el){
                 var v = el.AdmisteredOn.substr(6, 13);
-                el.AdmisteredOn = new Date(Number(v)); 
+                el.AdmisteredOn = new Date(Number(v*1000)); 
             });
             
             addToItemsArray(lecture);
@@ -198,6 +198,8 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     };
     
     this.addLecture = function(lecture, response){
+        
+        debugger;
 
         lecture.CourseObject = response.data.data.Courses.filter(function(el){
             return el.Soid == lecture.CourseSoid;
@@ -215,6 +217,13 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
             case "Archived": self.items.archived.push(lecture); self.items.archived.sort(courseComparator); break;
             case "Scheduled": self.items.scheduled.push(lecture); self.items.scheduled.sort(courseComparator); break;
         }
+        
+        console.log(lecture.CourseObject.Name + " : " + lecture.Scheduled);
+        
+        if(lecture.Scheduled){
+            self.items.scheduled.push(lecture);
+            self.items.scheduled = self.items.scheduled.sort(courseComparator);
+        } 
         
         addLectureToCertifications(lecture);
     };
