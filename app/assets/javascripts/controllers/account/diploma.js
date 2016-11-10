@@ -16,6 +16,7 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
         $scope.enteredName = null;
         $scope.link = null;
         $scope.errorMessage = null;
+        $scope.showRetakeBtn = false;
         
         if($state.params.lectureSoid){
             lectureSoid = $state.params.lectureSoid;
@@ -30,6 +31,7 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
             $scope.testPassed = result.data.data.Tests.filter(function(el){
                 return el.Pass;
             }).length > 0;
+            $scope.showRetakeBtn = !$scope.testPassed;
             console.log($scope.lecture);
         }, function error(result){
             console.log(result);
