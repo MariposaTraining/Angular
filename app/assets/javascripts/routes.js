@@ -253,6 +253,11 @@ angular.module('mariposa-training')
               $location.path("/MyAccount/New");
         }
       }
+    })
+    .state('player', {
+      url: '/Player',
+      templateUrl: 'assets/templates/main/player.html',
+      controller: 'PlayerCtrl'
     });
     
     $urlRouterProvider.otherwise('/');
