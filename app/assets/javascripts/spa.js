@@ -1,6 +1,6 @@
 /* global angular */
 
-var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSanitize', 'ngStorage'])
+var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSanitize', 'ngStorage', 'ngAudio'])
   .controller('ApplicationCtrl', ['$scope', '$state', '$sessionStorage', '$localStorage', '$rootScope', '$window', 'AuthService', 'Cart', 'Session', 'Catalog', 'Transaction', 'Account', 'Management', 'USER_ROLES', 'NO_ORGANIZATION_SOID',
   function($scope, $state, $sessionStorage, $localStorage, $rootScope, $window, AuthService, Cart, Session, Catalog, Transaction, Account, Management, USER_ROLES, NO_ORGANIZATION_SOID){
     

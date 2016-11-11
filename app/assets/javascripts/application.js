@@ -13,6 +13,7 @@
 //= require jquery
 //= require bootstrap
 //= require ui-bootstrap.min
+//= require angular.audio
 //= require ngStorage.min
 //= require material.min
 //= require ripples.min
