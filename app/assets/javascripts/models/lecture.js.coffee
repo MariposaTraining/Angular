@@ -25,7 +25,8 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', 'BaseModelClass
       @legacyApi('setCompleteViewing')
 
     getTest: ->
-      @legacyApi('getTest').then (response) -> response.data
+      @legacyApi('getTest', {lectureSoid: @Soid}).then (response) ->
+        response.data.data
 
     setTestAnswer: (questionSoid, optionSoid) ->
       @legacyApi('setTestAnswer', {questionSoid: questionSoid, optionSoid: optionSoid})

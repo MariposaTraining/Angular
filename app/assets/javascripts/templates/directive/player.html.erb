@@ -28,11 +28,11 @@
 
       <div id="player-controls" class="animated">
 
-        <div class="inline nice circle btn text-center" ng-click="toggle()">
+        <div class="inline nice circle player-btn text-center" ng-click="toggle()">
           <i class="fa" ng-class="{'fa-pause': playing, 'fa-play': !playing}"></i>
         </div>
 
-        <div id="stop" class="inline nice small circle btn text-center" ng-click="stop()">
+        <div id="stop" class="inline nice small circle player-btn text-center" ng-click="stop()">
           <i class="fa fa-stop"></i>
         </div>
 
@@ -52,8 +52,8 @@
         <div id="full-volume" class="inline middle volume-control" ng-click="fullVolume()"><i class="fa fa-volume-up"></i></div>
 
         <div id="toggle-controls" class="inline middle text-center">
-          <i class="btn fa fa-picture-o" ng-click="toggleMedia()"></i><br>
-          <i class="btn fa fa-align-justify" ng-click="toggleText()"></i>
+          <i class="player-btn fa fa-picture-o" ng-click="toggleMedia()"></i><br>
+          <i class="player-btn fa fa-align-justify" ng-click="toggleText()"></i>
         </div>
       </div>
 
@@ -73,7 +73,7 @@
       <hr>
       Ciertas organizaciones que aprueban nuestros certificados requiren que cada clase sea visionada completamente antes de poder acceder al examen y ser aprobado. Por consecuencia, nuestra plataforma require que visione la clase de principio a fin por lo menos una vez antes de poder proseguir al test y obtener su certificado. Gracias por entender.
       <hr>
-      <div id="acknowledge" class="rounded text-center btn" ng-click="acknowledgeWarning()">OK</div>
+      <div id="acknowledge" class="rounded text-center player-btn" ng-click="acknowledgeWarning()">OK</div>
     </div>
   </div>
 </div>

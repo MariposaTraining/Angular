@@ -247,17 +247,40 @@ angular.module('mariposa-training')
       controller: 'CourseManagementCtrl',
       resolve:{
         "check":function($location, Session, USER_ROLES, NO_ORGANIZATION_SOID){   
-            if(Session.userId == null)
+            if(Session.userId == null || !Session.userRoles)
               $location.path("/");
-            else if(!Session.userRoles.includes(USER_ROLES.manager) || Session.member.FacilitySoid == NO_ORGANIZATION_SOID)
+            else if(Session.userRoles.includes(USER_ROLES.manager) || Session.member.FacilitySoid == NO_ORGANIZATION_SOID)
               $location.path("/MyAccount/New");
         }
       }
     })
     .state('player', {
-      url: '/Player',
+      url: '/:lectureName/Video/:lectureSoid',
       templateUrl: 'assets/templates/main/player.html',
-      controller: 'PlayerCtrl'
+      controller: 'PlayerCtrl',
+      resolve:{
+        "check":function($location, $stateParams, Session, Account, USER_ROLES){   
+            if(Session.userId != null){
+              if(!$stateParams['lectureSoid'] || !Account.isWatch($stateParams['lectureSoid']))
+                  $location.path("/MyAccount/New");
+            }else
+              $location.path("/");
+        }
+      }
+    })
+    .state('test', {
+      url: '/:lectureName/Test/:lectureSoid',
+      templateUrl: 'assets/templates/main/test.html',
+      controller: 'TestCtrl',
+      resolve:{
+        "check":function($location, $stateParams, Session, Account, USER_ROLES){   
+            if(Session.userId != null){
+              if(!$stateParams['lectureSoid'] || !Account.isTest($stateParams['lectureSoid']))
+                  $location.path("/MyAccount/New");
+            }else
+              $location.path("/");
+        }
+      }
     });
     
     $urlRouterProvider.otherwise('/');

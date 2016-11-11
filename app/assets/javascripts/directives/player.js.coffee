@@ -1,6 +1,6 @@
 angular.module('mariposa-training').directive 'player',
-['$rootScope', '$state', '$interval', '$sce', 'ngAudio', '$localStorage', 'Lecture', 'Course',
-($rootScope, $state, $interval, $sce, ngAudio, $localStorage, Lecture, Course) ->
+['$rootScope', '$state', '$interval', '$sce', 'ngAudio', '$localStorage', 'Lecture', 'Course', 'Account',
+($rootScope, $state, $interval, $sce, ngAudio, $localStorage, Lecture, Course, Account) ->
   restrict: 'E'
   templateUrl: 'directive/player.html'
   scope:
@@ -47,7 +47,7 @@ angular.module('mariposa-training').directive 'player',
           if scope.audio.progress >= 1
             scope.lecture.setCompleteViewing().then ->
               if !scope.lecture.TestPassed
-                window.location.href = "/lectures/#{scope.lecture.Soid}/test"
+                Account.test(scope.lecture.Soid)
 
       restoreProgress = ->
         if scope.lecture
@@ -208,7 +208,9 @@ angular.module('mariposa-training').directive 'player',
 
       # Stop when navigating off the player page
       $rootScope.$on '$stateChangeSuccess', (event) ->
-        scope.stop() if $state.current.name != scope.state
+        if $state.current.name != scope.state
+          scope.stop()
+          Account.reloadMemberObject()
 
     if scope.type == 'lecture'
       lectureIdWatcher = scope.$watch('lectureId', ->

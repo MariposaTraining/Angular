@@ -1,12 +1,13 @@
 /* global angular */
 
 var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSanitize', 'ngStorage', 'ngAudio'])
-  .controller('ApplicationCtrl', ['$scope', '$state', '$sessionStorage', '$localStorage', '$rootScope', '$window', 'AuthService', 'Cart', 'Session', 'Catalog', 'Transaction', 'Account', 'Management', 'USER_ROLES', 'NO_ORGANIZATION_SOID',
-  function($scope, $state, $sessionStorage, $localStorage, $rootScope, $window, AuthService, Cart, Session, Catalog, Transaction, Account, Management, USER_ROLES, NO_ORGANIZATION_SOID){
+  .controller('ApplicationCtrl', ['$scope', '$state', '$sessionStorage', '$localStorage', '$rootScope', '$window', 'AuthService', 'Cart', 'Session', 'Catalog', 'Transaction', 'Account', 'Management', 'Layout', 'USER_ROLES', 'NO_ORGANIZATION_SOID',
+  function($scope, $state, $sessionStorage, $localStorage, $rootScope, $window, AuthService, Cart, Session, Catalog, Transaction, Account, Management, Layout, USER_ROLES, NO_ORGANIZATION_SOID){
     
     $rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams){ 
         $sessionStorage.lastState = toState.name;
+        if(toState.name != "player" && toState.name != "test") document.title = "Mariposa Training";
     });
    
     $scope.init = function(){
@@ -18,7 +19,6 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
       $scope.isAuthorized = AuthService.isAuthorized;
       $scope.USER_ROLES = USER_ROLES;
       $scope.NO_ORGANIZATION_SOID = NO_ORGANIZATION_SOID;
-    
       Catalog.getData();
   
       if($sessionStorage.identifier){ 
@@ -33,6 +33,7 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
       
       $scope.Cart.getCart();
       $scope.$state = $state;
+      Layout.init();
     };
     
     $scope.init();

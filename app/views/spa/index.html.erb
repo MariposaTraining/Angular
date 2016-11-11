@@ -172,49 +172,7 @@
         // on mouseleave
         $(this).tooltip('hide');
       });
-
-      var adaptBodyPadding = function() {
-        $("body").css("padding-bottom", $("footer").height() + 10);
-        $("body").css("padding-top", $(".navbar-fixed-top").height() + 20);
-      };
-
-      var setSameChildrenHeight = function() {
-        var $children = $('.row.same-children-height > div > *');
-        var maxHeight = 0;
-        $children.each(function() {
-          maxHeight = Math.max($(this).height(), maxHeight);
-        });
-        $children.height(maxHeight);
-      }
-
-      var adjustWindowContent = function() {
-        if ($("body").width() <= 1180) {
-          var events = $("#events").detach();
-          var freeClassWell = $("#freeClassWell").detach();
-          var subscriptionWell = $("#subscriptionWell").detach();
-          $("#eventsContainerSmaller").append(events);
-          $("#subscribtionContainerSmaller").append(freeClassWell);
-          $("#subscribtionContainerSmaller").append(subscriptionWell);
-        }
-        else {
-          var events = $("#events").detach();
-          var freeClassWell = $("#freeClassWell").detach();
-          var subscriptionWell = $("#subscriptionWell").detach();
-          $("#eventsContainerLg").append(events);
-          $("#subscribtionContainerLg").append(freeClassWell);
-          $("#subscribtionContainerLg").append(subscriptionWell);
-        }
-      }
-
-      var adaptWindow = function() {
-        adaptBodyPadding();
-        adjustWindowContent();
-        setSameChildrenHeight();
-      }
-
-      adaptWindow();
-      $(window).resize(adaptWindow);
-
+      
       var checkExistEventbrite = setInterval(function() {
         if ($('.Toggle.Collapsed').length) {
           $(".Toggle.Collapsed").click(function() {

@@ -163,8 +163,6 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
                 
                 self.valid = true;
                 
-                console.log(self);
-                
             }, function error(result){
                 console.log(result);    
             });
@@ -188,7 +186,6 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
             });
             var lecture = result.data.data;
             lecture.CourseObject = lect.CourseObject;
-            console.log(lecture);
             self.items.inQueue.push(lecture);
             return result;
         }, function error(result){
@@ -198,8 +195,6 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     };
     
     this.addLecture = function(lecture, response){
-        
-        debugger;
 
         lecture.CourseObject = response.data.data.Courses.filter(function(el){
             return el.Soid == lecture.CourseSoid;
@@ -217,8 +212,6 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
             case "Archived": self.items.archived.push(lecture); self.items.archived.sort(courseComparator); break;
             case "Scheduled": self.items.scheduled.push(lecture); self.items.scheduled.sort(courseComparator); break;
         }
-        
-        console.log(lecture.CourseObject.Name + " : " + lecture.Scheduled);
         
         if(lecture.Scheduled){
             self.items.scheduled.push(lecture);
@@ -429,28 +422,37 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     
     this.watch = function(soid){
         
+        if(!soid) return;
+        
         $http.post("/Api/SetWatch", {lectureSoid: soid}).then(function success(result){
             processLoadedLecture(result, soid);
             $http.post("/Api/SetMemberCleanup", {memberSoid: Session.userId});
+            $state.go("player", {lectureName: result.data.data.CourseName.replaceAll(" ", "-"), lectureSoid: soid});
         });
-        
-        var url = PLAYER_URL + "/lectures/" + soid + "/play?endpoint=http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Api";
-        $window.open(url);
-        
-        self.reloadNeeded = true;
     };
     
     this.test = function(soid){
-        var url = PLAYER_URL + "/lectures/" + soid + "/test?endpoint=http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Api&site="+ SITE_URL;
-
-        $sessionStorage.newState="testResult";
-        $localStorage.lectureSoidToReload = soid;
+        if(!soid) return;
         
-        $window.location.href = url;
+        $localStorage.lectureSoidToReload = soid;
+        var tmp = self.items.incomplete.filter(function(el) { return el.Soid == soid;});
+        var lectureName = "Lecture";
+        
+        if(tmp.length == 1) lectureName = tmp[0].CourseName.replaceAll(" ", "-");   
+        
+        $state.go("test", {lectureName: lectureName, lectureSoid: soid});
     };
     
     this.print = function(soid){
+        
+        if(!soid) return;
+        
         $state.go("accountDiploma", {lectureSoid: soid});
+    };
+    
+    String.prototype.replaceAll = function(search, replacement) {
+        var target = this;
+        return target.replace(new RegExp(search, 'g'), replacement);
     };
     
 }]);
