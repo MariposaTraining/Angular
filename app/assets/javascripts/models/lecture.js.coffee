@@ -33,10 +33,8 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', 'BaseModelClass
     setGradeTest: ->
       @legacyApi('setGradeTest')
 
-    legacyApi: (request, data) ->
-      payload = {request: request}
-      payload.data = JSON.stringify data if data
-      $http.post("#{@apiEndpoint}/#{@Soid}/legacyApi.json", payload)
+    legacyApi: (request, data = {}) ->
+      $http.post("/Api/#{request}", data)
 
     wasCompleted: ->
       @Status not in ['Incomplete', 'InQueue']
