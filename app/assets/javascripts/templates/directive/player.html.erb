@@ -1,0 +1,79 @@
+<div id="player">
+  <div id="header" class="flexible">
+    <div id="logo"  class="full-height right"><img class="full-width full-height" src="<%= image_path 'playerLogo.png' %>"></div>
+    <div id="title" class="full-height flexible-body"><h1>{{course.Name}}</h1></div>
+  </div>
+
+  <div id="slide" class="flexible">
+
+    <div id="slide-text" class="full-height right" ng-class="{'full-screen': !showMedia}" ng-show="showText">
+      <p ng-bind-html="currentSlide.Transcript"></p>
+    </div>
+
+    <div id="slide-media" class="full-height flexible-body" ng-class="{'full-screen': !showText}" ng-show="showMedia">
+      <img ng-if="currentSlide.type == 'image'" ng-src="{{currentSlide.url}}">
+      <div id='slide-video'></div>
+    </div>
+
+  </div>
+
+  <div id="footer">
+
+    <div id="seek-bar" ng-click="seek($event)">
+      <div id="saved-progress" class="absolute full-height" ng-style="{width: (seekable * 100) + '%'}"></div>
+      <div id="seek" class="absolute full-height" ng-style="{width: (audio.progress * 100) + '%'}"></div>
+    </div>
+
+    <div class="full-height column">
+
+      <div id="player-controls" class="animated">
+
+        <div class="inline nice circle btn text-center" ng-click="toggle()">
+          <i class="fa" ng-class="{'fa-pause': playing, 'fa-play': !playing}"></i>
+        </div>
+
+        <div id="stop" class="inline nice small circle btn text-center" ng-click="stop()">
+          <i class="fa fa-stop"></i>
+        </div>
+
+        <div id="progress" class="inline middle nowrap text-center">
+          <div id="timer" class="inline">{{currentTime}} of {{totalTime}}</div><br>
+          <div id="slide-counter" class="inline">Slide {{currentSlide.SlideNumber + 1}} of {{course.Slides.length}}</div>
+        </div>
+
+        <div id="mute" class="inline middle volume-control" ng-click="mute()">
+          <i class="fa" ng-class="{'fa-volume-down': audio.volume > 0, 'fa-volume-off': audio.volume == 0}"></i>
+        </div>
+
+        <div id="volume-bar" class="inline middle volume-control" ng-click="customVolume($event)">
+          <div id="volume" class="full-height" ng-style="{width: (audio.volume * 100) + '%'}"></div>
+        </div>
+
+        <div id="full-volume" class="inline middle volume-control" ng-click="fullVolume()"><i class="fa fa-volume-up"></i></div>
+
+        <div id="toggle-controls" class="inline middle text-center">
+          <i class="btn fa fa-picture-o" ng-click="toggleMedia()"></i><br>
+          <i class="btn fa fa-align-justify" ng-click="toggleText()"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="info-box" class="padded full-height column">
+      {{course.instructorName}}<br>
+      <a id="lnkHandout" href="{{course.handoutUrl()}}" target="_blank">Get Handout</a>
+    </div>
+
+  </div>
+
+  <div class="dialog" ng-show="showCEUWarning">
+    <div class="screen"></div>
+    <div class="padded rounded content">
+      Some organizations that approve our CEUs require each class to be viewed in its entirety in the first viewing of the class before a post-test can be accessed for certificate approval. As a result, our site requires you view the entire presentation once before accessing a post-test to earn CEU credit for this class. Thanks for your understanding.
+      <hr>
+      Ciertas organizaciones que aprueban nuestros certificados requiren que cada clase sea visionada completamente antes de poder acceder al examen y ser aprobado. Por consecuencia, nuestra plataforma require que visione la clase de principio a fin por lo menos una vez antes de poder proseguir al test y obtener su certificado. Gracias por entender.
+      <hr>
+      <div id="acknowledge" class="rounded text-center btn" ng-click="acknowledgeWarning()">OK</div>
+    </div>
+  </div>
+</div>
