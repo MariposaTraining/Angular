@@ -1,8 +1,11 @@
-# global angular
-# Create angular service from this model
-angular.module('mariposa-training').service 'Course', ['ModelFactory', '$sce', (ModelFactory, $sce) ->
-
-  class Course
+# # global angular
+# # Create angular service from this model
+angular.module('mariposa-training').factory 'Course', ['$sce', '$http', 'BaseModelClass', ($sce, $http, BaseModelClass) ->
+  class Course extends BaseModelClass
+    @find: (id) ->
+      $http.post('/Api/GetCourse', {courseSoid: id}).then (response) ->
+        new Course response.data.data
+    
     afterInitialize: ->
       @currentSlideIndex = 0
       for slide, i in @Slides
@@ -64,5 +67,5 @@ angular.module('mariposa-training').service 'Course', ['ModelFactory', '$sce', (
       for slide, i in @Slides
         slide.played = i == 1
 
-  ModelFactory.create '/courses', Course
+  Course
 ]

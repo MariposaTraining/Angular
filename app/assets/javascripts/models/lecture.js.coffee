@@ -1,7 +1,11 @@
 # global angular
 # Create angular service from this model
-angular.module('mariposa-training').service 'Lecture', ['$http', 'ModelFactory', 'Course', ($http, ModelFactory, Course) ->
-  class Lecture
+angular.module('mariposa-training').factory 'Lecture', ['$http', 'BaseModelClass', 'Course', ($http, BaseModelClass, Course) ->
+  class Lecture extends BaseModelClass
+    @find: (id) ->
+      $http.post('/Api/GetLecture', {lectureSoid: id}).then (response) ->
+        new Lecture response.data.data
+  
     afterInitialize: ->
       @savedProgress = 0
       for instance in @Instances
@@ -37,5 +41,5 @@ angular.module('mariposa-training').service 'Lecture', ['$http', 'ModelFactory',
     wasCompleted: ->
       @Status not in ['Incomplete', 'InQueue']
 
-  ModelFactory.create '/lectures', Lecture
+  Lecture
 ]
