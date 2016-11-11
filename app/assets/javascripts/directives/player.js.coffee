@@ -9,13 +9,14 @@
 #   $(window).on 'resize', onResize
 
 angular.module('mariposa-training').directive 'player',
-['$interval', '$sce', 'ngAudio', '$localStorage', 'Lecture', 'Course',
-($interval, $sce, ngAudio, $localStorage, Lecture, Course) ->
+['$rootScope', '$state', '$interval', '$sce', 'ngAudio', '$localStorage', 'Lecture', 'Course',
+($rootScope, $state, $interval, $sce, ngAudio, $localStorage, Lecture, Course) ->
   restrict: 'E'
   templateUrl: 'directive/player.html'
   scope:
     lectureId: '='
     courseId: '='
+    state: '@'
     type: '@'
   link: (scope, element, attrs) ->
 
@@ -216,6 +217,10 @@ angular.module('mariposa-training').directive 'player',
       # otherwise, show the CEU warning
       scope.showCEUWarning = !scope.lecture.wasCompleted()
       start() unless scope.showCEUWarning
+
+      # Stop when navigating off the player page
+      $rootScope.$on '$stateChangeSuccess', (event) ->
+        scope.stop() if $state.current.name != scope.state
 
     if scope.type == 'lecture'
       lectureIdWatcher = scope.$watch('lectureId', ->
