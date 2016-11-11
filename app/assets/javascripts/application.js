@@ -18,9 +18,10 @@
 //= require ripples.min
 //= require angular-rails-templates
 //= require angular-ui-router
-//= require_tree ./templates
 //= require spa
 //= require routes
+//= require_tree ./templates
 //= require_tree ./controllers
 //= require_tree ./services
 //= require_tree ./directives
+//= require_tree ./models

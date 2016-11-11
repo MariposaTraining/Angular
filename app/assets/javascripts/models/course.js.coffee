@@ -1,0 +1,68 @@
+# global angular
+# Create angular service from this model
+angular.module('mariposa-training').service 'Course', ['ModelFactory', '$sce', (ModelFactory, $sce) ->
+
+  class Course
+    afterInitialize: ->
+      @currentSlideIndex = 0
+      for slide, i in @Slides
+        @initializeSlide slide, i
+
+    initializeSlide: (slide, index) ->
+      slide.played = index == 0
+      youtubeRegex = /youtube.com\/watch\?v=(.*?)\W/
+      match = slide.Transcript?.match youtubeRegex
+      if match
+        slide.type = 'video'
+        slide.url = match[1]
+      else
+        slide.type = 'image'
+        slide.url = @slideUrl index + 1 unless slide.url
+
+      slide.Transcript = $sce.trustAsHtml(slide.Transcript)
+
+    chooseNextSlide: (time) ->
+      if !@Slides || @Slides.length == 0
+        null
+      else
+        # Loop through the slides that have already been played
+        i = 0; current = @Slides[0]; next = @Slides[1]
+        while next.StartTime < time && i < @Slides.length - 1
+          current = next
+          next = @Slides[++i]
+
+        if next.StartTime > time
+          @currentSlideIndex = Math.max i - 1, 0
+          current
+        else
+          @currentSlideIndex = i
+          next
+
+    nextSlideStartTime: (time) ->
+      if @currentSlideIndex < @Slides.length - 1
+        @Slides[@currentSlideIndex + 1].StartTime
+      else
+        @Slides[@currentSlideIndex].StartTime
+
+    padNumber: (num) ->
+      while num.toString().length < 3
+        num = "0" + num
+      num
+
+    slideUrl: (slideNumber) ->
+      paddedSqlId = @padNumber @SqlId
+      paddedSlideNumber = @padNumber slideNumber
+      "http://mariposatraining.blob.core.windows.net/presentations/#{paddedSqlId}/Slides/Slide#{paddedSlideNumber}.JPG"
+
+    audioUrl: ->
+      "http://mariposatraining.blob.core.windows.net/audio/#{@Channel}.mp3"
+
+    handoutUrl: ->
+      "http://mariposatraining.blob.core.windows.net/handouts/#{@padNumber @SqlId}.pdf"
+
+    resetSlides: ->
+      for slide, i in @Slides
+        slide.played = i == 1
+
+  ModelFactory.create '/courses', Course
+]
