@@ -1,13 +1,3 @@
-# global angular
-
-# onResize = ->
-#   height = $('body').height() - $('#footer').height() - $('#header').height()
-#   $('#slide').css('height', height + 'px')
-
-# $ ->
-#   onResize()
-#   $(window).on 'resize', onResize
-
 angular.module('mariposa-training').directive 'player',
 ['$rootScope', '$state', '$interval', '$sce', 'ngAudio', '$localStorage', 'Lecture', 'Course',
 ($rootScope, $state, $interval, $sce, ngAudio, $localStorage, Lecture, Course) ->
@@ -19,8 +9,6 @@ angular.module('mariposa-training').directive 'player',
     state: '@'
     type: '@'
   link: (scope, element, attrs) ->
-
-    # onResize()
 
     onLoad = (lecture, course) ->
 
