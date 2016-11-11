@@ -26,198 +26,212 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.js"></script>
-  
-  
+
+
   <script>
     var PLAYER_URL = "<%= @player %>";
     var SITE_URL = "<%= @site %>";
     var API_URL = "<%= @api %>";
   </script>
   <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
 </head>
 
 <body ng-controller="ApplicationCtrl">
-  
-  <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand font-x-large" ng-click="homeLinkClicked()"><%= image_tag "logo.png", class: "logo img-responsive pointer-cursor" %></a>
-          <div class="display-inline-block float-right">
-            <div ng-show="Session.userId != null" class="visible-xs display-inline-block float-right text-right padding-md">
-              <div ng-click="reloadPage()" class="pointer-cursor">{{Session.user.ScreenName}}</div>
-              <div>{{Session.member.FacilityName}}</div>
-              <a ng-click="signOut()" class="padding-md rgba-gray" id="signOutRgba">Sign Out</a>
+  <div ng-switch="$state.current.name">
+    <div ng-switch-when="player">
+      <!-- Player -->
+      <div ui-view></div>
+    </div>
+    <div ng-switch-when="test">
+      <!-- Test -->
+      <div ui-view></div>
+    </div>
+    <div ng-switch-default>
+      <!-- Public site -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand font-x-large" ng-click="homeLinkClicked()">
+              <%= image_tag "logo.png", class: "logo img-responsive pointer-cursor" %>
+            </a>
+            <div class="display-inline-block float-right">
+              <div ng-show="Session.userId != null" class="visible-xs display-inline-block float-right text-right padding-md">
+                <div ng-click="reloadPage()" class="pointer-cursor">{{Session.user.ScreenName}}</div>
+                <div>{{Session.member.FacilityName}}</div>
+                <a ng-click="signOut()" class="padding-md rgba-gray" id="signOutRgba">Sign Out</a>
+              </div>
+              <div ng-show="Cart.getTotalCount() > 0" class="padding-md visible-xs display-inline-block float-right text-left">
+                <div>Cart: <strong>{{Cart.getTotalCount()}}</strong></div>
+                <a ui-sref="cart" class="padding-md rgba-gray" id="checkoutRgba">CHECKOUT</a>
+              </div>
+              <button ng-show="Session.userId == null" class="btn btn-raised bg-active-btn white visible-xs btn-sm pull-right" data-toggle="modal" data-target="#sign-dialog">Sign In
+                <div class="ripple-container"></div>
+              </button>
             </div>
-            <div ng-show="Cart.getTotalCount() > 0" class="padding-md visible-xs display-inline-block float-right text-left">
-              <div>Cart: <strong>{{Cart.getTotalCount()}}</strong></div>
-              <a ui-sref="cart" class="padding-md rgba-gray" id="checkoutRgba">CHECKOUT</a>
-            </div>
-            <button ng-show="Session.userId == null" class="btn btn-raised bg-active-btn white visible-xs btn-sm pull-right" data-toggle="modal" data-target="#sign-dialog">Sign In
-              <div class="ripple-container"></div>
-            </button>
           </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav padding-50-left">
+              <li class="hidden-sm hidden-xs width250 padding-md">
+                Need Help? Call 1-888-852-3888 or
+                <a href="mailto:support@mariposatraining.com">support@mariposatraining.com</a>
+              </li>
+              <li ng-show="Cart.getTotalCount() > 0" class="padding-md margin-md-left">
+                <div ng-mouseover="cartDialogVisible = true" ng-mouseleave="cartDialogVisible = false">Cart: <strong>{{Cart.getTotalCount()}}</strong></div>
+                <a ui-sref="cart" class="padding-md">CHECKOUT</a>
+              </li>
+            </ul>
+            <ul ng-show="Session.userId == null" class="nav navbar-nav navbar-right text-center">
+              <button class="btn btn-raised bg-active-btn white btn-lg" data-toggle="modal" data-target="#sign-dialog">Sign In
+                <div class="ripple-container"></div>
+              </button>
+            </ul>
+            <ul ng-show="Session.userId != null" class="nav navbar-nav navbar-right text-right">
+              <li>
+                <div ng-click="reloadPage()" class="pointer-cursor">{{Session.user.ScreenName}}</div>
+                <div>{{Session.member.FacilityName}}</div>
+                <a ng-click="signOut()" class="padding-md pointer-cursor">Sign Out</a>
+              </li>
+            </ul>
+          </div>
+          <!--/.nav-collapse -->
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav padding-50-left">
-            <li class="hidden-sm hidden-xs width250 padding-md">
-              Need Help? Call 1-888-852-3888 or
-              <a href="mailto:support@mariposatraining.com">support@mariposatraining.com</a>
-            </li>
-            <li ng-show="Cart.getTotalCount() > 0" class="padding-md margin-md-left">
-              <div ng-mouseover="cartDialogVisible = true" ng-mouseleave="cartDialogVisible = false">Cart: <strong>{{Cart.getTotalCount()}}</strong></div>
-              <a ui-sref="cart" class="padding-md">CHECKOUT</a>
-            </li>
-          </ul>
-          <ul ng-show="Session.userId == null" class="nav navbar-nav navbar-right text-center">
-            <button class="btn btn-raised bg-active-btn white btn-lg" data-toggle="modal" data-target="#sign-dialog">Sign In
-              <div class="ripple-container"></div>
-            </button>
-          </ul>
-          <ul ng-show="Session.userId != null" class="nav navbar-nav navbar-right text-right">
-            <li>
-              <div ng-click="reloadPage()" class="pointer-cursor">{{Session.user.ScreenName}}</div>
-              <div>{{Session.member.FacilityName}}</div>
-              <a ng-click="signOut()" class="padding-md pointer-cursor">Sign Out</a>
-            </li>  
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+      </nav>
 
-  <div class="container">
-    
-    <div class="navbar bg-darkblue">
-      <div class="container-fluid">
-        <ul class="nav navbar-nav nav-justified font-large">
-          <li ng-if="Session.userId == null" ng-class="{'active': $state.current.name == 'home'}"><a ui-sref="home">Home</a></li>
-          <li ng-if="Session.userId != null" ng-class="{'active': $state.current.name == 'invoices' || $state.current.name == 'personalInfo' || $state.current.name.includes('account')}"><a ui-sref="accountNew">My Account</a></li>
-          <li ng-if="Session.userId != null && Session.userRoles.includes(USER_ROLES.manager) && Session.member.FacilitySoid != NO_ORGANIZATION_SOID" ng-class="{'active': $state.current.name == 'students' || $state.current.name == 'courseAssignments'}"><a ui-sref="students">Manager</a></li>
-          <li ng-class="{'active': $state.current.name == 'classes' || $state.current.name == 'certifications' || $state.current.name == 'bundles'}"><a ui-sref="classes">Classes & Certifications</a></li>
-          <li ng-class="{'active': $state.current.name == 'longtermIndividual' || $state.current.name == 'longtermFacilities'}"><a ui-sref="longtermIndividual">Long Term Care</a></li>
-          <li ng-class="{'active': $state.current.name == 'homecareIndividual' || $state.current.name == 'homecareFacilities'}"><a ui-sref="homecareIndividual">Home Healthcare</a></li>
-          <li ng-class="{'active': $state.current.name == 'blog'}"><a href="http://blog.mariposatraining.com/">Blog</a></li>
-        </ul>
+      <div class="container">
+
+        <div class="navbar bg-darkblue">
+          <div class="container-fluid">
+            <ul class="nav navbar-nav nav-justified font-large">
+              <li ng-if="Session.userId == null" ng-class="{'active': $state.current.name == 'home'}"><a ui-sref="home">Home</a></li>
+              <li ng-if="Session.userId != null" ng-class="{'active': $state.current.name == 'invoices' || $state.current.name == 'personalInfo' || $state.current.name.includes('account')}"><a ui-sref="accountNew">My Account</a></li>
+              <li ng-if="Session.userId != null && Session.userRoles.includes(USER_ROLES.manager) && Session.member.FacilitySoid != NO_ORGANIZATION_SOID" ng-class="{'active': $state.current.name == 'students' || $state.current.name == 'courseAssignments'}"><a ui-sref="students">Manager</a></li>
+              <li ng-class="{'active': $state.current.name == 'classes' || $state.current.name == 'certifications' || $state.current.name == 'bundles'}"><a ui-sref="classes">Classes & Certifications</a></li>
+              <li ng-class="{'active': $state.current.name == 'longtermIndividual' || $state.current.name == 'longtermFacilities'}"><a ui-sref="longtermIndividual">Long Term Care</a></li>
+              <li ng-class="{'active': $state.current.name == 'homecareIndividual' || $state.current.name == 'homecareFacilities'}"><a ui-sref="homecareIndividual">Home Healthcare</a></li>
+              <li ng-class="{'active': $state.current.name == 'blog'}"><a href="http://blog.mariposatraining.com/">Blog</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div ng-show="cartDialogVisible" id="cartDialog" ng-mouseover="cartDialogVisible = true" ng-mouseleave="cartDialogVisible = false">
+          <div class="padding-lg" ng-include="'cart/cartDialog.html'"></div>
+        </div>
+
+        <div ui-view></div>
       </div>
-    </div>
-    
-    <div ng-show="cartDialogVisible" id="cartDialog" ng-mouseover="cartDialogVisible = true" ng-mouseleave="cartDialogVisible = false">
-      <div class="padding-lg" ng-include="'cart/cartDialog.html'"></div>
-    </div> 
-    
-    <div ui-view>
-    
-    </div>
-  </div>
-  
-  <footer class="footer">
-    <div class="container-fluid">
-      <div class="row text-center">
-        <div class="col-sm-1" style="height: 10px;"></div>
-        <div class="col-sm-2"><a ui-sref="about" class="white">About Us</a></div>
-        <div class="col-sm-2"><a ui-sref="policy" class="white">Privacy Policy</a></div>
-        <div class="col-sm-2"><a ui-sref="terms" class="white">Terms & Conditions</a></div>
-        <div class="col-sm-2"><a ui-sref="faq" class="white">FAQ</a></div>
-        <div class="col-sm-2"><a ui-sref="contact" class="white">Contact Us</a></div>
-        <div class="col-sm-1"></div>
-      </div>
-    </div>
-  </footer>
-  
-  <!-- Sign in / Sign up dialog -->
-  <div id="sign-dialog" class="modal fade in" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="row">
-          <div class="col-sm-5">
-            <div class="modal-body">
-              <div ng-include="'main/login.html'"></div>
+
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row text-center">
+            <div class="col-sm-1" style="height: 10px;"></div>
+            <div class="col-sm-2"><a ui-sref="about" class="white">About Us</a></div>
+            <div class="col-sm-2"><a ui-sref="policy" class="white">Privacy Policy</a></div>
+            <div class="col-sm-2"><a ui-sref="terms" class="white">Terms & Conditions</a></div>
+            <div class="col-sm-2"><a ui-sref="faq" class="white">FAQ</a></div>
+            <div class="col-sm-2"><a ui-sref="contact" class="white">Contact Us</a></div>
+            <div class="col-sm-1"></div>
+          </div>
+        </div>
+      </footer>
+
+      <!-- Sign in / Sign up dialog -->
+      <div id="sign-dialog" class="modal fade in" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="row">
+              <div class="col-sm-5">
+                <div class="modal-body">
+                  <div ng-include="'main/login.html'"></div>
+                </div>
+              </div>
+              <div class="col-sm-7">
+                <div class="modal-body">
+                  <div ng-include="'main/register.html'"></div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 59.6563px; top: 12px; transform: scale(10.875); background-color: rgb(0, 150, 136);"></div></div></button>
             </div>
           </div>
-          <div class="col-sm-7">
-            <div class="modal-body">
-              <div ng-include="'main/register.html'"></div>
-            </div>  
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 59.6563px; top: 12px; transform: scale(10.875); background-color: rgb(0, 150, 136);"></div></div></button>
         </div>
       </div>
+
     </div>
   </div>
-  
   <script>
     $.material.init();
-  
-    $(function(){
-      
-        $('[data-toggle=tooltip]').hover(function(){
-            // on mouseenter
-            $(this).tooltip('show');
-        }, function(){
-            // on mouseleave
-            $(this).tooltip('hide');
+
+    $(function() {
+
+      $('[data-toggle=tooltip]').hover(function() {
+        // on mouseenter
+        $(this).tooltip('show');
+      }, function() {
+        // on mouseleave
+        $(this).tooltip('hide');
+      });
+
+      var adaptBodyPadding = function() {
+        $("body").css("padding-bottom", $("footer").height() + 10);
+        $("body").css("padding-top", $(".navbar-fixed-top").height() + 20);
+      };
+
+      var setSameChildrenHeight = function() {
+        var $children = $('.row.same-children-height > div > *');
+        var maxHeight = 0;
+        $children.each(function() {
+          maxHeight = Math.max($(this).height(), maxHeight);
         });
-      
-        var adaptBodyPadding = function(){
-          $("body").css("padding-bottom", $("footer").height()+10);  
-          $("body").css("padding-top", $(".navbar-fixed-top").height() + 20); 
-        };
-        
-        var setSameChildrenHeight = function(){
-              var $children = $('.row.same-children-height > div > *');
-              var maxHeight = 0;
-              $children.each(function () {
-                  maxHeight = Math.max($(this).height(), maxHeight);
-              });
-              $children.height(maxHeight);
-          }
-        
-        var adjustWindowContent = function(){
-              if($("body").width() <= 1180){
-                  var events = $("#events").detach();
-                  var freeClassWell = $("#freeClassWell").detach();
-                  var subscriptionWell = $("#subscriptionWell").detach();
-                  $("#eventsContainerSmaller").append(events);
-                  $("#subscribtionContainerSmaller").append(freeClassWell);
-                  $("#subscribtionContainerSmaller").append(subscriptionWell);
-              }else{
-                  var events = $("#events").detach();
-                  var freeClassWell = $("#freeClassWell").detach();
-                  var subscriptionWell = $("#subscriptionWell").detach();
-                  $("#eventsContainerLg").append(events);
-                  $("#subscribtionContainerLg").append(freeClassWell);
-                  $("#subscribtionContainerLg").append(subscriptionWell);
-              }
+        $children.height(maxHeight);
+      }
+
+      var adjustWindowContent = function() {
+        if ($("body").width() <= 1180) {
+          var events = $("#events").detach();
+          var freeClassWell = $("#freeClassWell").detach();
+          var subscriptionWell = $("#subscriptionWell").detach();
+          $("#eventsContainerSmaller").append(events);
+          $("#subscribtionContainerSmaller").append(freeClassWell);
+          $("#subscribtionContainerSmaller").append(subscriptionWell);
         }
-        
-        var adaptWindow = function(){
-          adaptBodyPadding();
-          adjustWindowContent();
-          setSameChildrenHeight();
+        else {
+          var events = $("#events").detach();
+          var freeClassWell = $("#freeClassWell").detach();
+          var subscriptionWell = $("#subscriptionWell").detach();
+          $("#eventsContainerLg").append(events);
+          $("#subscribtionContainerLg").append(freeClassWell);
+          $("#subscribtionContainerLg").append(subscriptionWell);
         }
-          
-        adaptWindow();
-        $(window).resize(adaptWindow);
-        
-        var checkExistEventbrite = setInterval(function() {
-           if ($('.Toggle.Collapsed').length) {
-              $(".Toggle.Collapsed").click(function(){
-                $(this).find("i").toggleClass("down");
-                $(this).parent().parent().find(".Description.TogglePanel").toggleClass("visible");
-              });
-              clearInterval(checkExistEventbrite);
-           }
-        }, 100);
-        
+      }
+
+      var adaptWindow = function() {
+        adaptBodyPadding();
+        adjustWindowContent();
+        setSameChildrenHeight();
+      }
+
+      adaptWindow();
+      $(window).resize(adaptWindow);
+
+      var checkExistEventbrite = setInterval(function() {
+        if ($('.Toggle.Collapsed').length) {
+          $(".Toggle.Collapsed").click(function() {
+            $(this).find("i").toggleClass("down");
+            $(this).parent().parent().find(".Description.TogglePanel").toggleClass("visible");
+          });
+          clearInterval(checkExistEventbrite);
+        }
+      }, 100);
+
     });
   </script>
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   <script type="text/javascript">
     Stripe.setPublishableKey('pk_test_T9utQvGrhZquuF0RZNyEzz67');
   </script>
-  
+
 </body>
 
 </html>
