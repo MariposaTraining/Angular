@@ -261,7 +261,7 @@ angular.module('mariposa-training')
       resolve:{
         "check":function($location, $stateParams, Session, Account, USER_ROLES){   
             if(Session.userId != null){
-              if(!$stateParams['lectureSoid'] || !Account.isWatch($stateParams['lectureSoid']))
+              if(!$stateParams['lectureSoid'])
                   $location.path("/MyAccount/New");
             }else
               $location.path("/");
@@ -275,7 +275,7 @@ angular.module('mariposa-training')
       resolve:{
         "check":function($location, $stateParams, Session, Account, USER_ROLES){   
             if(Session.userId != null){
-              if(!$stateParams['lectureSoid'] || !Account.isTest($stateParams['lectureSoid']))
+              if(!$stateParams['lectureSoid'])
                   $location.path("/MyAccount/New");
             }else
               $location.path("/");
