@@ -27,27 +27,44 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.js"></script>
 
-
   <script>
     var PLAYER_URL = "<%= @player %>";
     var SITE_URL = "<%= @site %>";
     var API_URL = "<%= @api %>";
   </script>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+
+  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
 </head>
 
 <body ng-controller="ApplicationCtrl">
-  <div ng-switch="$state.current.name">
-    <div ng-switch-when="player">
+  
+    <div ng-if="$state.current.name == 'player' || $state.current.name=='playerSucceed'">
       <!-- Player -->
       <div ui-view></div>
     </div>
-    <div ng-switch-when="test">
+    <div ng-if="$state.current.name == 'test' || $state.current.name=='testSucceed'">
       <!-- Test -->
       <div ui-view></div>
     </div>
-    <div ng-switch-default>
+    <div ng-if="$state.current.name == 'homeSucceed' || $state.current.name=='testResultSucceed'" id="succeed">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header width100-p">
+            <a class="navbar-brand font-x-large">
+              <%= image_tag "logoSucceed.png", class: "logo img-responsive pointer-cursor" %>
+            </a>
+            <div class="display-inline-block pull-right padding-lg">
+                Need Help? Call 503-766-6063 ext. 063
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div ui-view></div>
+      </div>
+    </div>
+    <div ng-if="!$state.current.name.includes('Succeed') && $state.current.name != 'player' && $state.current.name != 'test'">
       <!-- Public site -->
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -159,7 +176,7 @@
       </div>
 
     </div>
-  </div>
+  
   <script>
     $.material.init();
 
@@ -174,7 +191,7 @@
       });
       
       var checkExistEventbrite = setInterval(function() {
-        if ($('.Toggle.Collapsed').length) {
+        if($('.Toggle.Collapsed').length) {
           $(".Toggle.Collapsed").click(function() {
             $(this).find("i").toggleClass("down");
             $(this).parent().parent().find(".Description.TogglePanel").toggleClass("visible");

@@ -281,8 +281,36 @@ angular.module('mariposa-training')
               $location.path("/");
         }
       }
+    })
+    .state('homeSucceed', {
+      url: '/Succeed',
+      templateUrl: '/assets/templates/succeed/home.html',
+      controller: 'HomeCtrl'
+    })
+    .state('testSucceed', {
+      url: '/Succeed/:lectureName/Test/:lectureSoid',
+      templateUrl: 'assets/templates/main/test.html',
+      controller: 'TestCtrl'
+    })
+    .state('testResultSucceed', {
+      url: '/Succeed/Class/TestResults/:lectureSoid',
+      templateUrl: 'assets/templates/succeed/diploma.html',
+      controller: 'DiplomaCtrl'
+    })
+    .state('playerSucceed', {
+      url: '/Succeed/:lectureName/Video/:lectureSoid',
+      templateUrl: 'assets/templates/main/player.html',
+      controller: 'PlayerCtrl'
     });
     
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise(function($injector, $location){
+      var state = $injector.get('$state');
+      if($location.path().includes("Succeed") || $location.path().includes("succeed"))  
+        state.go("homeSucceed");
+      else
+        state.go("home");
+        
+      return $location.path();
+    });
     
 }]);

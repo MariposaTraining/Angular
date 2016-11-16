@@ -39,13 +39,16 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     };
     
     this.loadLectureBySoid = function(soid){
-        if(self.valid == false){
-            return self.loadMemberObject().then(function(response){
+        if(!$state.current.name.includes("Succeed")){
+            if(self.valid == false){
+                return self.loadMemberObject().then(function(response){
+                    return loadLecture(soid);
+                });
+            }else
                 return loadLecture(soid);
-            });
-        }else
-            return loadLecture(soid);
-        
+        }else{
+            return $http.post('/Api/GetLecture', {lectureSoid: soid}); 
+        }        
     };
     
     var loadLecture = function(soid){
@@ -434,19 +437,27 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     this.test = function(soid){
         if(!soid) return;
         
-        $localStorage.lectureSoidToReload = soid;
-        var tmp = self.items.incomplete.filter(function(el) { return el.Soid == soid;});
-        var lectureName = "Lecture";
-        
-        if(tmp.length == 1) lectureName = tmp[0].CourseName.replaceAll(" ", "-");   
-        
-        $state.go("test", {lectureName: lectureName, lectureSoid: soid});
+        if($state.current.name.includes("Succeed")){
+            self.loadLectureBySoid(soid).then(function success(result){
+                $state.go("testSucceed", {lectureName: result.data.data.CourseName, lectureSoid: soid});
+            }, function error(result){
+                console.log(result);
+                $state.go("homeSucceed");
+            });
+        }else{
+            $localStorage.lectureSoidToReload = soid;
+            var tmp = self.items.incomplete.filter(function(el) { return el.Soid == soid;});
+            var lectureName = "Lecture";
+            
+            if(tmp.length == 1) lectureName = tmp[0].CourseName.replaceAll(" ", "-");   
+            
+            $state.go("test", {lectureName: lectureName, lectureSoid: soid});
+        }
     };
     
     this.print = function(soid){
         
         if(!soid) return;
-        
         $state.go("accountDiploma", {lectureSoid: soid});
     };
     

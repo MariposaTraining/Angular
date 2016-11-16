@@ -210,7 +210,8 @@ angular.module('mariposa-training').directive 'player',
       $rootScope.$on '$stateChangeSuccess', (event) ->
         if $state.current.name != scope.state
           scope.stop()
-          Account.reloadMemberObject()
+          if !$state.current.name.includes("Suceed")
+            Account.reloadMemberObject()
 
     if scope.type == 'lecture'
       lectureIdWatcher = scope.$watch('lectureId', ->

@@ -20,8 +20,9 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
         
         if($state.params.lectureSoid){
             lectureSoid = $state.params.lectureSoid;
-            $localStorage.lectureSoidToReload = lectureSoid;
-        }else if($localStorage.lectureSoidToReload){
+            if(!$state.current.name.includes("Succeed"))
+                $localStorage.lectureSoidToReload = lectureSoid;
+        }else if($localStorage.lectureSoidToReload && $state.current.name.includes("Succeed")){
             $scope.showTestResults = true;
             lectureSoid = $localStorage.lectureSoidToReload;
         }
@@ -31,6 +32,12 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
             $scope.testPassed = result.data.data.Tests.filter(function(el){
                 return el.Pass;
             }).length > 0;
+            if($state.current.name.includes("succeed") || $state.current.name.includes("Succeed"))
+                $scope.lecture.Tests = $scope.lecture.Tests.map(function(el){
+                    var v = el.AdmisteredOn.substr(6, 13);
+                    el.AdmisteredOn = new Date(Number(v));
+                    return el;
+                });
             $scope.showRetakeBtn = !$scope.testPassed;
             console.log($scope.lecture);
         }, function error(result){
@@ -51,7 +58,10 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
             $scope.errorMessage = null;
             $scope.enteredName = null;
             $scope.showNameForm = false;
-            $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Documents/Continuing Education Unit/certificates/" + response.data.data + ".pdf";
+            if($state.current.name.includes("Succeed"))
+                $scope.link = "http://succeed.mariposatraining.com/documents/Continuing Education Unit/certificates/" + response.data.data + ".pdf";
+            else
+                $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Documents/Continuing Education Unit/certificates/" + response.data.data + ".pdf";
         }, function error(response){
             $scope.errorMessage = response.data.data;
             console.log(response);

@@ -4,10 +4,12 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
   .controller('ApplicationCtrl', ['$scope', '$state', '$sessionStorage', '$localStorage', '$rootScope', '$window', 'AuthService', 'Cart', 'Session', 'Catalog', 'Transaction', 'Account', 'Management', 'Layout', 'USER_ROLES', 'NO_ORGANIZATION_SOID',
   function($scope, $state, $sessionStorage, $localStorage, $rootScope, $window, AuthService, Cart, Session, Catalog, Transaction, Account, Management, Layout, USER_ROLES, NO_ORGANIZATION_SOID){
     
+    $rootScope.$state = $state;
+      
     $rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams){ 
         $sessionStorage.lastState = toState.name;
-        if(toState.name != "player" && toState.name != "test") document.title = "Mariposa Training";
+        if(toState.name != "player" && toState.name != "playerSucceed" && toState.name != "test" && toState.name != "testSucceed") document.title = "Mariposa Training";
     });
    
     $scope.init = function(){

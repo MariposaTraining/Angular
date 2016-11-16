@@ -1,0 +1,120 @@
+<div class="succeed row margin-md-bottom">
+  <div class="col-lg-9 margin-md-bottom">
+    <div id="carousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators hidden-xs">
+        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel" data-slide-to="1"></li>
+        <li data-target="#carousel" data-slide-to="2"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <%= image_tag "carousel1succeed.jpg", class: "width100-p" %>
+          <div class="bg-black white padding-md font-17 row height100"></div>
+          </div>
+
+        <div class="item">
+          <%= image_tag "carousel2succeed.jpg", class: "width100-p" %>
+          <div class="bg-black white padding-md font-17 row height100"></div>
+        </div>
+
+        <div class="item">
+          <%= image_tag "carousel3succeed.jpg", class: "width100-p" %>
+          <div class="bg-black white padding-md font-17 row height100"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 margin-md-bottom" id="subscribtionContainerLg">
+    <div class="well" id="subscriptionWell">
+      <h4 class="margin-none-bottom">Get Our Newsletter!</h4>
+      <hr>
+      <form name="newsletterFrm" ng-submit="subscribeForNewsletter()">
+      <div class="row">
+        <div class="is-empty col-sm-6 form-group">
+          <input type="text" class="form-control" id="subscribeFirstNameTxt" ng-model="newsletterSubscriber.firstName" placeholder="First Name" required>
+          <span class="material-input"></span>
+        </div>
+        <div class="is-empty col-sm-6 form-group">
+          <input type="text" class="form-control" id="subscribeLastNameTxt" ng-model="newsletterSubscriber.lastName" placeholder="Last Name" required>
+          <span class="material-input"></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="is-empty col-sm-12 form-group">
+          <input type="email" class="form-control" id="subscribeEmailTxt" ng-model="newsletterSubscriber.emailAddress" placeholder="Email Address" required>
+          <span class="material-input"></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <button class="btn btn-raised bg-active-btn white btn-block " id="submitInfoBtn" type="submit" ng-disabled="!newsletterFrm.$valid">
+            Submit Information
+            <div class="ripple-container"></div>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-2">
+          <i class="material-icons green" ng-show="subscriptionMessage.ok">check_circle</i>
+          <i class="material-icons darkred" ng-show="!subscriptionMessage.ok && subscriptionMessage">cancel</i>
+        </div>
+        <div class="col-xs-10">
+          {{subscriptionMessage.text}}
+        </div>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="row margin-md-bottom equal-height-children">
+  <div class="col-md-4">
+    <div class="well">
+      <div class="row">
+        <div class="col-xs-9">
+          <h4>Skilled Nursing</h4>
+        </div>
+        <div class="col-xs-3">
+          <%= image_tag "LogoLongTermCare.jpg", class: "img-responsive display-inline-block" %>
+        </div>
+      </div>
+      <hr>
+      <p class="font-16">We have an extensive library of classes for Skilled Nursing, Assisted Living and Residential Care professionals with Continuing Education (CE) credits/units for Administrators, Nurses, Certified Nursing Assistants and Activity Directors.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="well">
+      <div class="row">
+        <div class="col-xs-9">
+          <h4>Home / Health Care</h4>
+        </div>
+        <div class="col-xs-3">
+          <%= image_tag "LogoHomeHealthcare.jpg", class: "img-responsive display-inline-block" %>
+        </div>
+      </div>
+      <hr>
+      <p class="font-16">Our curriculum is designed to meet the training/education needs of care providers working in the growing fields of Home Care and Home Health Care. Classes are taught by experts in gerontology, psychology, social work and senior care to help you
+        help those you care for.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="well">
+      <div class="row">
+        <div class="col-xs-9">
+          <h4>About Us</h4>
+        </div>
+        <div class="col-xs-3">
+          <%= image_tag "LogoAboutUs.png", class: "img-responsive display-inline-block" %>
+        </div>
+      </div>
+      <hr>
+      <p class="font-16">Co-founded by renowned gerontologist Dr. Keith Savell, Mariposa Training is committed to the education of the geriatric care workforce and improvements in the quality of life for those under our care.</p>
+    </div>
+  </div>
+</div>

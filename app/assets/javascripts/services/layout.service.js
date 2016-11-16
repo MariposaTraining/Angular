@@ -80,7 +80,9 @@ angular.module('mariposa-training').service('Layout', ['$rootScope', '$state', '
   function setupLayout() {
     unbindResizeListeners();
     switch($state.current.name){
+      case "playerSucceed":
       case "player": setupPlayerLayout(); break;
+      case "testSucceed":
       case "test": setupTestLayout(); break;
       default: setupDefaultLayout(); break;
     }

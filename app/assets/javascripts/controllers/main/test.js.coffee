@@ -27,7 +27,15 @@ angular.module('mariposa-training').controller 'TestCtrl',
 
       $scope.completeQuiz = ->
         $scope.lecture.setGradeTest().then ->
-          $state.go("testResult", {lectureSoid: $scope.lecture.Soid});
+          if $state.current.name.includes("Succeed")
+            Lecture.find($scope.lecture.Soid).then (lecture) ->
+              if(lecture.Status == "Completed")
+                lecture.sendTestPassed()
+              else
+                lecture.sendTestFailed()
+            $state.go("testResultSucceed", {lectureSoid: $scope.lecture.Soid});
+          else
+            $state.go("testResult", {lectureSoid: $scope.lecture.Soid});
 
       $scope.allowCompletion = ->
         for question in $scope.test.Questions
