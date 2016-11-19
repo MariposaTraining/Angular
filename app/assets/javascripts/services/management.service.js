@@ -7,6 +7,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     this.managerCourses = [];
     this.managerCoursesAttemptedLoad = false;
     this.facilitiesLoaded = false;
+    this.facilityReloaded = false;
     
     var self = this;
     
@@ -139,15 +140,18 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
                 return el;
             }).sort((p1, p2) => p1.FullName.localeCompare(p2.FullName));
             self.facilities[i] = response.data;
+            self.facilityReloaded = true;
         }
     };
     
     var addFacility = function(facility){
-        facility.Students.sort((p1, p2) => p1.FullName.localeCompare(p2.FullName));
-        facility.Dropped = facility.Dropped.map(function(el){
-            el.CreatedOn = getDateStringFromISOString(el.CreatedOn);
-            return el;
-        }).sort((p1, p2) => p1.FullName.localeCompare(p2.FullName));
+        if(facility.Students)
+            facility.Students.sort((p1, p2) => p1.FullName.localeCompare(p2.FullName));
+        if(facility.Dropped)
+            facility.Dropped = facility.Dropped.map(function(el){
+                el.CreatedOn = getDateStringFromISOString(el.CreatedOn);
+                return el;
+            }).sort((p1, p2) => p1.FullName.localeCompare(p2.FullName));
         self.facilities.push(facility);
     };
     

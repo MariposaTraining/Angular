@@ -12,15 +12,27 @@ angular.module('mariposa-training').controller('StudentManagementCtrl', ['$scope
         }
     };
     
+    $scope.$watch('Management.facilityReloaded', function(){
+        if($scope.Management.facilityReloaded)
+            extractDisplayedFacilities();
+        $scope.Management.facilityReloaded = false;
+    }, true);
+    
     var extractDisplayedFacilities = function(){
-        $scope.displayedFacilities = $scope.Management.facilities.slice(0, $scope.numPerPage);
-        $scope.pagesNumber = Math.ceil($scope.Management.facilities.length / $scope.numPerPage);
-        $scope.currentPage = 1;
-        
-        resetActiveStudents();
-        resetDroppedStudents();
+        debugger
+        if($scope.Management.facilities && $scope.Management.facilities.length > 0){
+            $scope.displayedFacilities = $scope.Management.facilities.slice(0, $scope.numPerPage);
+            $scope.pagesNumber = Math.ceil($scope.Management.facilities.length / $scope.numPerPage);
+            $scope.currentPage = 1;
             
-        if($scope.Management.facilities.length < 20) $scope.numsPerPage.pop();
+            resetActiveStudents();
+            resetDroppedStudents();
+                
+            if($scope.Management.facilities.length < 20) {
+                if($scope.numsPerPage && $scope.numsPerPage > 0) $scope.numsPerPage.pop();
+                $scope.numPerPage = $scope.displayedFacilities ? $scope.displayedFacilities.length : 1;
+            }
+        }
     };
     
     var resetActiveStudents = function(){
