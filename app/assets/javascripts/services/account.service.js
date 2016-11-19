@@ -79,7 +79,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
             
             lecture.Tests.forEach(function(el){
                 var v = el.AdmisteredOn.substr(6, 13);
-                el.AdmisteredOn = new Date(Number(v*1000)); 
+                el.AdmisteredOn = new Date(Number(v)); 
             });
             
             addToItemsArray(lecture);
