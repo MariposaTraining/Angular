@@ -16,12 +16,12 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'Base
       @legacyApi('setWatch')
 
     setProgress: (slide, time) ->
-      @legacyApi('setProgress', {latestSlideSeen: slide, timeThrough: time}).then (response) =>
+      @legacyApi('setProgress', {lectureSoid: @Soid, latestSlideSeen: slide, timeThrough: time}).then (response) =>
         if $state.current.name.includes("Succeed")  
           @succeedApi('SlideProgress', {lectureSoid: @Soid, slideNumber: slide})
 
     setCompleteViewing: ->
-      @legacyApi('setCompleteViewing').then (response) ->
+      @legacyApi('setCompleteViewing', {lectureSoid: @Soid}).then (response) ->
         if $state.current.name.includes("Succeed")  
           @succeedApi('CourseCompleted', {lectureSoid: @Soid})
         else
@@ -32,10 +32,10 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'Base
         response.data.data
 
     setTestAnswer: (questionSoid, optionSoid) ->
-      @legacyApi('setTestAnswer', {questionSoid: questionSoid, optionSoid: optionSoid})
+      @legacyApi('setTestAnswer', {lectureSoid: @Soid, questionSoid: questionSoid, optionSoid: optionSoid})
 
     setGradeTest: ->
-      @legacyApi('setGradeTest')
+      @legacyApi('setGradeTest', {lectureSoid: @Soid})
       
     sendTestPassed: (soid) ->
       @succeedApi('TestPassed', {lectureSoid: soid})
