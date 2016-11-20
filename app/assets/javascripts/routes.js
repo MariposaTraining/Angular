@@ -249,7 +249,7 @@ angular.module('mariposa-training')
         "check":function($location, Session, USER_ROLES, NO_ORGANIZATION_SOID){   
             if(Session.userId == null || !Session.userRoles)
               $location.path("/");
-            else if(Session.userRoles.includes(USER_ROLES.manager) || Session.member.FacilitySoid == NO_ORGANIZATION_SOID)
+            else if(!Session.userRoles.includes(USER_ROLES.manager) || Session.member.FacilitySoid == NO_ORGANIZATION_SOID)
               $location.path("/MyAccount/New");
         }
       }
