@@ -6,7 +6,7 @@
             <button class="btn-empty">
                 <i class="material-icons vertical-align-middle green rotate" ng-class="{down : showDetails[c.Soid]}">play_arrow</i>
             </button>
-            <strong><span class="vertical-align-middle">{{c.Name}}</span></strong> <span class="nowrap">[{{c.SortedStudents.completed.length}} / {{c.SortedStudents.incomplete.length}} / {{c.SortedStudents.archived.length}}]</span>
+            <strong><span class="vertical-align-middle">{{c.Name}}</span></strong> <span class="nowrap">[{{c.SortedStudents.completed.length}} / {{c.SortedStudents.incomplete.length}} / {{c.SortedStudents.archived.length}} / {{c.SortedStudents.inQueue.length}}]</span>
             <i ng-show="scheduled == c.Soid" class="material-icons green">check_circle</i>
         </h4>
         <div class="row details" ng-show="showDetails[c.Soid]">
@@ -50,11 +50,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- Scheduled -->
+                <!-- New -->
                 <div class="details padding-md-left">
-                    <div class="col-sm-12 font-larger padding-md" ng-if="c.SortedStudents.scheduled.length > 0">
-                        <strong>Scheduled</strong> [{{c.SortedStudents.scheduled.length}}]
-                        <div class="padding-md" ng-repeat="s in c.SortedStudents.scheduled">
+                    <div class="col-sm-12 font-larger padding-md" ng-if="c.SortedStudents.inQueue.length > 0">
+                        <strong>New</strong> [{{c.SortedStudents.inQueue.length}}]
+                        <div class="padding-md" ng-repeat="s in c.SortedStudents.inQueue">
                             <div class="col-sm-8 margin-md-top-bottom">
                                 {{s.NameFull}}
                             </div>
@@ -64,11 +64,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- New -->
+                <!-- Scheduled -->
                 <div class="details padding-md-left">
-                    <div class="col-sm-12 font-larger padding-md" ng-if="c.SortedStudents.inQueue.length > 0">
-                        <strong>New</strong> [{{c.SortedStudents.inQueue.length}}]
-                        <div class="padding-md" ng-repeat="s in c.SortedStudents.inQueue">
+                    <div class="col-sm-12 font-larger padding-md" ng-if="c.SortedStudents.scheduled.length > 0">
+                        <strong>Scheduled</strong> [{{c.SortedStudents.scheduled.length}}]
+                        <div class="padding-md" ng-repeat="s in c.SortedStudents.scheduled">
                             <div class="col-sm-8 margin-md-top-bottom">
                                 {{s.NameFull}}
                             </div>

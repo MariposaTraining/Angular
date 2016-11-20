@@ -1,8 +1,8 @@
 /* global angular */
 
 angular.module("mariposa-training")
-    .directive("studentsList", ['$window', '$timeout', 'AuthService', 'Management', 'PersonalInfo',
-    function($window, $timeout, AuthService, Management, PersonalInfo){
+    .directive("studentsList", ['$window', '$timeout', 'AuthService', 'Management', 'PersonalInfo', 'Session', 'Account',
+    function($window, $timeout, AuthService, Management, PersonalInfo, Session, Account){
         
         function link(scope, element, attrs){
             scope.updatePage = function(i){
@@ -86,6 +86,9 @@ angular.module("mariposa-training")
                             scope.Management.facilities[parentIndex].Students[index].FullName = scope.tmpMember[parentIndex][index].NameFirst + " " + scope.tmpMember[parentIndex][index].NameLast;
                         }
                         
+                        if(scope.memberSoid == Session.userId)
+                            Account.reloadMemberObject();
+                        
                         hideOnTimeout();
                     }
                 }, function error(response){
@@ -155,6 +158,9 @@ angular.module("mariposa-training")
                         
                         loadMember(parentIndex, index, scope.tmpMember[parentIndex][index].Soid);
                     }
+                    
+                    if(scope.memberSoid == Session.userId)
+                        Account.reloadMemberObject();
                     
                     hideOnTimeout();
                     scope.Management.managerCoursesAttemptedLoad = false;

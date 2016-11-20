@@ -1,5 +1,5 @@
 angular.module('mariposa-training').controller 'TestCtrl',
-['$scope', '$state', '$stateParams', 'Lecture', 'Layout', ($scope, $state, $stateParams, Lecture, Layout) ->
+['$scope', '$state', '$stateParams', 'Lecture', 'Layout', 'Account', ($scope, $state, $stateParams, Lecture, Layout, Account) ->
   Lecture.find($stateParams['lectureSoid'])
     .then (lecture) ->
       console.log lecture
@@ -35,6 +35,7 @@ angular.module('mariposa-training').controller 'TestCtrl',
                 lecture.sendTestFailed()
             $state.go("testResultSucceed", {lectureSoid: $scope.lecture.Soid});
           else
+            Account.reloadMemberObject()
             $state.go("testResult", {lectureSoid: $scope.lecture.Soid});
 
       $scope.allowCompletion = ->

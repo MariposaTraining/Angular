@@ -1,16 +1,13 @@
 # global angular
 # Create angular service from this model
-angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'BaseModelClass', 'Course', ($http, $state, BaseModelClass, Course) ->
+angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'BaseModelClass', 'Course', 'Account', ($http, $state, BaseModelClass, Course, Account) ->
   class Lecture extends BaseModelClass
     @find: (id) ->
       $http.post('/Api/GetLecture', {lectureSoid: id}).then (response) ->
         new Lecture response.data.data
   
     afterInitialize: ->
-      @savedProgress = 0
-      for instance in @Instances
-        if instance.TimeThrough > @savedProgress
-          @savedProgress = instance.TimeThrough
+      @savedProgress = if @Viewed then 1 else 0
 
     getCourse: ->
       Course.find @CourseSoid
@@ -27,6 +24,8 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'Base
       @legacyApi('setCompleteViewing').then (response) ->
         if $state.current.name.includes("Succeed")  
           @succeedApi('CourseCompleted', {lectureSoid: @Soid})
+        else
+          Account.reloadMemberObject()
 
     getTest: ->
       @legacyApi('getTest', {lectureSoid: @Soid}).then (response) ->
