@@ -19,7 +19,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     };
     
     this.getManagerCourses = function(){
-        if(Session.userRoles.includes(USER_ROLES.manager) && Session.userId != null){
+        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager) && Session.userId != null){
             
             if(self.managerCoursesAttemptedLoad)
                 return this.managerCourses;
@@ -76,7 +76,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     };
     
     this.getFacilities = function(){
-        if(Session.userRoles.includes(USER_ROLES.manager) && Session.userId != null)
+        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager) && Session.userId != null)
             return $http.post("/Api/GetManagerFacilities", {memberSoid: Session.userId});
         else
             return null;
@@ -97,7 +97,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     
     this.getCompleteFacilities = function(){
         
-        if(Session.userRoles.includes(USER_ROLES.manager)){
+        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager)){
             if(!self.facilitiesLoaded){
                 return self.getFacilities().then(function sucess(response){
                     if(response.data.ok){
@@ -156,7 +156,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     };
     
     this.getFacility = function(facilitySoid){
-        if(Session.userRoles.includes(USER_ROLES.manager) && Session.userId != null){
+        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager) && Session.userId != null){
             return $http.post("/Api/GetManagerFacility", {memberSoid: Session.userId, facilitySOID: facilitySoid});
         }else   
             return null;
