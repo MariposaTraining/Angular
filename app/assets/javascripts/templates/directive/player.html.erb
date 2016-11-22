@@ -58,12 +58,20 @@
       </div>
 
     </div>
-
+    
     <div id="info-box" class="padded full-height column">
       {{course.instructorName}}<br>
       <a id="lnkHandout" href="{{course.handoutUrl()}}" target="_blank">Get Handout</a>
     </div>
-
+    
+    <div ng-if="lecture.TestPassed" class="padded full-height column">
+      <br>
+      <a ng-click="getDiploma()" class="pointer-cursor">Get Diploma</a>
+    </div>
+    <div ng-if="!lecture.TestPassed && lecture.Viewed" class="padded full-height column">
+      <br>
+      <a class="pointer-cursor" ng-click="takeTest()">Take Test</a>
+    </div>
   </div>
 
   <div class="dialog" ng-show="showCEUWarning">

@@ -182,6 +182,21 @@ angular.module('mariposa-training').directive 'player',
       scope.currentVideoURL = ->
         $sce.trustAsResourceUrl(
           "http://www.youtube.com/embed/" + scope.currentSlide.url + "?autoplay=1");
+          
+      scope.getDiploma = ->
+        if scope.lecture.TestPassed
+          if $state.current.name.includes("Succeed")
+            $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid});
+          else
+            $state.go("accountDiploma", {lectureSoid: scope.lecture.Soid});
+        else
+          return
+        
+      scope.takeTest = ->
+        if scope.lecture.Viewed
+          Account.test(scope.lecture.Soid)
+        else
+          return
 
       # Helpers
 
