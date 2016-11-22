@@ -192,7 +192,6 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     
     this.scheduleCourseForMember = function(memberSoid, courseSoid, date){
         return $http.post("/Api/SetManagerStudentCourseAssign", {memberSoid: memberSoid, courseSoid: courseSoid, scheduledOnStr: date}).success(function(response){
-            console.log(response);
             return response;
         });  
     };

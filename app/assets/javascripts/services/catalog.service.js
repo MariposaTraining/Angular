@@ -71,7 +71,6 @@ angular.module('mariposa-training').service('Catalog', ['$http', 'Session', 'ITE
         return $http
                 .post('/Api/getCourse', {courseSoid: soid})
                 .then(function(result){
-                    console.log(result.data);
                     if(result.data.ok == true)
                         result.data = result.data.data;
                     var tmp = result.data.SqlId;

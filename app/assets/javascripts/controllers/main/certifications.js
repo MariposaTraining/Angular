@@ -15,15 +15,12 @@ angular.module('mariposa-training')
             $scope.certifications = res;
         });
         
-    console.log($scope.certifications);
-        
     $scope.learnMore = function(c){
         $state.go('classDescription', {Soid:c.Soid});
     };
     
     $scope.buy = function(c){
         Cart.addItem(ITEM_TYPES.certification, c);
-        console.log(Cart.getTotalPrice());
     };
     
     $scope.watch = function(c){

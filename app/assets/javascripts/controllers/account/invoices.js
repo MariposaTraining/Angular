@@ -9,7 +9,6 @@ angular.module('mariposa-training').controller('InvoicesCtrl', ['$scope', 'Invoi
         for(var i = 0; i < response.data.data.length; i++)
             Invoice.getInvoice(response.data.data[i].Soid).then(
                 function success(response){
-                    console.log(response);
                     var v = response.data.data.InvoicedOn.substr(6, 13);
                     response.data.data.InvoicedOn = new Date(Number(v));
                     response.data.data.CardNumber = response.data.data.Payments[0].Card.Name.substr(response.data.data.Payments[0].Card.Name.lastIndexOf("last4")+9, 4);

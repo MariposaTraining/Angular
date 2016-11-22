@@ -19,7 +19,6 @@ angular.module('mariposa-training').controller('StudentManagementCtrl', ['$scope
     }, true);
     
     var extractDisplayedFacilities = function(){
-        debugger
         if($scope.Management.facilities && $scope.Management.facilities.length > 0){
             $scope.displayedFacilities = $scope.Management.facilities.slice(0, $scope.numPerPage);
             $scope.pagesNumber = Math.ceil($scope.Management.facilities.length / $scope.numPerPage);

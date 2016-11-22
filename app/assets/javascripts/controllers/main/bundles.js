@@ -16,11 +16,10 @@ angular.module('mariposa-training')
    
     $scope.learnMore = function(c){
         $state.go('classDescription', {Soid:c.Soid});
-    }
+    };
     
     $scope.buy = function(b){
         Cart.addItem(ITEM_TYPES.bundle, b);
-        console.log(Cart.getTotalPrice());
-    }
+    };
    
 }]);

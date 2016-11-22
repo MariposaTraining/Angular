@@ -74,8 +74,6 @@ angular.module('mariposa-training')
       $scope.Session = Session;
       $scope.Transaction = Transaction;
       
-      console.log($scope.Cart.items);
-      
       $scope.postpayment = false;
   
       var d = new Date();

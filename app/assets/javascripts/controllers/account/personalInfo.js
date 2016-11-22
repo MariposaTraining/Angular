@@ -105,8 +105,7 @@ angular.module('mariposa-training').controller('PersonalInfoCtrl',
   };
   
   var updateModel = function(response, fieldName){
-    debugger
-    
+
     var fn = fieldName;
     var resp = response;
     

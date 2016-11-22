@@ -52,13 +52,12 @@ angular.module('mariposa-training')
     
     $scope.buy = function(){
         Cart.addItem(ITEM_TYPES.course, $scope.course);
-        console.log(Cart.getTotalPrice());
         $state.go('classes');
-    }
+    };
     
     $scope.learnMore = function(s){
        $state.go('classDescription', {Soid:s.Soid});
-    }
+    };
     
     var contains = function(arr, el){
         for(var i = 0; i < arr.length; i++)

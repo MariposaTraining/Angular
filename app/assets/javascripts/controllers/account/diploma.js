@@ -39,7 +39,6 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
                     return el;
                 });
             $scope.showRetakeBtn = !$scope.testPassed;
-            console.log($scope.lecture);
         }, function error(result){
             console.log(result);
         });

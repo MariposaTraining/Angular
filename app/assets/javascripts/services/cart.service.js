@@ -62,8 +62,6 @@ angular.module('mariposa-training').service('Cart', ['$http', '$q', 'Session', '
                         promises.push($http.post(url, data));
                     }
                     
-                    console.log(promises);
-                    
                     $q.all(promises).then(function(){
                         $sessionStorage.cartItems = null;
                         $http.post("/Api/getCart", {memberSoid: Session.userId}).then(fillCart, callbackError);    
@@ -213,8 +211,6 @@ angular.module('mariposa-training').service('Cart', ['$http', '$q', 'Session', '
         }
         
         var fillCart = function(response) {
-            
-            console.log(response);
             
             if(response.data.hasOwnProperty('data'))
                 response = response.data;

@@ -21,10 +21,10 @@ angular.module("mariposa-training")
                     if(scope.date.year == scope.min.getFullYear() && scope.date.month == scope.min.getMonth() && scope.date.day < scope.min.getDate()) res = false;
                 }
                 return res;
-            }
+            };
             
             scope.update = function(){
-                debugger
+                
                 if(scope.date.day && scope.date.month && scope.date.year)
                     if(!(scope.date.day == 31 && scope.months31.indexOf(scope.date.month) == -1) &&
                         !(scope.date.day == 30 && scope.monthsOther.indexOf(scope.date.month) != -1) &&

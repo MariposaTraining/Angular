@@ -32,8 +32,6 @@ angular.module("mariposa-training")
         
                     extractLectures(scope.tmpMember[parentIndex][index], response.data.data.Lectures);
                     
-                    console.log(scope.tmpMember[parentIndex][index]);
-                    
                     AuthService.getUser(soid).then(function success(response){
                         scope.tmpMember[parentIndex][index].EmailAddress = response.data.data.EmailAddress;
                         scope.tmpMember[parentIndex][index].LastAccessedOn = getDateStringFromISOString(response.data.data.LastAccessedOn);
