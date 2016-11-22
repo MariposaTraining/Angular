@@ -68,7 +68,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
         
         var lecture = popFromItemsArray(soid);
         if(lecture){
-            adaptMemberToStatusCount(lecture.Status, result.data.data.Status);
+            //adaptMemberToStatusCount(lecture.Status, result.data.data.Status);
             
             lecture.Status = result.data.data.Status;
             lecture.Tests = result.data.data.Tests;
@@ -114,6 +114,9 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     };
     
     this.loadMemberObject = function(){
+        
+        if($state.current.name.includes("Succeed")) return null;
+        
         return $http.post("/Api/GetMember", {memberSoid: Session.userId}).then(function(response){
             
             Session.addMemberObject(response.data.data);
@@ -382,6 +385,9 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     };
     
     this.reloadMemberObject = function(){
+        
+        if($state.current.name.includes("Succeed")) return;
+        
         self.reloadNeeded = false;
         
         $http.post("/Api/SetMemberCleanup", {memberSoid: Session.userId}).then(function success(){

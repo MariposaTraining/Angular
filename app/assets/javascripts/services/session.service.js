@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('mariposa-training').service('Session', ['$sessionStorage', function ($sessionStorage) {
+angular.module('mariposa-training').service('Session', ['$sessionStorage', '$state', function ($sessionStorage, $state) {
   
   this.showLoginForm = false;
   
@@ -20,6 +20,8 @@ angular.module('mariposa-training').service('Session', ['$sessionStorage', funct
   };
   
   this.addMemberObject = function(memberObj){
+    
+    if($state.current.name.includes("Succeed")) return;
 
     var date = new Date(memberObj.LicenseRenewalDate);
     this.member = memberObj;
@@ -29,12 +31,18 @@ angular.module('mariposa-training').service('Session', ['$sessionStorage', funct
   };
   
   this.addUserId = function(userId){
+    
+    if($state.current.name.includes("Succeed")) return;
+    
     this.userId = userId;
     $sessionStorage.identifier = userId;
     this.showLoginForm = false;
   };
   
   this.addUserObject = function(userObj){
+    
+    if($state.current.name.includes("Succeed")) return;
+    
     this.user = userObj;
     $sessionStorage.user = userObj;
     this.showLoginForm = false;
@@ -49,6 +57,9 @@ angular.module('mariposa-training').service('Session', ['$sessionStorage', funct
   };
   
   this.loadFromSessionStorage = function(){
+    
+    if($state.current.name.includes("Succeed")) return;
+    
     this.userId = $sessionStorage.identifier;
     this.user = $sessionStorage.user;
     this.userRoles = $sessionStorage.userRoles;
