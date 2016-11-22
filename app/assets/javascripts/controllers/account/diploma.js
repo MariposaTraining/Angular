@@ -58,7 +58,7 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
             $scope.enteredName = null;
             $scope.showNameForm = false;
             if($state.current.name.includes("Succeed"))
-                $scope.link = "http://succeed.mariposatraining.com/documents/Continuing Education Unit/certificates/" + response.data.data + ".pdf";
+                $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/documents/Continuing Education Unit/certificates/" + response.data.data + ".pdf";
             else
                 $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Documents/Continuing Education Unit/certificates/" + response.data.data + ".pdf";
         }, function error(response){
