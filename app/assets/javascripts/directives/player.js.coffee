@@ -42,12 +42,13 @@ angular.module('mariposa-training').directive 'player',
 
           if scope.audio.progress >= 1
             scope.lecture.setCompleteViewing().then ->
-              if !scope.lecture.TestPassed
-                Account.test(scope.lecture.Soid)
-              else if $state.current.name.includes("Succeed")
-                $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid})
-              else
-                $state.go("accountDiploma", {lectureSoid: scope.lecture.Soid})
+              Lecture.find(scope.lecture.Soid).then (lecture) ->
+                if !lecture.TestPassed
+                  Account.test(scope.lecture.Soid)
+                else if $state.current.name.includes("Succeed")
+                  $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid})
+                else
+                  $state.go("accountDiploma", {lectureSoid: scope.lecture.Soid})
 
       restoreProgress = ->
         if scope.lecture
