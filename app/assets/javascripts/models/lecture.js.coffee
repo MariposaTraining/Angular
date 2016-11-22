@@ -21,7 +21,7 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'Base
           @succeedApi('SlideProgress', {lectureSoid: @Soid, slideNumber: slide})
 
     setCompleteViewing: ->
-      @legacyApi('setCompleteViewing', {lectureSoid: @Soid}).then (response) ->
+      @legacyApi('setCompleteViewing', {lectureSoid: @Soid}).then (response) =>
         if $state.current.name.includes("Succeed")  
           @succeedApi('CourseCompleted', {lectureSoid: @Soid})
         else
