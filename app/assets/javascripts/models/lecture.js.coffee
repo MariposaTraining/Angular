@@ -37,11 +37,11 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'Base
     setGradeTest: ->
       @legacyApi('setGradeTest', {lectureSoid: @Soid})
       
-    sendTestPassed: (soid) ->
-      @succeedApi('TestPassed', {lectureSoid: soid})
+    sendTestPassed: ->
+      @succeedApi('TestPassed', {lectureSoid: @Soid})
       
-    sendTestFailed: (soid) ->
-      @succeedApi('TestFailed', {lectureSoid: soid})
+    sendTestFailed: ->
+      @succeedApi('TestFailed', {lectureSoid: @Soid})
 
     legacyApi: (request, data = {}) ->
       $http.post("/Api/#{request}", data)
