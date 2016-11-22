@@ -68,7 +68,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
         
         var lecture = popFromItemsArray(soid);
         if(lecture){
-            //adaptMemberToStatusCount(lecture.Status, result.data.data.Status);
+            adaptMemberToStatusCount(lecture.Status, result.data.data.Status);
             
             lecture.Status = result.data.data.Status;
             lecture.Tests = result.data.data.Tests;
