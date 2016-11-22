@@ -46,6 +46,7 @@ class SpaController < ApplicationController
     }
     
     response = Net::HTTP.post_form(url, parameters);
+    
     result = JSON.parse(response.body)
     
     if (result.key?("ok") and result["ok"] and result.key?("data"))
@@ -53,7 +54,13 @@ class SpaController < ApplicationController
       lecture_response = Net::HTTP.post_form(new_url, 'lectureSoid': result["data"]);
       lecture_result = JSON.parse(lecture_response.body)
       lecture = lecture_result["data"]
+      
       redirect_to SITE_URL + "/#/Succeed/" + lecture["CourseName"].gsub(" ", "-") + "/Video/" + result["data"]
+      
+    else
+      
+      redirect_to SITE_URL + "/#/Succeed/"
+      
     end
     
   end
@@ -66,7 +73,7 @@ class SpaController < ApplicationController
       "lectureSoid" => params["lectureSoid"]
     }
     response = Net::HTTP.post_form(url, parameters)
-    uri_succeed = URI(session[:endpoint] + "statements")
+    uri_succeed = URI(get_session_endpoint + "statements")
     data_succeed = JSON.parse(response.body)["data"]
     response_succeed = post_json(uri_succeed, data_succeed)
     
@@ -81,7 +88,7 @@ class SpaController < ApplicationController
       "lectureSoid" => params["lectureSoid"]
     }
     response = Net::HTTP.post_form(url, parameters)
-    uri_succeed = URI(session[:endpoint] + "statements")
+    uri_succeed = URI(get_session_endpoint + "statements")
     data_succeed = JSON.parse(response.body)["data"]
     response_succeed = post_json(uri_succeed, data_succeed)
     
@@ -96,7 +103,7 @@ class SpaController < ApplicationController
       "lectureSoid" => params["lectureSoid"]
     }
     response = Net::HTTP.post_form(url, parameters)
-    uri_succeed = URI(session[:endpoint] + "statements")
+    uri_succeed = URI(get_session_endpoint + "statements")
     data_succeed = JSON.parse(response.body)["data"]
     response_succeed = post_json(uri_succeed, data_succeed)
     
@@ -110,8 +117,29 @@ class SpaController < ApplicationController
     http.use_ssl = uri_succeed.scheme == "https"
     response_succeed = http.request(req)
   end
+  
+  def get_session_endpoint
+    
+    if(session[:endpoint])
+      session[:endpoint]
+    else
+      url_new = URI(API_URL + "/GetLecture/");
+      parameters_new = {"lectureSoid" => params["lectureSoid"]}
+      
+      response_new = Net::HTTP.post_form(url_new, parameters_new)
+      result_new = JSON.parse(response_new.body)
+      
+      if(result_new.key?('ok') and result_new["ok"] and result_new.key?("data") and result_new["data"]["Source"])
+        session[:endpoint] = result_new["data"]["Source"]
+      else  
+        nil
+      end
+      
+    end
+  end
     
   def succeed_slide_progress
+    
     url = URI(API_URL + "/GetTinCanMessageForSlideProgressed/")
     parameters = {
       "lectureSoid" => params["lectureSoid"],
@@ -119,16 +147,26 @@ class SpaController < ApplicationController
     }
     response = Net::HTTP.post_form(url, parameters)
     
-    uri_succeed = URI(session[:endpoint] + "statements")
-    data_succeed = JSON.parse(response.body)["data"]
-    response_succeed = post_json(uri_succeed, data_succeed)
-    head response_succeed.code
+    result = JSON.parse(response.body)
+    
+    if(response.code.to_i < 400 and result.key?('ok') and result["ok"])
+    
+      uri_succeed = URI(get_session_endpoint + "statements")
+      
+      data_succeed = JSON.parse(response.body)["data"]
+      response_succeed = post_json(uri_succeed, data_succeed)
+      head response_succeed.code
+    
+    else
+      head response.code
+    end
   end
   
   # GET   /api/:endpoint
   # POST  /api/:endpoint
   def api
     endpoint = params[:endpoint]
+
     uri = URI("#{API_URL}/#{endpoint}")
     
     res = Net::HTTP.post_form(uri, params)
