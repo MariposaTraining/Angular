@@ -12,9 +12,6 @@ angular.module('mariposa-training').directive 'player',
 
     onLoad = (lecture, course) ->
 
-      console.log lecture
-      console.log course
-
       # Set window title
 
       window.document.title = course.Name
@@ -43,7 +40,6 @@ angular.module('mariposa-training').directive 'player',
           scope.lecture.setProgress(
             scope.course.currentSlideIndex, scope.audio.currentTime)
 
-          console.log scope.audio.progress
           if scope.audio.progress >= 1
             scope.lecture.setCompleteViewing().then ->
               if !scope.lecture.TestPassed
@@ -62,7 +58,7 @@ angular.module('mariposa-training').directive 'player',
           bufferedEnd = buffered.end(buffered.length - 1)
 
         duration =  scope.audio.duration;
-        scope.seekable = Math.min scope.savedProgress, bufferedEnd / duration
+        scope.seekable = Math.min(scope.savedProgress, (bufferedEnd / duration))
 
       updateProgress = ->
         updateSeekable()
@@ -150,8 +146,10 @@ angular.module('mariposa-training').directive 'player',
 
       scope.seek = ($event) ->
         scope.course.resetSlides()
-        progress = $event.layerX / $('body').width()
-        scope.audio.progress = Math.min scope.seekable, progress
+        target = $event.layerX / $('#seek-bar').width()
+        seekTo = Math.min(target, scope.seekable)
+        duration = scope.audio.duration
+        scope.audio.currentTime = seekTo * duration
 
       scope.toggleMedia = ->
         if scope.showMedia
