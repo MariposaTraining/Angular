@@ -17,8 +17,6 @@ class SpaController < ApplicationController
     session[:endpoint] = params[:endpoint];
     session[:fullName] = actor['name'];
     
-    byebug
-    
     parameters = {
       'activityId' => params[:activity_id],
       'registration' => params[:registration],
@@ -52,8 +50,6 @@ class SpaController < ApplicationController
       'emailAddress' => actor['Email'],
       'authorization' => params[:authorization]
     }
-    
-    byebug
     
     response = Net::HTTP.post_form(url, parameters);
     
