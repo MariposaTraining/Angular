@@ -14,6 +14,7 @@ angular.module('mariposa-training').controller 'TestCtrl',
       $scope.test = test
       $scope.questions = test.Questions
       $scope.currentQuestionIndex = 0
+      $scope.showNextBtn = true
 
       $scope.nextQuestion = ->
         if $scope.currentQuestionIndex < $scope.questions.length - 1
@@ -44,6 +45,7 @@ angular.module('mariposa-training').controller 'TestCtrl',
       $scope.allowCompletion = ->
         for question in $scope.test.Questions
           return false unless question.ChosenOptionSoid
+        $scope.showNextBtn = false
         return true
 
     .catch ->
