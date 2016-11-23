@@ -288,17 +288,17 @@ angular.module('mariposa-training')
       controller: 'HomeCtrl'
     })
     .state('testSucceed', {
-      url: '/Succeed/:lectureName/Test/:lectureSoid',
+      url: '/Succeed/:lectureName/Test/:lectureSoid/:fullName',
       templateUrl: 'assets/templates/main/test.html',
       controller: 'TestCtrl'
     })
     .state('testResultSucceed', {
-      url: '/Succeed/Class/TestResults/:lectureSoid',
+      url: '/Succeed/Class/TestResults/:lectureSoid/:fullName',
       templateUrl: 'assets/templates/succeed/diploma.html',
       controller: 'DiplomaCtrl'
     })
     .state('playerSucceed', {
-      url: '/Succeed/:lectureName/Video/:lectureSoid',
+      url: '/Succeed/:lectureName/Video/:lectureSoid/:fullName',
       templateUrl: 'assets/templates/main/player.html',
       controller: 'PlayerCtrl'
     });

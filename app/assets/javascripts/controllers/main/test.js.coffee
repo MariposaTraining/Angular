@@ -33,7 +33,10 @@ angular.module('mariposa-training').controller 'TestCtrl',
                 lecture.sendTestPassed()
               else
                 lecture.sendTestFailed()
-            $state.go("testResultSucceed", {lectureSoid: $scope.lecture.Soid});
+            fullName = ""
+            if $state.params["fullName"]
+              fullName = $state.params["fullName"]
+            $state.go("testResultSucceed", {lectureSoid: $scope.lecture.Soid, fullName: fullName});
           else
             Account.reloadMemberObject()
             $state.go("testResult", {lectureSoid: $scope.lecture.Soid});

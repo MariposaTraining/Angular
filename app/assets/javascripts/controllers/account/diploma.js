@@ -18,6 +18,11 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
         $scope.errorMessage = null;
         $scope.showRetakeBtn = false;
         
+        if($state.current.name.includes("Succeed"))
+            $scope.fullName = $state.params["fullName"].replaceAll("_", " ");
+        else
+            $scope.fullName = $scope.Session.NameFull;
+        
         if($state.params.lectureSoid){
             lectureSoid = $state.params.lectureSoid;
             if(!$state.current.name.includes("Succeed"))
@@ -70,6 +75,11 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
     $scope.retakeTest = function(){
         if($scope.lecture && $scope.lecture.Soid)
             $scope.Account.test($scope.lecture.Soid);  
+    };
+    
+    String.prototype.replaceAll = function(search, replacement) {
+        var target = this;
+        return target.split(search).join(replacement);
     };
     
 }]);

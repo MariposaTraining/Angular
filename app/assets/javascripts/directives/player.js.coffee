@@ -46,7 +46,10 @@ angular.module('mariposa-training').directive 'player',
                 if !lecture.TestPassed
                   Account.test(scope.lecture.Soid)
                 else if $state.current.name.includes("Succeed")
-                  $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid})
+                  fullName = ""
+                  if $state.params["fullName"]
+                    fullName = $state.params["fullName"]
+                  $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid, fullName: fullName})
                 else
                   $state.go("accountDiploma", {lectureSoid: scope.lecture.Soid})
 
@@ -186,7 +189,10 @@ angular.module('mariposa-training').directive 'player',
       scope.getDiploma = ->
         if scope.lecture.TestPassed
           if $state.current.name.includes("Succeed")
-            $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid});
+            fullName = ""
+            if $state.params["fullName"]
+              fullName = $state.params["fullName"]
+            $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid, fullName: fullName});
           else
             $state.go("accountDiploma", {lectureSoid: scope.lecture.Soid});
         else

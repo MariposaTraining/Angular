@@ -14,14 +14,14 @@
                 <p class="font-larger"><a ng-click="showNameForm = true" class="pointer-cursor">Click here</a> to get your certificate.</p>
                 <div class="row padding-md" ng-show="showNameForm">
                     <p class="font-larger">By signing my name, I certify that it was I who completed the course as well as the post-test.</p>
-                    <p class="font-larger">Enter your name as <span class="label label-warning padding-md">{{Session.member.NameFull}}</span> (not case sensitive)</p>
+                    <p class="font-larger">Enter your name as <span class="label label-warning padding-md">{{fullName}}</span> (not case sensitive)</p>
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="col-md-8">
                                 <input type="text" class="form-control" ng-model="enteredName" />
                             </div>
                             <div class="col-md-4">
-                                <button type="button" class="btn btn-raised btn-success" ng-click="submit()" ng-disabled="enteredName.toLowerCase() != Session.member.NameFull.toLowerCase()">Submit</button>
+                                <button type="button" class="btn btn-raised btn-success" ng-click="submit()" ng-disabled="enteredName.toLowerCase() != fullName.toLowerCase()">Submit</button>
                             </div>
                         </div>
                     </div>

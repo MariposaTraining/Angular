@@ -445,7 +445,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
         
         if($state.current.name.includes("Succeed")){
             self.loadLectureBySoid(soid).then(function success(result){
-                $state.go("testSucceed", {lectureName: result.data.data.CourseName.replaceAll(" ", "-"), lectureSoid: soid});
+                $state.go("testSucceed", {lectureName: result.data.data.CourseName.replaceAll(" ", "-"), lectureSoid: soid, fullName: $state.params["fullName"] ? $state.params["fullName"] : "" });
             }, function error(result){
                 console.log(result);
                 $state.go("homeSucceed");

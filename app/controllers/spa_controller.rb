@@ -12,13 +12,18 @@ class SpaController < ApplicationController
       
     url = URI(API_URL + "/GetSucceedDiploma");
     
+    actor = JSON.parse(params['actor'])
+    
     session[:endpoint] = params[:endpoint];
+    session[:fullName] = actor['name'];
+    
+    byebug
     
     parameters = {
       'activityId' => params[:activity_id],
       'registration' => params[:registration],
-      'name' => params['actor']['name'],
-      'emailAddress' => params['actor']['email'],
+      'name' => actor['name'],
+      'emailAddress' => actor['email'],
       'authorization' => params[:authorization]
     }
       
@@ -26,7 +31,7 @@ class SpaController < ApplicationController
     result = JSON.parse(response.body)
     
     if (result.key?("ok") and result["ok"] and result.key?("data"))
-      redirect_to SITE_URL + "/#/Succeed/Class/TestResults/" + result["data"]
+      redirect_to SITE_URL + "#/Succeed/Class/TestResults/" + result["data"] + "/" + get_session_name(result["data"]).gsub(" ", "_")
     end
   end
   
@@ -34,16 +39,21 @@ class SpaController < ApplicationController
       
     url = URI(API_URL + "/GetSucceedLecture");
     
+    actor = JSON.parse(params['actor'])
+    
     session[:endpoint] = params[:endpoint];
+    session[:fullName] = actor['Name'];
     
     parameters = {
       'endpoint' => params[:endpoint],
       'activityId' => params[:activity_id],
       'registration' => params[:registration],
-      'name' => params['actor']['Name'],
-      'emailAddress' => params['actor']['Email'],
+      'name' => actor['Name'],
+      'emailAddress' => actor['Email'],
       'authorization' => params[:authorization]
     }
+    
+    byebug
     
     response = Net::HTTP.post_form(url, parameters);
     
@@ -55,11 +65,11 @@ class SpaController < ApplicationController
       lecture_result = JSON.parse(lecture_response.body)
       lecture = lecture_result["data"]
       
-      redirect_to SITE_URL + "/#/Succeed/" + lecture["CourseName"].gsub(" ", "-") + "/Video/" + result["data"]
+      redirect_to SITE_URL + "#/Succeed/" + lecture["CourseName"].gsub(" ", "-") + "/Video/" + result["data"] + "/" + get_session_name(result["data"]).gsub(" ", "_")
       
     else
       
-      redirect_to SITE_URL + "/#/Succeed/"
+      redirect_to SITE_URL + "#/Succeed/"
       
     end
     
@@ -137,6 +147,26 @@ class SpaController < ApplicationController
       
     end
   end
+  
+  def get_session_name (lectureSoid)
+    
+    if(session[:fullName])
+      session[:fullName]
+    else
+      url_new = URI(API_URL + "/GetLecture/");
+      parameters_new = {"lectureSoid" => lectureSoid}
+      
+      response_new = Net::HTTP.post_form(url_new, parameters_new)
+      result_new = JSON.parse(response_new.body)
+      
+      if(result_new.key?('ok') and result_new["ok"] and result_new.key?("data") and result_new["data"]["MemberName"])
+        session[:fullName] = result_new["data"]["MemberName"]
+      else  
+        nil
+      end
+      
+    end
+  end
     
   def succeed_slide_progress
     
@@ -198,7 +228,7 @@ class SpaController < ApplicationController
   end
   
   def show_test_result
-    redirect_to "/#/Class/TestResult/#{params['param'].split('-').first}"  
+    redirect_to "#/Class/TestResult/#{params['param'].split('-').first}"  
   end
   
   def set_endpoints
