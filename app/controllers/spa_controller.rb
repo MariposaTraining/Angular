@@ -29,7 +29,7 @@ class SpaController < ApplicationController
     result = JSON.parse(response.body)
     
     if (result.key?("ok") and result["ok"] and result.key?("data"))
-      redirect_to SITE_URL + "#/Succeed/Class/TestResults/" + result["data"] + "/" + get_session_name(result["data"]).gsub(" ", "_")
+      redirect_to SITE_URL + "/#/Succeed/Class/TestResults/" + result["data"] + "/" + get_session_name(result["data"]).gsub(" ", "_")
     end
   end
   
@@ -61,11 +61,11 @@ class SpaController < ApplicationController
       lecture_result = JSON.parse(lecture_response.body)
       lecture = lecture_result["data"]
       
-      redirect_to SITE_URL + "#/Succeed/" + lecture["CourseName"].gsub(" ", "-") + "/Video/" + result["data"] + "/" + get_session_name(result["data"]).gsub(" ", "_")
+      redirect_to SITE_URL + "/#/Succeed/" + lecture["CourseName"].gsub(" ", "-") + "/Video/" + result["data"] + "/" + get_session_name(result["data"]).gsub(" ", "_")
       
     else
       
-      redirect_to SITE_URL + "#/Succeed/"
+      redirect_to SITE_URL + "/#/Succeed/"
       
     end
     
@@ -224,7 +224,7 @@ class SpaController < ApplicationController
   end
   
   def show_test_result
-    redirect_to "#/Class/TestResult/#{params['param'].split('-').first}"  
+    redirect_to "/#/Class/TestResult/#{params['param'].split('-').first}"  
   end
   
   def set_endpoints
