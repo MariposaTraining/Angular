@@ -21,7 +21,7 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
         if($state.current.name.includes("Succeed"))
             $scope.fullName = $state.params["fullName"].replaceAll("_", " ");
         else
-            $scope.fullName = $scope.Session.NameFull;
+            $scope.fullName = $scope.Session.member.NameFull;
         
         if($state.params.lectureSoid){
             lectureSoid = $state.params.lectureSoid;
