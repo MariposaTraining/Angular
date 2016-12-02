@@ -65,7 +65,7 @@ angular.module('mariposa-training').service('Session', ['$sessionStorage', '$sta
     this.userRoles = $sessionStorage.userRoles;
     this.member = $sessionStorage.member;
     
-    if(!(this.member.LicenseRenewalDate instanceof Date))
+    if(this.member && !(this.member.LicenseRenewalDate instanceof Date))
       this.member.LicenseRenewalDate = new Date(this.member.LicenseRenewalDate);
   };
 }]);
