@@ -50,6 +50,12 @@ angular.module('mariposa-training').controller('StudentManagementCtrl', ['$scope
             $scope.showDropped.push(false);
     };
     
+    $scope.recover = function(memberSoid, facilitySoid){
+        $scope.Management.recover(memberSoid, facilitySoid).success(function(response){
+            $scope.Management.reloadFacility(facilitySoid);
+        });
+    };
+    
     $scope.adaptActiveStudents = function(index){
         if(index >= 0 && index < $scope.displayedFacilities.length){
             if($scope.showActiveStudents[index])

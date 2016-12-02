@@ -134,13 +134,6 @@ angular.module("mariposa-training")
                 scope.Management.print(lectureSoid);
             };
             
-            scope.recover = function(memberSoid, facilitySoid){
-                scope.Management.recover(memberSoid, facilitySoid).success(function(response){
-                    scope.Management.reloadFacility(facilitySoid);
-                    clearTmpMember();
-                });
-            };
-            
             scope.schedule = function(parentIndex, index){
                 scope.tmpMember[parentIndex][index].dateToSchedule = new Date(scope.tmpMember[parentIndex][index].dateToSchedule);
                 
