@@ -176,7 +176,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
                 return el.Soid != facilitySoid;
             });
             
-            self.getFacility(facilitySoid).success(addFacility);
+            self.reloadFacility(facilitySoid).success(addFacility);
             
             return response;
         });
