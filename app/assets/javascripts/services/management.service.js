@@ -170,16 +170,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     };
     
     this.deactivate = function(memberSoid, facilitySoid){
-        return $http.post("/Api/SetManagerStudentRemove", {memberSoid: memberSoid}).success(function(response){
-            
-            self.facilities = self.facilities.filter(function(el){
-                return el.Soid != facilitySoid;
-            });
-            
-            self.reloadFacility(facilitySoid).success(addFacility);
-            
-            return response;
-        });
+        return $http.post("/Api/SetManagerStudentRemove", {memberSoid: memberSoid});
     };
     
     this.revokeManager = function(memberSoid){
