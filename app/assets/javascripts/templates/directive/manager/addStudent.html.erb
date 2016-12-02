@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-6">
                     <p>Password</p>
-                    <div>{{passwordGenerated.value}}
+                <!--    <div>
                         <label>
                             <input type="radio" ng-model="student.passwordGenerated" ng-value="true" name="passwordGeneratedBtn">
                             Generated
@@ -78,23 +78,24 @@
                             <input type="radio" ng-model="student.passwordGenerated" ng-value="false" name="passwordGeneratedBtn">
                             Manual
                         </label>
-                    </div>
-                    <div ng-show="!student.passwordGenerated" class="form-group">
+                    </div> -->
+                    <div ng-show="true" class="form-group">
                         <div class="col-sm-6">
                             <input type="text" name="password" class="form-control" ng-required="!student.passwordGenerated" ng-model="student.password" ng-minlength="6">
+                            <p class="help-block">At least 6 characters.</p>
                         </div>
-                        <div class="col-sm-1">
+                    <!--    <div class="col-sm-1">
                             <i class="material-icons padding-md-top info-blue" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="At least 6 characters.">info</i>
-                        </div>
+                        </div>-->
                         <div class="col-sm-1">
                             <i class="material-icons green padding-md-top" ng-show="registrationFrm.password.$valid">check_circle</i>
                             <i class="material-icons dark-red padding-md-top" ng-show="!registrationFrm.password.$valid">highlight_off</i>
                         </div>
-                        <div class="col-sm-2">
+                    <!--    <div class="col-sm-2">
                             <label class="padding-md-top">
                                 <input type="checkbox" ng-model="reuse"> reuse
                            </label>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

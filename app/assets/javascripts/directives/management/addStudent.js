@@ -15,9 +15,8 @@ angular.module("mariposa-training")
                     firstName: "",
                     lastName: "",
                     emailAddress: "",
-                    password: "mariposa",
-                    facilitySoid: "",
-                    passwordGenerated: true
+                    password: "",
+                    facilitySoid: ""    
                 };
             };
             
