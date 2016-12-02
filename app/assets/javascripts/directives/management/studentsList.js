@@ -222,7 +222,8 @@ angular.module("mariposa-training")
             scope: {
                 students: '=students',
                 facilityIndex: '=facilityIndex',
-                numPerPage: '=numPerPage'
+                numPerPage: '=numPerPage',
+                f: '=facility'
             },
             restrict: 'A',
             templateUrl: "directive/manager/studentsList.html",

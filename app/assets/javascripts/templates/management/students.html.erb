@@ -29,7 +29,7 @@
                         <span ng-show="!showActiveStudents[$index]">show</span>
                     </a>
                 </div>
-                <div students-list students="f.Students" num-per-page="1100" facility-index="$index" ng-if="showActiveStudents[$index]"></div>
+                <div students-list students="f.Students" num-per-page="1100" facility-index="$index" facility="f" ng-if="showActiveStudents[$index]"></div>
                 <p class="font-larger margin-md-top margin-lg-bottom">Dropped Students ({{f.Dropped.length}}) 
                 <a ng-click="adaptDroppedStudents($index)" class="pointer-cursor">
                     <span ng-show="showDropped[$index]">hide</span>
