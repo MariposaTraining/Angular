@@ -22,12 +22,13 @@ angular.module('mariposa-training').service('Session', ['$sessionStorage', '$sta
   this.addMemberObject = function(memberObj){
     
     if($state.current.name.includes("Succeed")) return;
-
-    var date = new Date(memberObj.LicenseRenewalDate);
-    this.member = memberObj;
-    this.member.LicenseRenewalDate = date;
-    $sessionStorage.member = this.member;
-    this.showLoginForm = false;
+    if(memberObj){
+      var date = new Date(memberObj.LicenseRenewalDate);
+      this.member = memberObj;
+      this.member.LicenseRenewalDate = date;
+      $sessionStorage.member = this.member;
+      this.showLoginForm = false;
+    }
   };
   
   this.addUserId = function(userId){

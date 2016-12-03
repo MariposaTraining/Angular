@@ -131,47 +131,51 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     };
     
     this.processMemberObject = function(response){
+          
+        if(Session.member){
             
-        Catalog.getCatalogPromise().then(
-            function success(result){
-        
-                self.destroy();
-                
-                for(i = 0; i < Session.member.Certifications.length; i++)
-                    self.items.certifications.push(Catalog.getLocalCertificationById(Session.member.Certifications[i]));
+            Catalog.getCatalogPromise().then(
+                function success(result){
+            
+                    self.destroy();
                     
-                for(var i = 0; i < Session.member.Lectures.length; i++)
-                    self.addLecture(Session.member.Lectures[i], result);
-                
-                if(Session.member.IsUnlimited && self.items.incomplete.length + self.items.inQueue.length + self.items.completed.length < result.data.data.Courses.length){
+                    for(i = 0; i < Session.member.Certifications.length; i++)
+                        self.items.certifications.push(Catalog.getLocalCertificationById(Session.member.Certifications[i]));
+                        
+                    for(var i = 0; i < Session.member.Lectures.length; i++)
+                        self.addLecture(Session.member.Lectures[i], result);
                     
-                    var coursesToAdd = result.data.data.Courses.filter(function(el){
+                    if(Session.member.IsUnlimited && self.items.incomplete.length + self.items.inQueue.length + self.items.completed.length < result.data.data.Courses.length){
                         
-                        var indexIncomplete = indexOfObject(self.items.incomplete, el.Soid);
-                        var indexCompleted = indexOfObject(self.items.completed, el.Soid);
-                        var indexInQueue = indexOfObject(self.items.inQueue, el.Soid);
+                        var coursesToAdd = result.data.data.Courses.filter(function(el){
+                            
+                            var indexIncomplete = indexOfObject(self.items.incomplete, el.Soid);
+                            var indexCompleted = indexOfObject(self.items.completed, el.Soid);
+                            var indexInQueue = indexOfObject(self.items.inQueue, el.Soid);
+                            
+                            return indexIncomplete + indexCompleted + indexInQueue == -3;
+                        });
                         
-                        return indexIncomplete + indexCompleted + indexInQueue == -3;
-                    });
-                    
-                    for(i = 0; i < coursesToAdd.length; i++){
-                        var lecture = {
-                            Status:  "InQueue",
-                            Soid: null,
-                            IsLecture: false,
-                            CourseSoid: coursesToAdd[i].Soid,
-                            CourseName: coursesToAdd[i].Name
-                        };
-                        
-                        self.addLecture(lecture, result);
+                        for(i = 0; i < coursesToAdd.length; i++){
+                            var lecture = {
+                                Status:  "InQueue",
+                                Soid: null,
+                                IsLecture: false,
+                                CourseSoid: coursesToAdd[i].Soid,
+                                CourseName: coursesToAdd[i].Name
+                            };
+                            
+                            self.addLecture(lecture, result);
+                        }
                     }
-                }
+                    
+                    self.valid = true;
+                    
+                }, function error(result){
+                    console.log(result);    
+                });
                 
-                self.valid = true;
-                
-            }, function error(result){
-                console.log(result);    
-            });
+        }
     };
     
     var indexOfObject = function(arr, objSoid){

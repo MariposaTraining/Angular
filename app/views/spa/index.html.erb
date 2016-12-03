@@ -2,7 +2,7 @@
 <html ng-app='mariposa-training'>
 
 <head>
-  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta http-equiv="X-UA-Compatible" content="IE=11">
   <meta charset="utf-8">
   <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
 
@@ -36,18 +36,25 @@
   <%= javascript_include_tag 'application' %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
 </head>
-
 <body ng-controller="ApplicationCtrl">
+
+    <div id="browserMessage">
+      <p>Your browser is having difficulty accessing our site. Please download one of the following browsers to access our site.  </p>
+      <p><a href="https://www.google.com/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a> </p>
+      <p>The issue will be resolved shortly. Thanks for your patience. </p>
+      <p>Sincerely,<br>
+        The Mariposa Training team</p>
+    </div>
   
-    <div ng-if="$state.current.name == 'player' || $state.current.name=='playerSucceed'">
+    <div class="angular-inside" ng-if="$state.current.name == 'player' || $state.current.name=='playerSucceed'">
       <!-- Player -->
       <div ui-view></div>
     </div>
-    <div ng-if="$state.current.name == 'test' || $state.current.name=='testSucceed'">
+    <div class="angular-inside" ng-if="$state.current.name == 'test' || $state.current.name=='testSucceed'">
       <!-- Test -->
       <div ui-view></div>
     </div>
-    <div ng-if="$state.current.name == 'homeSucceed' || $state.current.name=='testResultSucceed'" id="succeed">
+    <div class="angular-inside" ng-if="$state.current.name == 'homeSucceed' || $state.current.name=='testResultSucceed'" id="succeed">
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
           <div class="navbar-header width100-p">
@@ -64,7 +71,7 @@
         <div ui-view></div>
       </div>
     </div>
-    <div ng-if="!$state.current.name.includes('Succeed') && $state.current.name != 'player' && $state.current.name != 'test'">
+    <div class="angular-inside" ng-if="!$state.current.name.includes('Succeed') && $state.current.name != 'player' && $state.current.name != 'test'">
       <!-- Public site -->
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -179,8 +186,33 @@
   
   <script>
     $.material.init();
+    
+    function checkBrowser() { 
+      if((navigator.userAgent.indexOf("Opera") != -1 || navigator.userAgent.indexOf("OPR")) != -1 ){
+          var BROWSER_NAME = "Opera";
+          document.getElementById("browserMessage").style.display="none";
+      }else if(navigator.userAgent.indexOf("Chrome") != -1 ){
+          var BROWSER_NAME = "Chrome";
+          document.getElementById("browserMessage").style.display="none";
+      }else if(navigator.userAgent.indexOf("Safari") != -1){
+          var BROWSER_NAME = "Safari";
+          document.getElementById("browserMessage").style.display="none";
+      }else if(navigator.userAgent.indexOf("Firefox") != -1 ){
+          var BROWSER_NAME = "Firefox";
+          document.getElementById("browserMessage").style.display="none";
+      }else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )){ //IF IE > 10{
+          var BROWSER_NAME = "IE";
+          var divs = document.querySelectorAll(".angular-inside");
+          if(divs)
+            for(var i = 0; i < divs.length; i++){
+              divs[i].style.display = "none";
+            }
+      }
+    }
 
     $(function() {
+      
+      checkBrowser();
 
       $('[data-toggle=tooltip]').hover(function() {
         // on mouseenter

@@ -690,3 +690,14 @@ div.Description{
         min-height: 280px;
     }
 }
+
+#browserMessage{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    box-shadow: 15px 15px 15px grey;
+    padding: 20px;
+    border: 1px solid lightgray;
+    margin-top: 20px;
+}
