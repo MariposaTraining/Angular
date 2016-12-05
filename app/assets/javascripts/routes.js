@@ -236,7 +236,7 @@ angular.module('mariposa-training')
         "check":function($location, Session, USER_ROLES, NO_ORGANIZATION_SOID){   
             if(Session.userId == null)
               $location.path("/");
-            else if(!Session.userRoles.includes(USER_ROLES.manager) || Session.member.FacilitySoid == NO_ORGANIZATION_SOID)
+            else if(Session.userRoles.indexOf(USER_ROLES.manager) == -1 || Session.member.FacilitySoid == NO_ORGANIZATION_SOID)
               $location.path("/MyAccount/New");
         }
       }
@@ -249,7 +249,7 @@ angular.module('mariposa-training')
         "check":function($location, Session, USER_ROLES, NO_ORGANIZATION_SOID){   
             if(Session.userId == null || !Session.userRoles)
               $location.path("/");
-            else if(!Session.userRoles.includes(USER_ROLES.manager) || Session.member.FacilitySoid == NO_ORGANIZATION_SOID)
+            else if(Session.userRoles.indexOf(USER_ROLES.manager) == -1 || Session.member.FacilitySoid == NO_ORGANIZATION_SOID)
               $location.path("/MyAccount/New");
         }
       }
@@ -305,7 +305,7 @@ angular.module('mariposa-training')
     
     $urlRouterProvider.otherwise(function($injector, $location){
       var state = $injector.get('$state');
-      if($location.path().includes("Succeed") || $location.path().includes("succeed"))  
+      if($location.path().indexOf("Succeed") != -1 || $location.path().indexOf("succeed") != -1)  
         state.go("homeSucceed");
       else
         state.go("home");

@@ -17,12 +17,12 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'Base
 
     setProgress: (slide, time) ->
       @legacyApi('setProgress', {lectureSoid: @Soid, latestSlideSeen: slide, timeThrough: time}).then (response) =>
-        if $state.current.name.includes("Succeed")  
+        if $state.current.name.indexOf("Succeed") != -1 
           @succeedApi('SlideProgress', {lectureSoid: @Soid, slideNumber: slide})
 
     setCompleteViewing: ->
       @legacyApi('setCompleteViewing', {lectureSoid: @Soid}).then (response) =>
-        if $state.current.name.includes("Succeed")  
+        if $state.current.name.indexOf("Succeed") != -1
           @succeedApi('CourseCompleted', {lectureSoid: @Soid})
         else
           Account.reloadMemberObject()
@@ -44,10 +44,10 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'Base
       @succeedApi('TestFailed', {lectureSoid: @Soid})
 
     legacyApi: (request, data = {}) ->
-      $http.post("/Api/#{request}", data)
+      $http.post("/Api/#{request}", data, {"headers" : { "Content-Type" : "application/json; charset=UTF-8" }})
       
     succeedApi: (request, data ={}) ->
-      $http.post("/Succeed/#{request}", data)
+      $http.post("/Succeed/#{request}", data, {"headers" : { "Content-Type" : "application/json; charset=UTF-8" }})
 
     wasCompleted: ->
       @Status not in ['Incomplete', 'InQueue']

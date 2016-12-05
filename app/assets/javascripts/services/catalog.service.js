@@ -69,7 +69,7 @@ angular.module('mariposa-training').service('Catalog', ['$http', 'Session', 'ITE
     
     this.getCourseById = function(soid){
         return $http
-                .post('/Api/getCourse', {courseSoid: soid})
+                .post('/Api/getCourse', {courseSoid: soid}, {"headers" : { "Content-Type" : "application/json; charset=UTF-8" }})
                 .then(function(result){
                     if(result.data.ok == true)
                         result.data = result.data.data;

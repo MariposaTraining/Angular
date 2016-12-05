@@ -39,7 +39,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     };
     
     this.loadLectureBySoid = function(soid){
-        if(!$state.current.name.includes("Succeed")){
+        if($state.current.name.indexOf("Succeed") == -1){
             if(self.valid == false){
                 return self.loadMemberObject().then(function(response){
                     return loadLecture(soid);
@@ -115,7 +115,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     
     this.loadMemberObject = function(){
         
-        if($state.current.name.includes("Succeed")) return null;
+        if($state.current.name.indexOf("Succeed") != -1) return null;
         
         return $http.post("/Api/GetMember", {memberSoid: Session.userId}).then(function(response){
             
@@ -390,7 +390,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     
     this.reloadMemberObject = function(){
         
-        if($state.current.name.includes("Succeed")) return;
+        if($state.current.name.indexOf("Succeed") != -1) return;
         
         self.reloadNeeded = false;
         
@@ -447,7 +447,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     this.test = function(soid){
         if(!soid) return;
         
-        if($state.current.name.includes("Succeed")){
+        if($state.current.name.indexOf("Succeed") != -1){
             self.loadLectureBySoid(soid).then(function success(result){
                 $state.go("testSucceed", {lectureName: result.data.data.CourseName.replaceAll(" ", "-"), lectureSoid: soid, fullName: $state.params["fullName"] ? $state.params["fullName"] : "" });
             }, function error(result){

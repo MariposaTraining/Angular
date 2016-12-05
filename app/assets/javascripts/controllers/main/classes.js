@@ -60,7 +60,7 @@ angular.module('mariposa-training')
    
     $scope.filterCourses = function(){
         $scope.filteredClasses = $scope.catalogClasses.filter(function(item){
-            return item.Name.toLowerCase().includes($scope.filterText.toLowerCase());
+            return item.Name.toLowerCase().indexOf($scope.filterText.toLowerCase()) != -1;
         });
         $scope.displayedClasses = $scope.filteredClasses;
     //    $scope.pagesNumber = Math.ceil($scope.displayedClasses.length / $scope.numPerPage);

@@ -18,16 +18,16 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
         $scope.errorMessage = null;
         $scope.showRetakeBtn = false;
         
-        if($state.current.name.includes("Succeed"))
+        if($state.current.name.indexOf("Succeed") != -1)
             $scope.fullName = $state.params["fullName"].replaceAll("_", " ");
         else
             $scope.fullName = $scope.Session.member.NameFull;
         
         if($state.params.lectureSoid){
             lectureSoid = $state.params.lectureSoid;
-            if(!$state.current.name.includes("Succeed"))
+            if(!$state.current.name.indexOf("Succeed") != -1)
                 $localStorage.lectureSoidToReload = lectureSoid;
-        }else if($localStorage.lectureSoidToReload && $state.current.name.includes("Succeed")){
+        }else if($localStorage.lectureSoidToReload && $state.current.name.indexOf("Succeed") != -1){
             $scope.showTestResults = true;
             lectureSoid = $localStorage.lectureSoidToReload;
         }
@@ -37,7 +37,7 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
             $scope.testPassed = result.data.data.Tests.filter(function(el){
                 return el.Pass;
             }).length > 0;
-            if($state.current.name.includes("succeed") || $state.current.name.includes("Succeed"))
+            if($state.current.name.indexOf("Succeed") != -1)
                 $scope.lecture.Tests = $scope.lecture.Tests.map(function(el){
                     var v = el.AdmisteredOn.substr(6, 13);
                     el.AdmisteredOn = new Date(Number(v));
@@ -59,14 +59,19 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
     
     $scope.submit = function(){
         $scope.Account.getDiploma($scope.lecture.Soid).then(function success(response){
-            $scope.errorMessage = null;
-            $scope.enteredName = null;
-            $scope.showNameForm = false;
-            if($state.current.name.includes("Succeed"))
-                $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/documents/Continuing Education Unit/certificates/" + response.data.data + ".pdf";
-            else
-                $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Documents/Continuing Education Unit/certificates/" + response.data.data + ".pdf";
-        }, function error(response){
+            
+            if(!response.data.ok)
+                $scope.errorMessage = response.data.message;
+            else{
+                $scope.errorMessage = null;
+                $scope.enteredName = null;
+                $scope.showNameForm = false;
+                if($state.current.name.indexOf("Succeed") != -1)
+                    $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/documents/ceu/" + response.data.data + ".pdf";
+                else
+                    $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/documents/ceu/" + response.data.data + ".pdf";
+            }
+            }, function error(response){
             $scope.errorMessage = response.data.data;
             console.log(response);
         });

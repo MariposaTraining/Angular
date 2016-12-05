@@ -19,7 +19,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     };
     
     this.getManagerCourses = function(){
-        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager) && Session.userId != null){
+        if(Session.userRoles && Session.userRoles.indexOf(USER_ROLES.manager) != -1 && Session.userId != null){
             
             if(self.managerCoursesAttemptedLoad)
                 return this.managerCourses;
@@ -76,7 +76,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     };
     
     this.getFacilities = function(){
-        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager) && Session.userId != null)
+        if(Session.userRoles && Session.userRoles.indexOf(USER_ROLES.manager) != -1 && Session.userId != null)
             return $http.post("/Api/GetManagerFacilities", {memberSoid: Session.userId});
         else
             return null;
@@ -97,14 +97,14 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     
     this.getCompleteFacilities = function(){
         
-        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager)){
+        if(Session.userRoles && Session.userRoles.indexOf(USER_ROLES.manager) != -1){
             if(!self.facilitiesLoaded){
                 return self.getFacilities().then(function sucess(response){
                     if(response.data.ok){
                         for(var i = 0; i < response.data.data.length; i++)
                             addFacility(response.data.data[i]);
                         self.facilitiesLoaded = true;
-                        self.facilities = self.facilities.sort((f1, f2) => f1.Name.localeCompare(f2.Name));       
+                        self.facilities = self.facilities.sort(function(f1, f2){return f1.Name.localeCompare(f2.Name)});       
                     }
                     return response;
                 }, function error(response){
@@ -134,11 +134,11 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
         var i = 0;
         while(i < self.facilities.length && self.facilities[i].Soid != response.data.Soid) i++;
         if(i != self.facilities.length){
-            response.data.Students.sort((p1, p2) => p1.FullName.localeCompare(p2.FullName));
+            response.data.Students.sort(function(p1, p2) {return p1.FullName.localeCompare(p2.FullName)});
             response.data.Dropped = response.data.Dropped.map(function(el){
                 el.CreatedOn = getDateStringFromISOString(el.CreatedOn);
                 return el;
-            }).sort((p1, p2) => p1.FullName.localeCompare(p2.FullName));
+            }).sort(function(p1, p2){return p1.FullName.localeCompare(p2.FullName)});
             self.facilities[i] = response.data;
             self.facilityReloaded = true;
         }
@@ -146,17 +146,17 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     
     var addFacility = function(facility){
         if(facility.Students)
-            facility.Students.sort((p1, p2) => p1.FullName.localeCompare(p2.FullName));
+            facility.Students.sort(function(p1, p2) {return p1.FullName.localeCompare(p2.FullName)});
         if(facility.Dropped)
             facility.Dropped = facility.Dropped.map(function(el){
                 el.CreatedOn = getDateStringFromISOString(el.CreatedOn);
                 return el;
-            }).sort((p1, p2) => p1.FullName.localeCompare(p2.FullName));
+            }).sort(function(p1, p2){return p1.FullName.localeCompare(p2.FullName)});
         self.facilities.push(facility);
     };
     
     this.getFacility = function(facilitySoid){
-        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager) && Session.userId != null){
+        if(Session.userRoles && Session.userRoles.indexOf(USER_ROLES.manager) != -1 && Session.userId != null){
             return $http.post("/Api/GetManagerFacility", {memberSoid: Session.userId, facilitySOID: facilitySoid});
         }else   
             return null;

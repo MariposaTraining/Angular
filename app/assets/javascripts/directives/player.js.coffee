@@ -45,7 +45,7 @@ angular.module('mariposa-training').directive 'player',
               Lecture.find(scope.lecture.Soid).then (lecture) ->
                 if !lecture.TestPassed
                   Account.test(scope.lecture.Soid)
-                else if $state.current.name.includes("Succeed")
+                else if $state.current.name.indexOf("Succeed") != -1
                   fullName = ""
                   if $state.params["fullName"]
                     fullName = $state.params["fullName"]
@@ -188,7 +188,7 @@ angular.module('mariposa-training').directive 'player',
           
       scope.getDiploma = ->
         if scope.lecture.TestPassed
-          if $state.current.name.includes("Succeed")
+          if $state.current.name.indexOf("Succeed") != -1
             fullName = ""
             if $state.params["fullName"]
               fullName = $state.params["fullName"]
@@ -234,7 +234,7 @@ angular.module('mariposa-training').directive 'player',
       $rootScope.$on '$stateChangeSuccess', (event) ->
         if $state.current.name != scope.state
           scope.stop()
-          if !$state.current.name.includes("Suceed")
+          if $state.current.name.indexOf("Suceed") == -1
             Account.reloadMemberObject()
 
     if scope.type == 'lecture'

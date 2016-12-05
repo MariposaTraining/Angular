@@ -229,7 +229,7 @@ angular.module('mariposa-training').service('Cart', ['$http', '$q', 'Session', '
                     self.items.courses[courseCount] = response.data.Items[i];
                     var tmp = response.data.Items[i].ItemSqlId;
                     if(tmp < 10) tmp = "0" + tmp;
-                    self.items.courses[courseCount].thumbSrc = "http://www.mariposatraining.com/Content/Pictures/Classes/Thumbs/" + tmp + ".jpg";
+                    self.items.courses[courseCount].thumbSrc = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/Thumbs/"  + tmp + ".jpg";
                     courseCount++;
                 }else if (response.data.Items[i].ItemType == "Certification")
                     self.items.certifications[certCount++] = response.data.Items[i];

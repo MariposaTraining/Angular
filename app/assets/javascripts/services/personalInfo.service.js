@@ -45,19 +45,19 @@ angular.module('mariposa-training').service('PersonalInfo', ['$http', 'Account',
     };
     
     this.setStudentInfo = function(studentInfo){
-        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager) && studentInfo.facilityCode)
+        if(Session.userRoles && Session.userRoles.indexOf(USER_ROLES.manager) != -1 && studentInfo.facilityCode)
             Management.facilitiesLoaded = false;
         return $http.post("/Api/SetStudentInfo", studentInfo);
     };
     
     this.updateFacilityByCode = function(facilityCode, memberSoid){
-        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager))
+        if(Session.userRoles && Session.userRoles.indexOf(USER_ROLES.manager) != -1)
             Management.facilitiesLoaded = false;
         return $http.post("/Api/SetChangeFacilityByCode", {memberSoid: memberSoid, facilityCode: facilityCode});    
     };
     
     this.updateFacility = function(facilitySoid, memberSoid){
-        if(Session.userRoles && Session.userRoles.includes(USER_ROLES.manager))
+        if(Session.userRoles && Session.userRoles.indexOf(USER_ROLES.manager) != -1)
             Management.facilitiesLoaded = false;
     
         if(facilitySoid == null)

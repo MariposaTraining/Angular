@@ -21,7 +21,7 @@ angular.module('mariposa-training').service('Session', ['$sessionStorage', '$sta
   
   this.addMemberObject = function(memberObj){
     
-    if($state.current.name.includes("Succeed")) return;
+    if($state.current.name.indexOf("Succeed") != -1) return;
     if(memberObj){
       var date = new Date(memberObj.LicenseRenewalDate);
       this.member = memberObj;
@@ -33,7 +33,7 @@ angular.module('mariposa-training').service('Session', ['$sessionStorage', '$sta
   
   this.addUserId = function(userId){
     
-    if($state.current.name.includes("Succeed")) return;
+    if($state.current.name.indexOf("Succeed") != -1) return;
     
     this.userId = userId;
     $sessionStorage.identifier = userId;
@@ -42,7 +42,7 @@ angular.module('mariposa-training').service('Session', ['$sessionStorage', '$sta
   
   this.addUserObject = function(userObj){
     
-    if($state.current.name.includes("Succeed")) return;
+    if($state.current.name.indexOf("Succeed") != -1) return;
     
     this.user = userObj;
     $sessionStorage.user = userObj;
@@ -59,7 +59,7 @@ angular.module('mariposa-training').service('Session', ['$sessionStorage', '$sta
   
   this.loadFromSessionStorage = function(){
     
-    if($state.current.name.includes("Succeed")) return;
+    if($state.current.name.indexOf("Succeed") != -1) return;
     
     this.userId = $sessionStorage.identifier;
     this.user = $sessionStorage.user;

@@ -3,7 +3,7 @@
 <div class="margin-xl-top-bottom well">
     <button class="margin-lg-top-bottom btn btn-raised btn-default" ng-click="addStudentVisible = true">Add Student</button>
     <div add-student visible="addStudentVisible" ng-show="addStudentVisible"></div>
-    <div ng-show="Session.userRoles.includes(USER_ROLES.manager) && Management.facilitiesLoaded">
+    <div ng-show="Session.userRoles.indexOf(USER_ROLES.manager) != -1 && Management.facilitiesLoaded">
         <h2>Facilties</h2>
         <div class="row" ng-show="Management.facilities.length > 10">
             <div class="col-sm-6 padding-md">
@@ -58,7 +58,7 @@
           </div>
         </div>
     </div>
-    <div ng-show="Session.userRoles.includes(USER_ROLES.manager) && !Management.facilitiesLoaded" class="padding-md text-center">
+    <div ng-show="Session.userRoles.indexOf(USER_ROLES.manager) != -1 && !Management.facilitiesLoaded" class="padding-md text-center">
         <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i>
     </div>
 </div>

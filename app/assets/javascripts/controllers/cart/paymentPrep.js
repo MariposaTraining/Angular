@@ -49,7 +49,7 @@ angular.module('mariposa-training')
     $scope.checkExpiryValidity = function(){
         $scope.expiryInvalid = !Stripe.card.validateExpiry($scope.expMValidation, $scope.expYValidation);
 
-        if($scope.expiryInvalid && !document.querySelector("#expDiv").className.includes("has-error"))
+        if($scope.expiryInvalid && document.querySelector("#expDiv").className.indexOf("has-error") == -1)
             document.querySelector("#expDiv").className += " has-error";
         else if(!$scope.expiryInvalid)
             document.querySelector("#expDiv").className.replace(" has-error", "");

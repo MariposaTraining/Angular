@@ -38,13 +38,13 @@
 </head>
 <body ng-controller="ApplicationCtrl">
 
-    <div id="browserMessage">
+  <!--  <div id="browserMessage">
       <p>Your browser is having difficulty accessing our site. Please download one of the following browsers to access our site.  </p>
       <p><a href="https://www.google.com/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a> </p>
       <p>The issue will be resolved shortly. Thanks for your patience. </p>
       <p>Sincerely,<br>
         The Mariposa Training team</p>
-    </div>
+    </div> -->
   
     <div class="angular-inside" ng-if="$state.current.name == 'player' || $state.current.name=='playerSucceed'">
       <!-- Player -->
@@ -71,7 +71,7 @@
         <div ui-view></div>
       </div>
     </div>
-    <div class="angular-inside" ng-if="!$state.current.name.includes('Succeed') && $state.current.name != 'player' && $state.current.name != 'test'">
+    <div class="angular-inside" ng-if="$state.current.name.indexOf('Succeed') == -1 && $state.current.name != 'player' && $state.current.name != 'test'">
       <!-- Public site -->
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -128,8 +128,8 @@
           <div class="container-fluid">
             <ul class="nav navbar-nav nav-justified font-large">
               <li ng-if="Session.userId == null" ng-class="{'active': $state.current.name == 'home'}"><a ui-sref="home">Home</a></li>
-              <li ng-if="Session.userId != null" ng-class="{'active': $state.current.name == 'invoices' || $state.current.name == 'personalInfo' || $state.current.name.includes('account')}"><a ui-sref="accountNew">My Account</a></li>
-              <li ng-if="Session.userId != null && Session.userRoles.includes(USER_ROLES.manager) && Session.member.FacilitySoid != NO_ORGANIZATION_SOID" ng-class="{'active': $state.current.name == 'students' || $state.current.name == 'courseAssignments'}"><a ui-sref="students">Manager</a></li>
+              <li ng-if="Session.userId != null" ng-class="{'active': $state.current.name == 'invoices' || $state.current.name == 'personalInfo' || $state.current.name.indexOf('account') != -1}"><a ui-sref="accountNew">My Account</a></li>
+              <li ng-if="Session.userId != null && Session.userRoles.indexOf(USER_ROLES.manager) != -1 && Session.member.FacilitySoid != NO_ORGANIZATION_SOID" ng-class="{'active': $state.current.name == 'students' || $state.current.name == 'courseAssignments'}"><a ui-sref="students">Manager</a></li>
               <li ng-class="{'active': $state.current.name == 'classes' || $state.current.name == 'certifications' || $state.current.name == 'bundles'}"><a ui-sref="classes">Classes & Certifications</a></li>
               <li ng-class="{'active': $state.current.name == 'longtermIndividual' || $state.current.name == 'longtermFacilities'}"><a ui-sref="longtermIndividual">Long Term Care</a></li>
               <li ng-class="{'active': $state.current.name == 'homecareIndividual' || $state.current.name == 'homecareFacilities'}"><a ui-sref="homecareIndividual">Home Healthcare</a></li>
@@ -212,7 +212,7 @@
 
     $(function() {
       
-      checkBrowser();
+    //  checkBrowser();
 
       $('[data-toggle=tooltip]').hover(function() {
         // on mouseenter

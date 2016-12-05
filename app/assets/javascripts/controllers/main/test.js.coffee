@@ -28,7 +28,7 @@ angular.module('mariposa-training').controller 'TestCtrl',
 
       $scope.completeQuiz = ->
         $scope.lecture.setGradeTest().then ->
-          if $state.current.name.includes("Succeed")
+          if $state.current.name.indexOf("Succeed") != -1
             Lecture.find($scope.lecture.Soid).then (lecture) ->
               if(lecture.Status == "Completed")
                 lecture.sendTestPassed()
