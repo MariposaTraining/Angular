@@ -26,7 +26,6 @@ angular.module('mariposa-training').controller('CourseManagementCtrl', ['$scope'
         $q.all(promises).then(function(responses){
             $scope.errorCount = 0;
             for(var i = 0; i < responses.length; i++){
-                debugger
                 if(!responses[i].data.ok || responses[i].data.message.indexOf("No one") != -1){
                     $scope.errorCount++;
                 }
