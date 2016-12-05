@@ -23,7 +23,20 @@ angular.module('mariposa-training').controller('CourseManagementCtrl', ['$scope'
                 
                     $scope.reloadMember = $scope.reloadMember || $scope.Management.facilities[i].Students[j].Soid == Session.userId;
                 }
-        $q.all(promises).then(function(){
+        $q.all(promises).then(function(responses){
+            $scope.errorCount = 0;
+            for(var i = 0; i < responses.length; i++){
+                if(!responses[i].ok || responses[i].message.indexOf("No one") != -1){
+                    $scope.errorCount++;
+                }
+            }
+            
+            if($scope.errorCount > 0){
+                $scope.errorMessage = "An error occurred while scheduling students.";
+            }else{
+                $scope.success = "The selected students have been successfully scheduled.";
+            }
+            
             $scope.showScheduling = false;
             $scope.scheduled = $scope.courseToSchedule.Soid;
             $scope.courseToSchedule = null;
@@ -37,7 +50,10 @@ angular.module('mariposa-training').controller('CourseManagementCtrl', ['$scope'
             $timeout(function () {
                 $scope.dateToSchedule = null;
                 $scope.scheduled = null;
-            }, 2000);
+                $scope.errorMessage = null;
+                $scope.success = null;
+            }, 4000);
+            
             $("#scheduleStudent").modal("hide");
         });
     };

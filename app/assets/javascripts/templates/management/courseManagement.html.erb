@@ -6,9 +6,15 @@
             <button class="btn-empty">
                 <i class="material-icons vertical-align-middle green rotate" ng-class="{down : showDetails[c.Soid]}">play_arrow</i>
             </button>
-            <strong><span class="vertical-align-middle">{{c.Name}}</span></strong> <span class="nowrap">[{{c.SortedStudents.completed.length}} / {{c.SortedStudents.incomplete.length}} / {{c.SortedStudents.archived.length}} / {{c.SortedStudents.inQueue.length}}]</span>
-            <i ng-show="scheduled == c.Soid" class="material-icons green">check_circle</i>
+            <strong><span class="vertical-align-middle">{{c.Name}}</span></strong> <!-- <span class="nowrap">[{{c.SortedStudents.completed.length}} / {{c.SortedStudents.incomplete.length}} / {{c.SortedStudents.archived.length}} / {{c.SortedStudents.inQueue.length}}]</span> -->
+            <i ng-show="scheduled == c.Soid && !errorMessage" class="material-icons green">check_circle</i>
         </h4>
+        <div ng-show="errorMessage && scheduled == c.Soid" class="alert alert-danger margin-md padding-md">
+            {{errorMessage}}
+        </div>
+        <div class="alert alert-success" ng-show="success && scheduled == c.Soid">
+          {{message}}
+        </div>
         <div class="row details" ng-show="showDetails[c.Soid]">
             <div class="col-sm-9">
                 <!-- Completed -->

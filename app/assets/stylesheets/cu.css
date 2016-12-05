@@ -534,8 +534,9 @@ body>.container>.row:last-child{
 }
 
 #scheduleStudent .modal-content{
-    height: 100%;
+    max-height: 100%;
     padding: 20px 0;
+    overflow-y: auto;
 }
 
 /******* Eventbrite ******************/
