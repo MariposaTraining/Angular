@@ -36,7 +36,7 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
             $scope.lecture = result.data.data;
             $scope.testPassed = result.data.data.Tests.filter(function(el){
                 return el.Pass;
-            }).length > 0;
+            }).length > 0 || result.data.data.Status == "Completed";
             if($state.current.name.indexOf("Succeed") != -1)
                 $scope.lecture.Tests = $scope.lecture.Tests.map(function(el){
                     var v = el.AdmisteredOn.substr(6, 13);
@@ -44,6 +44,7 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
                     return el;
                 });
             $scope.showRetakeBtn = !$scope.testPassed;
+            $scope.Account.reloadMemberObject();
         }, function error(result){
             console.log(result);
         });

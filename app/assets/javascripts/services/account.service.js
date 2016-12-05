@@ -438,8 +438,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
         if(!soid) return;
         
         $http.post("/Api/SetWatch", {lectureSoid: soid}).then(function success(result){
-            processLoadedLecture(result, soid);
-            $http.post("/Api/SetMemberCleanup", {memberSoid: Session.userId});
+            self.reloadMemberObject();
             $state.go("player", {lectureName: result.data.data.CourseName.replaceAll(" ", "-"), lectureSoid: soid});
         });
     };

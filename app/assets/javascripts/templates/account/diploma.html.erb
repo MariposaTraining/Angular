@@ -33,7 +33,7 @@
             <div ng-show="errorMessage" class="alert alert-danger font-larger padding-md">
                 {{errorMessage}}
             </div>
-            <div class="row">
+            <div class="row" ng-if="lecture.Tests && lecture.Tests.length > 0">
                 <div class="col-md-5">
                     <p class="font-larger">Tests</p>
                     <table class="table table-hover">
