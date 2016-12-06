@@ -10,9 +10,9 @@ angular.module('mariposa-training')
       templateUrl: '/assets/templates/main/home.html',
       controller: 'HomeCtrl',
       resolve:{
-        "check":function($state, Session){   
+        "check":function($state, Session, Account){   
             if(Session.userId != null){
-                $state.go("accountNew");
+                Account.goToDefaultTab();
             }
           }
       }

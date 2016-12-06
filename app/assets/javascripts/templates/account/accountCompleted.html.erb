@@ -15,8 +15,10 @@
                 <div class="row-content">
                   <h4 class="list-group-item-heading pointer-cursor">
                       <span>{{c.CourseName}}</span>
-                      <button class="btn btn-sm bg-watch-btn btn-raised white pull-right margin-md" ng-click="playLecture(c)">Watch</button>
-                      <button class="btn btn-sm bg-print-btn btn-raised white pull-right margin-md" ng-click="print(c)">Print</button>
+                      <div>
+                        <button class="btn btn-sm bg-watch-btn btn-raised white pull-right margin-md" ng-click="playLecture(c)">Watch</button>
+                        <button class="btn btn-sm bg-print-btn btn-raised white pull-right margin-md" ng-click="print(c)">Print</button>
+                      </div>
                   </h4>
                   <div class="list-group-item-text">
                     <div class="display-inline-block padding-md"><span>{{c.CourseObject.CeuCount}}</span> CEU</div>

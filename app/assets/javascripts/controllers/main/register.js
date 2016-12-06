@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('mariposa-training').controller('RegisterCtrl', ['$scope', '$state', 'AuthService', 'Cart',
-    function ($scope, $state, AuthService, Cart) {
+angular.module('mariposa-training').controller('RegisterCtrl', ['$scope', '$state', 'AuthService', 'Account', 'Cart',
+    function ($scope, $state, AuthService, Account, Cart) {
   
     $scope.info = {
         firstName: null,
@@ -37,7 +37,7 @@ angular.module('mariposa-training').controller('RegisterCtrl', ['$scope', '$stat
             $("#sign-dialog").modal('hide');
             $scope.disableBtn = false;
             if($state.current.name != 'cart')
-                $state.go("accountNew");
+                Account.goToDefaultTab();
         },
         function error(data){
             $scope.disableBtn = false;

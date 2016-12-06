@@ -223,7 +223,7 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
             case "Scheduled": self.items.scheduled.push(lecture); self.items.scheduled.sort(courseComparator); break;
         }
         
-        if(lecture.Scheduled){
+        if(lecture.Scheduled && lecture.Status != "Completed"){
             self.items.scheduled.push(lecture);
             self.items.scheduled = self.items.scheduled.sort(courseComparator);
         } 
@@ -398,6 +398,17 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
             self.loadMemberObject();
         });
 
+    };
+    
+    this.goToDefaultTab = function(){
+        if(Session.userId != null && Session.member != null){
+            if(self.items.incomplete.length > 0)
+                $state.go("accountIncomplete");
+            else if(self.items.completed.length > 0)
+                $state.go("accountCompleted");
+            else
+                $state.go("accountNew");
+        }
     };
     
     this.isWatch = function(soid){

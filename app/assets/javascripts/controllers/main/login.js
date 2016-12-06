@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('mariposa-training').controller('LoginCtrl', ['$scope', 'AuthService', '$state', 'Cart', 
-  function ($scope, AuthService, $state, Cart) {
+angular.module('mariposa-training').controller('LoginCtrl', ['$scope', 'AuthService', '$state', 'Account', 'Cart', 
+  function ($scope, AuthService, $state, Account, Cart) {
   
   $scope.credentials = {
     username: '',
@@ -24,7 +24,7 @@ angular.module('mariposa-training').controller('LoginCtrl', ['$scope', 'AuthServ
         $scope.disableBtn = false;
         Cart.getCart();
         if($state.current.name != 'cart')
-          $state.go("accountNew");
+          Account.goToDefaultTab();
       }else{
         $scope.disableBtn = false;
         $scope.loginInvalid = true;

@@ -51,7 +51,7 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
     
     $scope.homeLinkClicked = function(){
       if($scope.Session.userId != null)
-        $state.go("accountNew");
+        $scope.Account.goToDefaultTab();
       else
         $state.go("home");
     };

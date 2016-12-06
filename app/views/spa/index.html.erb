@@ -128,7 +128,7 @@
           <div class="container-fluid">
             <ul class="nav navbar-nav nav-justified font-large">
               <li ng-if="Session.userId == null" ng-class="{'active': $state.current.name == 'home'}"><a ui-sref="home">Home</a></li>
-              <li ng-if="Session.userId != null" ng-class="{'active': $state.current.name == 'invoices' || $state.current.name == 'personalInfo' || $state.current.name.indexOf('account') != -1}"><a ui-sref="accountNew">My Account</a></li>
+              <li ng-if="Session.userId != null" ng-class="{'active': $state.current.name == 'invoices' || $state.current.name == 'personalInfo' || $state.current.name.indexOf('account') != -1}"><a class="pointer-cursor" ng-click="Account.goToDefaultTab()">My Account</a></li>
               <li ng-if="Session.userId != null && Session.userRoles.indexOf(USER_ROLES.manager) != -1 && Session.member.FacilitySoid != NO_ORGANIZATION_SOID" ng-class="{'active': $state.current.name == 'students' || $state.current.name == 'courseAssignments'}"><a ui-sref="students">Manager</a></li>
               <li ng-class="{'active': $state.current.name == 'classes' || $state.current.name == 'certifications' || $state.current.name == 'bundles'}"><a ui-sref="classes">Classes & Certifications</a></li>
               <li ng-class="{'active': $state.current.name == 'longtermIndividual' || $state.current.name == 'longtermFacilities'}"><a ui-sref="longtermIndividual">Long Term Care</a></li>
