@@ -146,12 +146,22 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     
     var addFacility = function(facility){
         if(facility.Students)
-            facility.Students.sort(function(p1, p2) {return p1.FullName.localeCompare(p2.FullName)});
+            facility.Students.sort(function(p1, p2) {
+                if(p1.FullName && p2.FullName)
+                    return p1.FullName.localeCompare(p2.FullName)
+                else
+                    return true;
+            });
         if(facility.Dropped)
             facility.Dropped = facility.Dropped.map(function(el){
                 el.CreatedOn = getDateStringFromISOString(el.CreatedOn);
                 return el;
-            }).sort(function(p1, p2){return p1.FullName.localeCompare(p2.FullName)});
+            }).sort(function(p1, p2){
+                if(p1.FullName && p2.FullName)
+                    return p1.FullName.localeCompare(p2.FullName)
+                else
+                    return true;
+            });
         self.facilities.push(facility);
     };
     
