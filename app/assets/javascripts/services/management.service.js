@@ -174,7 +174,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     
     this.print = function(lectureSoid){
         Account.getDiploma(lectureSoid).then(function(result){
-            var link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Documents/Continuing Education Unit/certificates/" + result.data.data + ".pdf";
+            var link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/documents/ceu/" + result.data.data + ".pdf";
             $window.open(link);
         });
     };
