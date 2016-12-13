@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get  '/Succeed/TestFailed' => 'spa#succeed_test_failed'
   get   '/class/diploma' => 'spa#diploma'
   get   '/class/succeed' => 'spa#succeed'
+  post  '/Log' => 'spa#log'
   
   root  'spa#index'
 end

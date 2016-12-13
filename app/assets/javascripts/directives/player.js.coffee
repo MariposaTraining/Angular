@@ -1,6 +1,6 @@
 angular.module('mariposa-training').directive 'player',
-['$rootScope', '$state', '$interval', '$sce', 'ngAudio', '$localStorage', 'Lecture', 'Course', 'Account',
-($rootScope, $state, $interval, $sce, ngAudio, $localStorage, Lecture, Course, Account) ->
+['$rootScope', '$state', '$interval', '$sce', 'ngAudio', '$localStorage', 'Lecture', 'Course', 'Account', 'Logger',
+($rootScope, $state, $interval, $sce, ngAudio, $localStorage, Lecture, Course, Account, Logger) ->
   restrict: 'E'
   templateUrl: 'directive/player.html'
   scope:
@@ -41,18 +41,25 @@ angular.module('mariposa-training').directive 'player',
             scope.course.currentSlideIndex, scope.audio.currentTime)
 
           if scope.audio.progress >= 1
-            scope.lecture.setCompleteViewing().then ->
-              Lecture.find(scope.lecture.Soid).then (lecture) ->
-                if !lecture.TestPassed
-                  Account.test(scope.lecture.Soid)
-                else if $state.current.name.indexOf("Succeed") != -1
-                  fullName = ""
-                  if $state.params["fullName"]
-                    fullName = $state.params["fullName"]
-                  $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid, fullName: fullName})
-                else
-                  $state.go("accountDiploma", {lectureSoid: scope.lecture.Soid})
-
+            scope.lecture.setCompleteViewing().then(
+              (result) ->
+                Lecture.find(scope.lecture.Soid).then(
+                  (lecture) ->
+                    if !lecture.TestPassed
+                      Account.test(scope.lecture.Soid)
+                    else if $state.current.name.indexOf("Succeed") != -1
+                      fullName = ""
+                      if $state.params["fullName"]
+                        fullName = $state.params["fullName"]
+                      $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid, fullName: fullName})
+                    else
+                      $state.go("accountDiploma", {lectureSoid: scope.lecture.Soid})
+                  (error) ->
+                    Logger.logData("In player directive: saveProgress method: Lecture.find", JSON.stringify(error));
+                )
+              (error) ->
+                Logger.logData("In player directive: saveProgress method: setCompleteViewing", JSON.stringify(error));
+            )
       restoreProgress = ->
         if scope.lecture
           scope.savedProgress = scope.lecture.savedProgress

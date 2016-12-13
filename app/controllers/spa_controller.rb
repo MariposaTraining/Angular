@@ -188,17 +188,24 @@ class SpaController < ApplicationController
     end
   end
   
+  def log
+    logger.debug params[:data]
+  end
+  
   # GET   /api/:endpoint
   # POST  /api/:endpoint
   def api
     endpoint = params[:endpoint]
 
     uri = URI("#{API_URL}/#{endpoint}")
-    
+    logger.debug "----- Sent to server -------"
+    logger.debug params
     res = Net::HTTP.post_form(uri, params)
     begin
       puts res.body
       json = JSON.parse(res.body)
+      logger.debug "------- Response -------"
+      logger.debug json
       
       # sometimes response contains data object with necessary data
       # but sometimes the response from the server is the object with necessery data
