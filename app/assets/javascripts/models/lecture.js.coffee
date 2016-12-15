@@ -1,6 +1,6 @@
 # global angular
 # Create angular service from this model
-angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'BaseModelClass', 'Course', 'Account', ($http, $state, BaseModelClass, Course, Account) ->
+angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', '$q', 'BaseModelClass', 'Course', 'Account', 'Logger', ($http, $state, $q, BaseModelClass, Course, Account, Logger) ->
   class Lecture extends BaseModelClass
     @find: (id) ->
       $http.post('/Api/GetLecture', {lectureSoid: id}).then (response) ->
@@ -26,6 +26,7 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'Base
           @succeedApi('CourseCompleted', {lectureSoid: @Soid})
         else
           Account.reloadMemberObject()
+        response
 
     getTest: ->
       @legacyApi('getTest', {lectureSoid: @Soid}).then (response) ->
@@ -44,10 +45,32 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', 'Base
       @succeedApi('TestFailed', {lectureSoid: @Soid})
 
     legacyApi: (request, data = {}) ->
-      $http.post("/Api/#{request}", data, {"headers" : { "Content-Type" : "application/json; charset=UTF-8" }})
+      # Create promise
+      deferred = $q.defer()
+      
+      $http.post("/Api/#{request}", data, {"headers" : { "Content-Type" : "application/json; charset=UTF-8" }}).then(
+        (successResult) ->
+          if(successResult.data.ok || successResult.ok)
+            deferred.resolve(successResult)
+          else
+            Logger.logData("Lecture: legacyApi: request: " + request + " data: " + JSON.stringify(data), JSON.stringify(successResult));
+            deferred.reject(successResult)
+        (errorResult) ->
+          Logger.logData("Lecture: legacyApi: request: " + request + " data: " + JSON.stringify(data), JSON.stringify(errorResult));
+          deferred.reject(errorResult)
+      )
+      
+      # Return promise
+      deferred.promise
       
     succeedApi: (request, data ={}) ->
-      $http.post("/Succeed/#{request}", data, {"headers" : { "Content-Type" : "application/json; charset=UTF-8" }})
+      $http.post("/Succeed/#{request}", data, {"headers" : { "Content-Type" : "application/json; charset=UTF-8" }}).then(
+        (successResult) ->
+          return successResult
+        (errorResult) ->
+          Logger.logData("Lecture: succeedApi: request: " + request + " data: " + JSON.stringify(data), JSON.stringify(errorResult));
+          return errorResult
+      )
 
     wasCompleted: ->
       @Status not in ['Incomplete', 'InQueue']

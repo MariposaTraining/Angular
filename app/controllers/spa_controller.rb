@@ -190,13 +190,14 @@ class SpaController < ApplicationController
   
   def log
     logger.debug params[:data]
+    render json: {ok: true}
   end
   
   # GET   /api/:endpoint
   # POST  /api/:endpoint
   def api
     endpoint = params[:endpoint]
-
+    
     uri = URI("#{API_URL}/#{endpoint}")
     logger.debug "----- Sent to server -------"
     logger.debug params
