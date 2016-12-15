@@ -1,4 +1,7 @@
 <div class="table-responsive" ng-if="students.length > 0">
+    <div ng-if="f.loading" class="padding-md">
+        Loading students for {{f.Name}}... <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i>
+    </div>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -10,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat-start="s in displayedStudents">
+            <tr ng-repeat-start="s in students">
                 <td><label class="label label-info font-12" ng-if="s.IsEmployee">Manager</label></td>
                 <td>{{s.FullName}}</td>
                 <td>{{s.EmailAddress}}</td>

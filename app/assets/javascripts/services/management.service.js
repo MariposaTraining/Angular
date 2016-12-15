@@ -8,6 +8,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     this.managerCoursesAttemptedLoad = false;
     this.facilitiesLoaded = false;
     this.facilityReloaded = false;
+    this.studentsLoadedCount = {};
     
     var self = this;
     
@@ -134,24 +135,59 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
         var i = 0;
         while(i < self.facilities.length && self.facilities[i].Soid != response.data.Soid) i++;
         if(i != self.facilities.length){
-            response.data.Students.sort(function(p1, p2) {return p1.FullName.localeCompare(p2.FullName)});
-            response.data.Dropped = response.data.Dropped.map(function(el){
-                el.CreatedOn = getDateStringFromISOString(el.CreatedOn);
-                return el;
-            }).sort(function(p1, p2){return p1.FullName.localeCompare(p2.FullName)});
-            self.facilities[i] = response.data;
+            self.facilities[i] = processFacility(response.data);
             self.facilityReloaded = true;
         }
     };
     
-    var addFacility = function(facility){
-        if(facility.Students)
-            facility.Students.sort(function(p1, p2) {
-                if(p1.FullName && p2.FullName)
-                    return p1.FullName.localeCompare(p2.FullName)
-                else
-                    return true;
+    var processFacility = function(facility){
+        if(facility.Students){
+            
+            self.tmpStudents = facility.Students.filter(function(el){
+                return !el.FullName && el.Soid;
             });
+            
+            var promise = [];
+            
+            if(self.tmpStudents && self.tmpStudents.length > 0){
+                
+                facility.loading = true;
+                
+                for(var i = 0; i < self.tmpStudents.length; i++){
+                    promise[i] = $http.post("/Api/getMember", {memberSoid: self.tmpStudents[i].Soid}).then(function(response){
+                        if(response.data.ok){
+                            var index = indexOfObject(facility.Students, response.data.data.Soid);
+                            facility.Students[index].FullName = response.data.data.NameFull;
+                            facility.Students[index].CountCompleted = response.data.data.CountCompleted;
+                        }
+                    });
+                    if(!self.tmpStudents[i].EmailAddres)
+                        $http.post("/Api/getUser", {memberSoid: self.tmpStudents[i].Soid}).then(function(response){
+                           if(response.data.ok){
+                            var index = indexOfObject(facility.Students, response.data.data.Soid);
+                            facility.Students[index].EmailAddress = response.data.data.EmailAddress;
+                           } 
+                        });
+                }
+                
+                $q.all(promise).then(function(){
+                    facility.Students.sort(function(p1, p2) {
+                        if(p1.FullName && p2.FullName)
+                            return p1.FullName.localeCompare(p2.FullName);
+                        else
+                            return true;
+                    });
+                    facility.loading = false;
+                });
+            }else{ 
+                facility.Students.sort(function(p1, p2) {
+                    if(p1.FullName && p2.FullName)
+                        return p1.FullName.localeCompare(p2.FullName);
+                    else
+                        return true;
+                });
+            }
+        }
         if(facility.Dropped)
             facility.Dropped = facility.Dropped.map(function(el){
                 el.CreatedOn = getDateStringFromISOString(el.CreatedOn);
@@ -162,7 +198,11 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
                 else
                     return true;
             });
-        self.facilities.push(facility);
+            return facility;
+    }
+    
+    var addFacility = function(facility){
+        self.facilities.push(processFacility(facility));
     };
     
     this.getFacility = function(facilitySoid){
@@ -199,6 +239,13 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     
     this.recover = function(memberSoid, facilitySoid){
         return $http.post("/Api/SetManagerStudentRecover", {memberSoid: memberSoid, facilitySoid: facilitySoid});
+    };
+    
+    var indexOfObject = function(arr, objSoid){
+        var i = 0;
+        while (i < arr.length && arr[i].Soid != objSoid) i++;
+        if (i == arr.length) i = -1;
+        return i;
     };
     
 }]);
