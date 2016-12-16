@@ -1,23 +1,27 @@
 /* global angular */
 
 angular.module('mariposa-training')
-  .controller('CheckoutCtrl', ['$scope', '$state', 'Account', 'Cart', 'ITEM_TYPES', 'Session', 'Transaction',
-    function($scope, $state, Account, Cart, ITEM_TYPES, Session, Transaction){
+  .controller('CheckoutCtrl', ['$scope', '$state', 'Account', 'Cart', 'ITEM_TYPES', 'Session', 'Transaction', 'Logger',
+    function($scope, $state, Account, Cart, ITEM_TYPES, Session, Transaction, Logger){
     
     $scope.purchase = function(){
       if($scope.Cart.getTotalPrice() > 0 && $scope.Transaction.hasValidToken())
         $scope.Transaction.purchase().then(purchaseSucces, purchaseError);  
-      else
+      else if($scope.Cart.getTotalPrice() == 0){
         $scope.Transaction.purchaseForFree().then(purchaseSucces, purchaseError);
+        Logger.logData("CheckoutCtrl: purchase: purchase for free", "");
+      }
     };
     
     var purchaseSucces = function(response){
       if(response.data && response.data.ok == true){
+        Logger.logData("CheckoutCtrl: purchase success", JSON.stringify(response));
         $scope.Cart.getCart();
         $scope.postpayment = true;
         $scope.paymentSuccessful = true;
         Account.loadMemberObject();
       }else{
+        Logger.logData("CheckoutCtrl: purchase success: status 200 but not successful", JSON.stringify(response));
         $scope.errorMessage = response.data.message;
         $scope.postpayment = true;
         $scope.paymentSuccessful = false;
@@ -27,6 +31,7 @@ angular.module('mariposa-training')
     };
     
     var purchaseError = function(response){
+      Logger.logData("CheckoutCtrl: purchase error", JSON.stringify(response));
       $scope.errorMessage = response.data.message;
       $scope.postpayment = true;
       $scope.paymentSuccessful = false;

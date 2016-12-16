@@ -2,8 +2,8 @@
 /* global Stripe */
 
 angular.module('mariposa-training')
-  .controller('PaymentPrepCtrl', ['$scope', '$state', 'Transaction', 'Session', 'US_STATES', 
-    function($scope, $state, Transaction, Session, US_STATES){
+  .controller('PaymentPrepCtrl', ['$scope', '$state', 'Transaction', 'Session', 'Logger', 'US_STATES', 
+    function($scope, $state, Transaction, Session, Logger, US_STATES){
     
     $scope.preventSubmit = function(){
         $scope.disableBtn = true;
@@ -62,6 +62,7 @@ angular.module('mariposa-training')
     };
     
     var responseHandler = function(status, response){
+        Logger.logData("PaymentPrepCtrl: stripe response handler", "Status: " + status + JSON.stringify(response));
         $scope.disableBtn = false;
         if(response.error){
             $scope.errorMsg = response.error.message;

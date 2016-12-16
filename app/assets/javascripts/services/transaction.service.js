@@ -40,11 +40,11 @@ angular.module('mariposa-training').service('Transaction', ['$http', 'Session',
             };
             
             return $http.post(url, data); 
-        }
+        };
         
         this.destroy = function(){
             this.token = null;
-        }
+        };
         
     }
 ]);
