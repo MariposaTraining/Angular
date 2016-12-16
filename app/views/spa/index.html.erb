@@ -90,7 +90,7 @@
               </button>
               <div ng-show="Cart.getTotalCount() > 0" class="padding-md visible-xs display-inline-block float-right text-left">
                 <div>Cart: <strong>{{Cart.getTotalCount()}}</strong></div>
-                <a ui-sref="cart" class="padding-md rgba-gray" id="checkoutRgba">CHECKOUT</a>
+                <a ui-sref="cart" class="padding-md rgba-gray" id="checkoutRgba">CHECKOUT <i class="material-icons">shopping_cart</i></a>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@
               </li>
               <li ng-show="Cart.getTotalCount() > 0" class="padding-md margin-md-left" ng-mouseover="cartDialogVisible = true" ng-mouseleave="cartDialogVisible = false">
                 <div>Cart: <strong>{{Cart.getTotalCount()}}</strong></div>
-                <a ui-sref="cart" class="padding-md">CHECKOUT</a>
+                <a ui-sref="cart" class="padding-md">CHECKOUT <i class="material-icons">shopping_cart</i></a>
               </li>
             </ul>
             <ul ng-show="Session.userId == null" class="nav navbar-nav navbar-right text-center">
