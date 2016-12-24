@@ -259,7 +259,7 @@ angular.module('mariposa-training')
       templateUrl: 'assets/templates/main/player.html',
       controller: 'PlayerCtrl',
       resolve:{
-        "check":function($location, $stateParams, Session, Account, USER_ROLES){   
+        "check":function($location, $stateParams, Session){
             if(Session.userId != null){
               if(!$stateParams['lectureSoid'])
                   $location.path("/MyAccount/New");
@@ -273,7 +273,8 @@ angular.module('mariposa-training')
       templateUrl: 'assets/templates/main/test.html',
       controller: 'TestCtrl',
       resolve:{
-        "check":function($location, $stateParams, Session, Account, USER_ROLES){   
+        "check":function($location, $stateParams, Session, Account, USER_ROLES, Logger){ 
+            Logger.logData("Routes.js: to state test for Mariposa users", "lecture: " + $stateParams['lectureSoid']);
             if(Session.userId != null){
               if(!$stateParams['lectureSoid'])
                   $location.path("/MyAccount/New");

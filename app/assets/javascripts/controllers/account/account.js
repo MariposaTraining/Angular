@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state', '$q', '$window', 'Account', 'Session', 'PersonalInfo', 'US_STATES', 'TIME_ZONES',
-    function ($scope, $state, $q, $window, Account, Session, PersonalInfo, US_STATES, TIME_ZONES) {
+angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state', '$q', '$window', 'Account', 'Session', 'PersonalInfo', 'Logger', 'US_STATES', 'TIME_ZONES',
+    function ($scope, $state, $q, $window, Account, Session, PersonalInfo, Logger, US_STATES, TIME_ZONES) {
   
     $scope.init = function(){
         
@@ -84,13 +84,14 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
     $scope.playLecture = function(lecture){
         if(!lecture.Soid){
             $scope.Account.createLecture(lecture).then(function(response){
-                $scope.Account.watch(response.data.data.Soid);
+                $scope.Account.play(response.data.data.Soid);
             });
         }else
-            $scope.Account.watch(lecture.Soid);  
+            $scope.Account.play(lecture.Soid);  
     };
     
     $scope.test = function(lecture){
+        Logger.logData("AccountCtrl: test called on lecture " + lecture.Soid, JSON.stringify(lecture));
         $scope.Account.test(lecture.Soid);
     };
     

@@ -24,7 +24,7 @@ angular.module('mariposa-training')
     };
     
     $scope.watch = function(c){
-        $scope.Account.watch($scope.Account.getLectureSoid(c.Soid));
+        $scope.Account.play($scope.Account.getLectureSoid(c.Soid));
     };
     
     $scope.test = function(c){

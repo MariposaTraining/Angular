@@ -1,8 +1,8 @@
 /* global angular */
 /* global PLAYER_URL, SITE_URL */
 
-angular.module('mariposa-training').service('Account', ['$http', '$window', '$sessionStorage', '$localStorage', '$state', 'Session', 'Catalog', 
-    function ($http, $window, $sessionStorage, $localStorage, $state, Session, Catalog) {
+angular.module('mariposa-training').service('Account', ['$http', '$window', '$sessionStorage', '$localStorage', '$state', 'Session', 'Catalog', 'Logger',
+    function ($http, $window, $sessionStorage, $localStorage, $state, Session, Catalog, Logger) {
     
     this.valid = false;
     
@@ -444,9 +444,12 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
         return incomplete.length == 1;
     };
     
-    this.watch = function(soid){
+    this.play = function(soid){
         
-        if(!soid) return;
+        if(!soid){
+            Logger.logData("Account service: play function: lecture soid missing.", "");
+            return;  
+        } 
         
         $http.post("/Api/SetWatch", {lectureSoid: soid}).then(function success(result){
             self.reloadMemberObject();
@@ -455,13 +458,18 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     };
     
     this.test = function(soid){
-        if(!soid) return;
+        if(!soid){
+            Logger.logData("Account service: test function: lecture soid missing.", "");
+            return;  
+        } 
         
         if($state.current.name.indexOf("Succeed") != -1){
             self.loadLectureBySoid(soid).then(function success(result){
+                Logger.logData("Account service: test function: open test for Succeed user", "lectureSoid: " + soid);
                 $state.go("testSucceed", {lectureName: result.data.data.CourseName.replaceAll(" ", "-"), lectureSoid: soid, fullName: $state.params["fullName"] ? $state.params["fullName"] : "" });
             }, function error(result){
                 console.log(result);
+                Logger.logData("Account service: test function: error on loadLectureBySoid for Succeed user", result);
                 $state.go("homeSucceed");
             });
         }else{
@@ -470,7 +478,8 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
             var lectureName = "Lecture";
             
             if(tmp.length == 1) lectureName = tmp[0].CourseName.replaceAll(" ", "-");   
-            
+            Logger.logData("Account service: test function: open test for Mariposa user", "lectureSoid: " + soid);
+
             $state.go("test", {lectureName: lectureName, lectureSoid: soid});
         }
     };

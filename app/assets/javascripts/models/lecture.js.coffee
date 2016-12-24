@@ -4,7 +4,11 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', '$q',
   class Lecture extends BaseModelClass
     @find: (id) ->
       $http.post('/Api/GetLecture', {lectureSoid: id}).then (response) ->
-        new Lecture response.data.data
+        if response.data.ok
+          new Lecture response.data.data
+        else
+          Logger.logData("Lecture model: find by id: not found", JSON.stringify(response))
+          null
   
     afterInitialize: ->
       @savedProgress = if @Viewed then 1 else 0

@@ -32,6 +32,27 @@ angular.module('mariposa-training').directive 'player',
       scope.showText       = true
       scope.showMedia      = true
       scope.showCEUWarning = false
+      
+      chooseActionOnViewed = (lecture) ->
+        try
+          if !lecture.TestPassed
+            Account.test(lecture.Soid)
+          else if $state.current.name.indexOf("Succeed") != -1
+            fullName = ""
+            if $state.params["fullName"]
+              fullName = $state.params["fullName"]
+            $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid, fullName: fullName})
+          else
+            $state.go("accountDiploma", {lectureSoid: scope.lecture.Soid})
+        catch error 
+          Logger.logData("Player: setCompleteViewing callback: Lecture.find callback: catch", error);
+    
+      
+      completeViewingCallback = (result) ->
+        try
+          Lecture.find(scope.lecture.Soid).then(chooseActionOnViewed)
+        catch error
+          Logger.logData("Player: setCompleteViewing callback: catch", error);
 
       # Functions for measuring time elapsed since audio started
 
@@ -40,21 +61,7 @@ angular.module('mariposa-training').directive 'player',
           scope.lecture.setProgress(scope.course.currentSlideIndex, scope.audio.currentTime)
 
           if scope.audio.progress >= 1
-            scope.lecture.setCompleteViewing().then(
-              (result) ->
-                Lecture.find(scope.lecture.Soid).then(
-                  (lecture) ->
-                    if !lecture.TestPassed
-                      Account.test(scope.lecture.Soid)
-                    else if $state.current.name.indexOf("Succeed") != -1
-                      fullName = ""
-                      if $state.params["fullName"]
-                        fullName = $state.params["fullName"]
-                      $state.go("testResultSucceed", {lectureSoid: scope.lecture.Soid, fullName: fullName})
-                    else
-                      $state.go("accountDiploma", {lectureSoid: scope.lecture.Soid})
-                )
-              )
+            scope.lecture.setCompleteViewing().then(completeViewingCallback)
             
       restoreProgress = ->
         if scope.lecture

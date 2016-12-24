@@ -2,11 +2,9 @@ angular.module('mariposa-training').controller 'TestCtrl',
 ['$scope', '$state', '$stateParams', 'Lecture', 'Layout', 'Account', ($scope, $state, $stateParams, Lecture, Layout, Account) ->
   Lecture.find($stateParams['lectureSoid'])
     .then (lecture) ->
-      console.log lecture
       $scope.lecture = lecture
       $scope.lecture.getTest()
     .then (test) ->
-      console.log test
 
       # Set window title
       window.document.title = test.CourseName
