@@ -1,5 +1,9 @@
 <div ng-include='"main/catalogTabs.html"'></div>
 
+<div class="well bundle" ng-if="!certifications || !certifications.length || certifications.length == 0">
+  <p>There are no certifications available at this moment.</p>
+</div>
+
 <div class="well bundle" ng-repeat="(index, c) in certifications">
   <h4>
     <strong><span>{{c.Name}}</span></strong> 

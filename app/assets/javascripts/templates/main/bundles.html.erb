@@ -1,5 +1,9 @@
 <div ng-include='"main/catalogTabs.html"'></div>
 
+<div class="well bundle" ng-if="!bundles || !bundles.length || bundles.length == 0">
+  <p>There are no bundles available at this moment.</p>
+</div>
+
 <div class="well bundle" ng-repeat="(index, b) in bundles">
   <h4>
     <strong><span>{{b.Name}}</span></strong> 
