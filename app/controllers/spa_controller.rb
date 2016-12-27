@@ -198,6 +198,8 @@ class SpaController < ApplicationController
   def api
     endpoint = params[:endpoint]
     
+    logger.debug "----- User agent: #{request.user_agent}" 
+    
     uri = URI("#{API_URL}/#{endpoint}")
     logger.debug "----- Sent to server -------"
     logger.debug params
