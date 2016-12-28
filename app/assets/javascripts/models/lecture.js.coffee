@@ -56,6 +56,7 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', '$q',
         (successResult) ->
           if(successResult.data.ok || successResult.ok)
             deferred.resolve(successResult)
+            Logger.logData("Lecture: legacyApi: request: successful: " + request + " data: " + JSON.stringify(data), JSON.stringify(successResult));
           else
             Logger.logData("Lecture: legacyApi: request: " + request + " data: " + JSON.stringify(data), JSON.stringify(successResult));
             deferred.reject(successResult)
