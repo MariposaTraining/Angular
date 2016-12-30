@@ -61,7 +61,7 @@ class SpaController < ApplicationController
       lecture_result = JSON.parse(lecture_response.body)
       lecture = lecture_result["data"]
       
-      redirect_to SITE_URL + "/#/Succeed/" + lecture["CourseName"].gsub(" ", "-") + "/Video/" + result["data"] + "/" + get_session_name(result["data"]).gsub(" ", "_")
+      redirect_to SITE_URL + "/#/Succeed/" + lecture["CourseName"].gsub(" ", "-").gsub("/", "-") + "/Video/" + result["data"] + "/" + get_session_name(result["data"]).gsub(" ", "_")
       
     else
       
