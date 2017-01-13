@@ -26,7 +26,6 @@ angular.module('mariposa-training').directive 'player',
       scope.seekable      = 0
 
       updateInterval       = null
-      saveInterval         = null
       intervalStarted      = false
       scope.playing        = false
       scope.showText       = true
@@ -59,9 +58,6 @@ angular.module('mariposa-training').directive 'player',
       saveProgress = ->
         if scope.lecture
           scope.lecture.setProgress(scope.course.currentSlideIndex, scope.audio.currentTime)
-
-          if scope.audio.progress >= 1
-            scope.lecture.setCompleteViewing().then(completeViewingCallback)
             
       restoreProgress = ->
         if scope.lecture
@@ -84,10 +80,15 @@ angular.module('mariposa-training').directive 'player',
         scope.currentTime = clockFormat(scope.audio.currentTime)
         scope.totalTime = totalTime()
         scope.currentSlide = scope.course.chooseNextSlide scope.audio.currentTime
+        
+        if !scope.currentSlide.played
+          saveProgress()
+          if scope.currentSlide?.type == 'video'
+            pause()
+            playVideoSlide()
 
-        if scope.currentSlide?.type == 'video' && !scope.currentSlide.played
-          pause()
-          playVideoSlide()
+        if scope.audio.progress >= 1
+          scope.lecture.setCompleteViewing().then(completeViewingCallback)
 
         scope.currentSlide.played = true
 
@@ -113,15 +114,12 @@ angular.module('mariposa-training').directive 'player',
       startInterval = ->
         unless intervalStarted
           updateInterval = $interval updateProgress, 200
-          saveInterval = $interval saveProgress, 5000
           intervalStarted = true
 
       stopInterval = ->
         if intervalStarted
           $interval.cancel updateInterval
-          $interval.cancel saveInterval
           updateInterval = null
-          saveInterval = null
           intervalStarted = false
 
       # Functions to control the player
