@@ -151,12 +151,21 @@
                   <i class="material-icons vertical-align-middle green rotate" ng-class="{down : showDetails[e.id]}">play_arrow</i>
                 </button>
                 <span class="margin-md pointer-cursor" ng-click="showDetails[e.id] = !showDetails[e.id];">{{e.name.text}}</span>
-                <div>
-                  <small class="padding-md" ng-if="e.venue.address">{{e.venue.address}}</small>
-                  <small class="padding-md">{{e.start.displayedDate}}</small>
-                  <button class="btn btn-flat btn-raised btn-sm bg-orange white margin-md" ng-click="goGlobal(e.url)">
-                    Register
-                  </button>
+                <div class="row">
+                  <div class="col-sm-4 padding-50-left" ng-if="e.venue">
+                    <div ng-if="e.venue.name"><small>{{e.venue.name}}</small></div>
+                    <div ng-if="e.venue.address && (e.venue.address.address_1 || e.venue.address.address_2)">
+                      <small>
+                        {{e.venue.address.address_1}}<span ng-show="e.venue.address && (e.venue.address.address_1 && e.venue.address.address_2)">,</span> {{e.venue.address.address_2}}
+                      </small></div>
+                    <div ng-if="e.venue.address && (e.venue.address.city || e.venue.address.region)"><small>{{e.venue.address.city}} {{e.venue.address.region}}</small></div>
+                  </div>
+                  <div class="col-sm-8 padding-sm-top">
+                    <small class="padding-md">{{e.start.displayedDate}}</small>
+                    <button class="btn btn-flat btn-raised btn-sm bg-orange white margin-md pull-right" ng-click="goGlobal(e.url)">
+                      Register
+                    </button>
+                  </div>
                 </div>
               </h4>
               <div class="list-group-item-text" ng-show="showDetails[e.id]">

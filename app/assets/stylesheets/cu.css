@@ -399,6 +399,10 @@ body nav.navbar.navbar-default{
     padding: 5px;
 }
 
+.padding-sm-top{
+    padding-top: 5px;
+}
+
 .padding-xl{
     padding: 20px;
 }
