@@ -23,7 +23,7 @@ body nav.navbar.navbar-default{
     background: #48b01d;
 }
 
-.bg-orange, .btn:not(.btn-raised):not(.btn-link).bg-orange:focus, .btn:not(.btn-raised):not(.btn-link).bg-orange:hover{
+.bg-orange, .btn.bg-orange, .btn:not(.btn-link).bg-orange:focus, .btn:not(.btn-link).bg-orange:hover{
     background: #ff8000;
 }
 
@@ -339,6 +339,10 @@ body nav.navbar.navbar-default{
     max-width: 300px;
 }
 
+.overflow-x-auto{
+    overflow-x: auto;
+}
+
 .padding-50-left{
     padding-left: 50px;
 }
@@ -540,6 +544,10 @@ body>.container>.row:last-child{
 }
 
 /******* Eventbrite ******************/
+
+.eventbrite-description h2{
+    text-align: center;
+}
 
 div.Description{
     display: none;

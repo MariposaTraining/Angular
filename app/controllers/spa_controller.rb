@@ -228,9 +228,11 @@ class SpaController < ApplicationController
   
   # GET   /eventbrite
   def eventbrite
-    uri = URI("#{EVENTBRITE_URL}")
+
+    time = (Time.new).strftime("%Y-%m-%dT%H:%M:%S");
+    uri = URI("#{EVENTBRITE_URL}/v3/events/search/?token=5F5QD2AMAT3GV2P6TB6C&user.id=107697414411&start_date.range_start=#{time}")
     res = Net::HTTP::get(uri)
-    render :plain => res
+    render json: res
   end
   
   def show_test_result

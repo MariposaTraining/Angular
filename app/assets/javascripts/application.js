@@ -16,6 +16,7 @@
 //= require angular.audio
 //= require ngStorage.min
 //= require material.min
+//= require moment.min
 //= require ripples.min
 //= require angular-rails-templates
 //= require angular-ui-router
@@ -26,3 +27,4 @@
 //= require_tree ./services
 //= require_tree ./directives
 //= require_tree ./models
+//= require eventbrite

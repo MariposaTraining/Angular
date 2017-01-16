@@ -141,9 +141,31 @@
           <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i>
         </div>
         <div class="list-group" ng-show="!waitingForEventbrite">
-          <ng-bind-html
-            ng-bind-html="deliberatelyTrustDangerousSnippet()">
-          </ng-bind-html>
+          <div ng-repeat="e in ebEvents" class="list-group-item padding-none margin-md-bottom">
+            <div class="row-picture vertical-align-top" ng-click="showDetails[e.id] = !showDetails[e.id];">
+              <img class="list-item-icon-larger pointer-cursor" src="{{e.logo.url}}" alt="icon">
+            </div>
+            <div class="row-content">
+              <h4 class="list-group-item-heading" >
+                <button class="btn-empty pointer-cursor" ng-click="showDetails[e.id] = !showDetails[e.id];">
+                  <i class="material-icons vertical-align-middle green rotate" ng-class="{down : showDetails[e.id]}">play_arrow</i>
+                </button>
+                <span class="margin-md pointer-cursor" ng-click="showDetails[e.id] = !showDetails[e.id];">{{e.name.text}}</span>
+                <div>
+                  <small class="padding-md" ng-if="e.venue.address">{{e.venue.address}}</small>
+                  <small class="padding-md">{{e.start.displayedDate}}</small>
+                  <button class="btn btn-flat btn-raised btn-sm bg-orange white margin-md" ng-click="goGlobal(e.url)">
+                    Register
+                  </button>
+                </div>
+              </h4>
+              <div class="list-group-item-text" ng-show="showDetails[e.id]">
+                <hr>
+                <div ng-bind-html="e.description.html" class="overflow-x-auto eventbrite-description"></div>
+              </div>
+              <hr>
+            </div>
+          </div>
         </div>
       </div>
     </div>
