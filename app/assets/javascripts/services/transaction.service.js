@@ -23,7 +23,7 @@ angular.module('mariposa-training').service('Transaction', ['$http', 'Session',
                 var data = {
                     memberSoid: Session.userId,
                     stripeToken: self.token.id,
-                    cardInfo: self.token.card
+                    cardInfo: self.token
                 };
                 
                 return $http.post(url, data);  
