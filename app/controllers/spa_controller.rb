@@ -203,10 +203,15 @@ class SpaController < ApplicationController
     uri = URI("#{API_URL}/#{endpoint}")
     logger.debug "----- Sent to server -------"
     logger.debug params
-    res = Net::HTTP.post_form(uri, params)
+    
+    req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+    req.body = params.to_json
+    http = Net::HTTP.new(uri.hostname, uri.port)
+    response1 = http.request(req)
+
     begin
-      puts res.body
-      json = JSON.parse(res.body)
+      puts response1.body
+      json = JSON.parse(response1.body)
       logger.debug "------- Response -------"
       logger.debug json
       
@@ -215,14 +220,14 @@ class SpaController < ApplicationController
       # without the wrapper
       
       if json.key?('data') and json['data'].is_a?(Hash) and json['data'].key?('data') then
-        render json: JSON.parse(res.body)['data']
+        render json: JSON.parse(response1.body)['data']
       else
-        render json: JSON.parse(res.body)
+        render json: JSON.parse(response1.body)
       end
       
     rescue StandardError => error
       puts error
-      render json: {api_response: res.body}, status: 500
+      render json: {api_response: response1.body}, status: 500
     end
   end
   
