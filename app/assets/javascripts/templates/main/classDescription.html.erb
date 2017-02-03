@@ -12,7 +12,7 @@
       <div class="display-inline-block padding-md">Author: <strong>{{course.InstructorName}}</strong></div>
       <div class="display-inline-block padding-md"><strong>{{course.CeuCount}}</strong> CEU</div>
       <div class="display-inline-block padding-md">Length: <strong>{{course.Length}} minutes</strong></div>
-      <img class="img-responsive padding-md width100-p" src="{{course.imageSrc}}" alt="icon">
+      <img class="img-responsive padding-md width100-p" ng-src="{{course.imageSrc}}" alt="icon">
       <div>
         <h4 class="margin-lg-top-bottom"><strong>Topic</strong></h4>
         <p>{{course.Subject}}</p>
@@ -38,7 +38,7 @@
       <div class="list-group padding-md">
         <div class="list-group-item padding-none margin-md-bottom" ng-repeat="s in suggestions">
           <div class="row-picture vertical-align-top">
-            <img class="list-item-icon-larger pointer-cursor" src="{{s.thumbSrc}}" alt="icon" ng-click="learnMore(s)">
+            <img class="list-item-icon-larger pointer-cursor" ng-src="{{s.thumbSrc}}" alt="icon" ng-click="learnMore(s)">
           </div>
           <div class="row-content">
             <h4 class="list-group-item-heading font-larger pointer-cursor" ng-click="learnMore(s)">{{s.Name}}</h4>

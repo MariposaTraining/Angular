@@ -17,7 +17,7 @@
             </tr>
             <tr ng-repeat="c in Cart.items.courses track by $index">
                 <td>
-                    <img class="img-responsive" src="{{c.thumbSrc}}"/>
+                    <img class="img-responsive" ng-src="{{c.thumbSrc}}"/>
                 </td>
                 <td class="text-left">{{c.Description}}</td>
                 <td>1</td>

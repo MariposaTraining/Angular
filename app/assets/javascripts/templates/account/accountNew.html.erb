@@ -10,7 +10,7 @@
             <div class="list-group">
               <div ng-repeat="c in Account.items.inQueue track by $index" class="list-group-item padding-none margin-md-bottom">
                 <div class="row-picture vertical-align-top">
-                  <img class="list-item-icon-larger pointer-cursor" src="{{c.CourseObject.thumbSrc}}" alt="icon">
+                  <img class="list-item-icon-larger pointer-cursor" ng-src="{{c.CourseObject.thumbSrc}}" alt="icon">
                 </div>
                 <div class="row-content">
                   <h4 class="list-group-item-heading pointer-cursor">

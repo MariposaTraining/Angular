@@ -1,6 +1,6 @@
 <div class="row margin-sm" ng-repeat="c in Cart.items.courses">
     <div class="col-sm-3">
-        <img class="img-responsive padding-md" src="{{c.thumbSrc}}" alt="icon">
+        <img class="img-responsive padding-md" ng-src="{{c.thumbSrc}}" alt="icon">
     </div>
     <div class="col-sm-9">
         <h4>{{c.Description}}</h4>

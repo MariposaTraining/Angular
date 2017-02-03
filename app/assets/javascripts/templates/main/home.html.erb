@@ -143,7 +143,7 @@
         <div class="list-group" ng-show="!waitingForEventbrite">
           <div ng-repeat="e in ebEvents" class="list-group-item padding-none margin-md-bottom">
             <div class="row-picture vertical-align-top" ng-click="showDetails[e.id] = !showDetails[e.id];">
-              <img class="list-item-icon-larger pointer-cursor" src="{{e.logo.url}}" alt="icon">
+              <img class="list-item-icon-larger pointer-cursor" ng-src="{{e.logo.url}}" alt="icon">
             </div>
             <div class="row-content">
               <h4 class="list-group-item-heading" >
