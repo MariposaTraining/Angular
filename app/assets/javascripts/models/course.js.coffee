@@ -55,13 +55,13 @@ angular.module('mariposa-training').factory 'Course', ['$sce', '$http', 'BaseMod
     slideUrl: (slideNumber) ->
       paddedSqlId = @padNumber @SqlId
       paddedSlideNumber = @padNumber slideNumber
-      "http://mariposatraining.blob.core.windows.net/presentations/#{paddedSqlId}/Slides/Slide#{paddedSlideNumber}.JPG"
+      "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Content/Presentations/Slides/#{paddedSqlId}/Slides/Slide#{paddedSlideNumber}.JPG"
 
     audioUrl: ->
-      "http://mariposatraining.blob.core.windows.net/audio/#{@Channel}.mp3"
+      "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Content/Presentations/Audio/#{@Channel}.mp3"
 
     handoutUrl: ->
-      "http://mariposatraining.blob.core.windows.net/handouts/#{@padNumber @SqlId}.pdf"
+      "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Content/Presentations/Handout/#{@padNumber @SqlId}.pdf"
 
     resetSlides: ->
       for slide, i in @Slides
