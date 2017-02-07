@@ -51,7 +51,6 @@ angular.module('mariposa-training').controller('HomeCtrl', ['$scope', '$http', '
     $scope.waitingForEventbrite = true;
   
     $http({method: 'GET', url: "/Eventbrite"}).then(function(result){
-      console.log(result);
       $scope.waitingForEventbrite = false;
       
       $scope.ebEvents = result.data.events.filter(function(el){

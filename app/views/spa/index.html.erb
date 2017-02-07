@@ -92,7 +92,7 @@
             </a>
             <div class="display-inline-block float-right">
               <div ng-show="Session.userId != null" class="visible-xs display-inline-block float-right text-right padding-md">
-                <div ng-click="reloadPage()" class="pointer-cursor">{{Session.user.ScreenName}}</div>
+                <div ng-click="reloadPage()" class="pointer-cursor">{{Session.member.ScreenName}}</div>
                 <div>{{Session.member.FacilityName}}</div>
                 <a ng-click="signOut()" class="padding-md rgba-gray" id="signOutRgba">Sign Out</a>
               </div>
@@ -123,7 +123,7 @@
             </ul>
             <ul ng-show="Session.userId != null" class="nav navbar-nav navbar-right text-right">
               <li>
-                <div ng-click="reloadPage()" class="pointer-cursor">{{Session.user.ScreenName}}</div>
+                <div ng-click="reloadPage()" class="pointer-cursor">{{Session.member.ScreenName}}</div>
                 <div>{{Session.member.FacilityName}}</div>
                 <a ng-click="signOut()" class="padding-md pointer-cursor">Sign Out</a>
               </li>

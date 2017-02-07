@@ -17,7 +17,7 @@
                     <label>User Name</label>   
                 </div>
                 <div class="col-md-7">
-                    <input type="text" class="form-control" ng-model="user.UserName" required ng-blur="updateField('UserName', user.UserName)"/>
+                    <input type="text" class="form-control" ng-model="member.UserName" required ng-blur="updateField('UserName', member.UserName)"/>
                 </div>
                 <div class="col-md-1" ng-show="fieldName == 'UserName' && fieldSaved == true">
                     <i class="material-icons green padding-md-top">check_circle</i>
@@ -42,7 +42,7 @@
                     <label>Screen Name</label>
                 </div>
                 <div class="col-md-7">
-                    <input type="text" class="form-control" ng-model="user.ScreenName" required ng-blur="updateField('ScreenName', user.ScreenName)"/>    
+                    <input type="text" class="form-control" ng-model="member.ScreenName" required ng-blur="updateField('ScreenName', member.ScreenName)"/>    
                 </div>
                 <div class="col-md-1" ng-show="fieldName == 'ScreenName' && fieldSaved == true">
                     <i class="material-icons green padding-md-top">check_circle</i>
@@ -340,7 +340,7 @@
                     <label>e-Mail Address</label>    
                 </div>
                 <div class="col-md-7">
-                    <input type="email" class="form-control" ng-model="user.EmailAddress" required ng-blur="updateField('EmailAddress', user.EmailAddress)">
+                    <input type="email" class="form-control" ng-model="member.EmailAddress" required ng-blur="updateField('EmailAddress', member.EmailAddress)">
                 </div>
                 <div class="col-md-1" ng-show="fieldName == 'EmailAddress' && fieldSaved == true">
                     <i class="material-icons green padding-md-top">check_circle</i>

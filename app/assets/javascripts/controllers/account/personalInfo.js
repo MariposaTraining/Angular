@@ -16,7 +16,6 @@ angular.module('mariposa-training').controller('PersonalInfoCtrl',
     $scope.PersonalInfo = PersonalInfo;
     $scope.storage = $sessionStorage;
     $scope.member = $scope.Session.member;
-    $scope.user = $scope.Session.user;
     $scope.studentTypes = [];
     $scope.watchCount = 0;
     
@@ -118,8 +117,7 @@ angular.module('mariposa-training').controller('PersonalInfoCtrl',
           $scope.member['StudentTypeSoid'] = resp.data.data.Data;
         else
           $scope.member[fn] = resp.data.data.Data;
-    }else if($scope.user.hasOwnProperty(fn))
-      $scope.user[fn] = resp.data.data.Data;
+    }
       
       $scope.storage.member = $scope.member;
   };
