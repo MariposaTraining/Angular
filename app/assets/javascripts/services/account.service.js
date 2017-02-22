@@ -447,7 +447,6 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     this.play = function(soid){
         
         if(!soid){
-            Logger.logData("Account service: play function: lecture soid missing.", "");
             return;  
         } 
         
@@ -459,13 +458,11 @@ angular.module('mariposa-training').service('Account', ['$http', '$window', '$se
     
     this.test = function(soid){
         if(!soid){
-            Logger.logData("Account service: test function: lecture soid missing.", "");
             return;  
         } 
         
         if($state.current.name.indexOf("Succeed") != -1){
             self.loadLectureBySoid(soid).then(function success(result){
-                Logger.logData("Account service: test function: open test for Succeed user", "lectureSoid: " + soid);
                 $state.go("testSucceed", {lectureName: result.data.data.CourseName.replaceAll(" ", "-"), lectureSoid: soid, fullName: $state.params["fullName"] ? $state.params["fullName"] : "" });
             }, function error(result){
                 console.log(result);

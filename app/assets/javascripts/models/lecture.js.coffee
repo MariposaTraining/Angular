@@ -7,7 +7,6 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', '$q',
         if response.data.ok
           new Lecture response.data.data
         else
-          Logger.logData("Lecture model: find by id: not found", JSON.stringify(response))
           null
   
     afterInitialize: ->
@@ -56,7 +55,6 @@ angular.module('mariposa-training').factory 'Lecture', ['$http', '$state', '$q',
         (successResult) ->
           if(successResult.data.ok || successResult.ok)
             deferred.resolve(successResult)
-            Logger.logData("Lecture: legacyApi: request: successful: " + request + " data: " + JSON.stringify(data), JSON.stringify(successResult));
           else
             Logger.logData("Lecture: legacyApi: request: " + request + " data: " + JSON.stringify(data), JSON.stringify(successResult));
             deferred.reject(successResult)
