@@ -480,6 +480,12 @@ body nav.navbar.navbar-default{
     color: white;
 }
 
+#whitepapersHeader{
+    background: darkorange;
+    padding: 15px;
+    color: white;
+}
+
 .width100-p{
     width: 100%;
 }

@@ -82,6 +82,11 @@ angular.module('mariposa-training')
       templateUrl: 'assets/templates/main/homecareIndividual.html',
       controller: 'HomecareCtrl'
     })
+    .state('whitepapers', {
+      url: '/Resources',
+      templateUrl: 'assets/templates/main/resources.html',
+      controller: 'ResourcesCtrl'
+    })
     .state('blog', {
       url: '/Blog',
       templateUrl: 'assets/templates/main/blog.html',

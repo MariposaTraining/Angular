@@ -17,3 +17,6 @@
 /tmp
 /shared
 
+#connection
+MariposaDeveloper.pem
+connectToMariposaPublicSite.sh

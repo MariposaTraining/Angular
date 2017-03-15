@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="well">
+      <h2 class="margin-40-bottom" id="whitepapersHeader">White Papers for Long Term Care Professionals</h2>
+      <div class="margin-xl-top-bottom" ng-repeat="whitepaper in whitepapers">
+      <h3>{{whitepaper.title}}</h3>
+      <p>{{whitepaper.description}}</p>
+      <div class="text-right">
+        <a class="btn btn-success btn-raised" href="{{whitepaper.link}}">{{whitepaper.btnText}}</a>
+      </div>
+      <hr>
+    </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div id="subscriptionContainer" subscription></div>
+  </div>
+</div>

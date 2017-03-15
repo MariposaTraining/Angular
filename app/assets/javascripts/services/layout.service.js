@@ -31,32 +31,9 @@ angular.module('mariposa-training').service('Layout', ['$rootScope', '$state', '
     });
     children.height(maxHeight);
   }
-
-  function adjustWindowContent() {
-    var events = null;
-    var freeClassWell = null;
-    var subscriptionWell = null;
-    if ($("body").width() <= 1180) {
-      events = $("#events").detach();
-      freeClassWell = $("#freeClassWell").detach();
-      subscriptionWell = $("#subscriptionWell").detach();
-      $("#eventsContainerSmaller").append(events);
-      $("#subscribtionContainerSmaller").append(freeClassWell);
-      $("#subscribtionContainerSmaller").append(subscriptionWell);
-    }
-    else {
-      events = $("#events").detach();
-      freeClassWell = $("#freeClassWell").detach();
-      subscriptionWell = $("#subscriptionWell").detach();
-      $("#eventsContainerLg").append(events);
-      $("#subscribtionContainerLg").append(freeClassWell);
-      $("#subscribtionContainerLg").append(subscriptionWell);
-    }
-  }
   
   function defaultResize() {
     adaptBodyPadding();
-    adjustWindowContent();
     setSameChildrenHeight();
   }
   

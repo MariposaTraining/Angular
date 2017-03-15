@@ -144,6 +144,7 @@
               <li ng-class="{'active': $state.current.name == 'classes' || $state.current.name == 'certifications' || $state.current.name == 'bundles'}"><a ui-sref="classes">Classes & Certifications</a></li>
               <li ng-class="{'active': $state.current.name == 'longtermIndividual' || $state.current.name == 'longtermFacilities'}"><a ui-sref="longtermIndividual">Long Term Care</a></li>
               <li ng-class="{'active': $state.current.name == 'homecareIndividual' || $state.current.name == 'homecareFacilities'}"><a ui-sref="homecareIndividual">Home Healthcare</a></li>
+              <li ng-class="{'active': $state.current.name == 'whitepapers'}"><a ui-sref="whitepapers">Resources</a></li>
               <li ng-class="{'active': $state.current.name == 'blog'}"><a href="http://blog.mariposatraining.com/">Blog</a></li>
             </ul>
           </div>
@@ -246,7 +247,7 @@
           clearInterval(checkExistEventbrite);
         }
       }, 100);
-
+      
     });
   </script>
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>

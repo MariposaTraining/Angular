@@ -22,7 +22,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-3 margin-md-bottom" id="subscribtionContainerLg">
+  <div class="col-lg-3 margin-md-bottom visible-lg">
     <div class="well" id="freeClassWell" ng-controller="RegisterCtrl">
       <h4 class="margin-none-bottom">Try A Free Class</h4>
       <hr>
@@ -77,60 +77,9 @@
         </div>
       </form>
     </div>
-
-    <div class="well" id="subscriptionWell">
-      <h4 class="margin-none-bottom">Get Our Newsletter!</h4>
-      <hr>
-      <form name="newsletterFrm" ng-submit="subscribeForNewsletter()">
-      <div class="row">
-        <div class="is-empty col-sm-6 form-group">
-          <input type="text" class="form-control" id="subscribeFirstNameTxt" ng-model="newsletterSubscriber.firstName" placeholder="First Name" required>
-          <span class="material-input"></span>
-        </div>
-        <div class="is-empty col-sm-6 form-group">
-          <input type="text" class="form-control" id="subscribeLastNameTxt" ng-model="newsletterSubscriber.lastName" placeholder="Last Name" required>
-          <span class="material-input"></span>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="is-empty col-sm-12 form-group">
-          <input type="email" class="form-control" id="subscribeEmailTxt" ng-model="newsletterSubscriber.emailAddress" placeholder="Email Address" required>
-          <span class="material-input"></span>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-12">
-          <button class="btn btn-raised bg-active-btn white btn-block " id="submitInfoBtn" type="submit" ng-disabled="!newsletterFrm.$valid">
-            Submit Information
-            <div class="ripple-container"></div>
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-2">
-          <i class="material-icons green" ng-show="subscriptionMessage.ok">check_circle</i>
-          <i class="material-icons darkred" ng-show="!subscriptionMessage.ok && subscriptionMessage">cancel</i>
-        </div>
-        <div class="col-xs-10">
-          {{subscriptionMessage.text}}
-        </div>
-      </div>
-      </form>
-
-    </div>
+    <div subscription></div>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-lg-12" id="eventsContainerSmaller"></div>
-</div>
-
-<div class="row">
-  <div class="col-lg-12 margin-md-bottom" id="subscribtionContainerSmaller"></div>
-</div>
-
 
 <div class="row margin-md-bottom">
   <div class="col-md-12" id="eventsContainerLg">
@@ -178,6 +127,66 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 hidden-lg">
+    <div class="well" id="freeClassWellLg" ng-controller="RegisterCtrl">
+      <h4 class="margin-none-bottom">Try A Free Class</h4>
+      <hr>
+      <div class="alert alert-danger" ng-show="registerInvalid">
+        <strong>An error occurred!</strong>
+      </div>
+      <form name="registerForm" ng-submit="register()">
+        <div class="row margin-md-bottom" ng-show="showErrorMessage">
+          <div class="col-md-12">
+            <div class="alert alert-danger">
+              {{errorMessage}}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="is-empty col-md-6 form-group">
+            <input type="text" class="form-control" id="firstNameTxt" placeholder="First Name" ng-model="info.firstName" required>
+            <span class="material-input"></span>
+          </div>
+          <div class="is-empty col-md-6 form-group">
+            <input type="text" class="form-control" id="lastNameTxt" placeholder="Last Name" ng-model="info.lastName" required>
+            <span class="material-input"></span>
+          </div> 
+        </div>
+      
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <input type="email" class="form-control" id="emailNewTxt" placeholder="Email Address" ng-model="info.emailAddress" required>
+            <span class="material-input"></span>
+          </div>
+        </div>
+      
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <input type="password" class="form-control" placeholder="Password" id="passwordNewTxt" ng-model="info.password" ng-minlength="6" required>
+            <span class="material-input"></span>
+          </div>
+          <div class="col-md-6 form-group">
+            <input type="password" class="form-control" id="passwordNewConfTxt" placeholder="Confirmation" ng-model="passwordConfirmation" match="info.password" required>
+            <span class="material-input"></span>
+          </div>  
+        </div>
+      
+        <div class="row">
+          <div class="col-sm-12">
+            <button class="btn btn-raised bg-active-btn white btn-block" type="submit" ng-disabled="registerForm.$invalid || disableBtn" id="signUpBtn">
+              <span ng-show="!disableBtn">Get Started</span>
+              <span ng-show="disableBtn">Signing up... <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i></span>
+              <div class="ripple-container"></div>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div subscription></div>
   </div>
 </div>
 
