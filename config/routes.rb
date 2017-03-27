@@ -14,6 +14,13 @@ Rails.application.routes.draw do
   get   '/class/diploma' => 'spa#diploma'
   get   '/class/succeed' => 'spa#succeed'
   post  '/Log' => 'spa#log'
+
+# top nav routes
+  
+  get   '/Catalog/Classes' => 'spa#redirect_to_classes'
+  get   '/LongTermCare' => 'spa#redirect_to_longterm_care'
+  get   '/HomeHealthCare' => 'spa#redirect_to_home_health_care'
+  get   '/Blog' => 'spa#redirect_to_blog'
   
   root  'spa#index'
 end

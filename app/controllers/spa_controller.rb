@@ -8,6 +8,26 @@ class SpaController < ApplicationController
     render :index, layout: false
   end
   
+  # redirection methods for compliance with old blog
+  
+  def redirect_to_blog
+    redirect_to "http://blog.mariposatraining.com"
+  end
+  
+  def redirect_to_longterm_care
+    redirect_to "#/LongTermCare/Individual"
+  end
+  
+  def redirect_to_home_health_care
+    redirect_to "#/HomeHealthCare/Individual"
+  end
+  
+  def redirect_to_classes
+    redirect_to "#/Catalog/Classes"
+  end
+  
+  # succeed methods
+  
   def diploma
       
     url = URI(API_URL + "/GetSucceedDiploma");
