@@ -88,14 +88,15 @@ angular.module('mariposa-training').controller('StudentManagementCtrl', ['$scope
         if(!$scope.Management.facilitiesLoaded)
             $scope.Management.getCompleteFacilities().then(function(){
                 extractDisplayedFacilities();
+                $scope.Management.getManagerCourses();
             });
         else{
             extractDisplayedFacilities();
+            $scope.Management.getManagerCourses();
         }
         
         $scope.$watch('numPerPage', extractDisplayedFacilities, true);
-            
-        $scope.Management.getManagerCourses();
+
     };
     
     $scope.init();

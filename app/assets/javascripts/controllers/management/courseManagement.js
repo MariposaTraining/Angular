@@ -58,13 +58,16 @@ angular.module('mariposa-training').controller('CourseManagementCtrl', ['$scope'
         });
     };
     
+    var getManagerCourses = function(){
+        $scope.Management.getManagerCourses();
+    };
+    
     $scope.init = function(){
         $scope.courseToSchedule = null;
         $scope.dateToSchedule = null;
         $scope.date = new Date();
         $scope.Management = Management;
-        $scope.Management.getCompleteFacilities();
-        $scope.Management.getManagerCourses();
+        $scope.Management.getCompleteFacilities().then(getManagerCourses(), getManagerCourses());
         $scope.Account = Account;
     };
     

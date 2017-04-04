@@ -9,6 +9,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     this.facilitiesLoaded = false;
     this.facilityReloaded = false;
     this.studentsLoadedCount = {};
+    this.allStudents = [];
     
     var self = this;
     
@@ -57,6 +58,14 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
                 if(self.managerCourses[i].Students)
                     for(var j = 0; j < self.managerCourses[i].Students.length; j++){
                         
+                        if(self.managerCourses[i].Students[j].FirstName && self.managerCourses[i].Students[j].LastName)
+                            self.managerCourses[i].Students[j].NameFull = self.managerCourses[i].Students[j].LastName + " " + self.managerCourses[i].Students[j].FirstName;
+                        else{
+                            var tmpIndex = indexOfObject(self.allStudents, self.managerCourses[i].Students[j].Soid);
+                            if(tmpIndex != -1)
+                                self.managerCourses[i].Students[j].NameFull = self.allStudents[tmpIndex].FullName;
+                        }
+                        
                         if(self.managerCourses[i].Students[j].TakenOn){
                             var v = new Date(Number(self.managerCourses[i].Students[j].TakenOn.substr(6, 13)));
                             self.managerCourses[i].Students[j].TakenOn = v.getMonth() + 1 + " / " + v.getDate() + " / " + v.getFullYear();
@@ -73,6 +82,37 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
                             case "Scheduled": self.managerCourses[i].SortedStudents.scheduled.push(self.managerCourses[i].Students[j]); break;
                         }
                     }
+                    
+                    self.managerCourses[i].SortedStudents.completed.sort(function(p1, p2) {
+                        if(p1.NameFull && p2.NameFull)
+                            return p1.NameFull.localeCompare(p2.NameFull);
+                        else
+                            return true;
+                    });
+                    self.managerCourses[i].SortedStudents.incomplete.sort(function(p1, p2) {
+                        if(p1.NameFull && p2.NameFull)
+                            return p1.NameFull.localeCompare(p2.NameFull);
+                        else
+                            return true;
+                    });
+                    self.managerCourses[i].SortedStudents.inQueue.sort(function(p1, p2) {
+                        if(p1.NameFull && p2.NameFull)
+                            return p1.NameFull.localeCompare(p2.NameFull);
+                        else
+                            return true;
+                    });
+                    self.managerCourses[i].SortedStudents.archived.sort(function(p1, p2) {
+                        if(p1.NameFull && p2.NameFull)
+                            return p1.NameFull.localeCompare(p2.NameFull);
+                        else
+                            return true;
+                    });
+                    self.managerCourses[i].SortedStudents.scheduled.sort(function(p1, p2) {
+                        if(p1.NameFull && p2.NameFull)
+                            return p1.NameFull.localeCompare(p2.NameFull);
+                        else
+                            return true;
+                    });
             }  
     };
     
@@ -102,8 +142,11 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
             if(!self.facilitiesLoaded){
                 return self.getFacilities().then(function sucess(response){
                     if(response.data.ok){
-                        for(var i = 0; i < response.data.data.length; i++)
+                        for(var i = 0; i < response.data.data.length; i++){
                             addFacility(response.data.data[i]);
+                            addStudentsToList(self.facilities[i].Students);
+                            addStudentsToList(self.facilities[i].Dropped);
+                        }
                         self.facilitiesLoaded = true;
                         self.facilities = self.facilities.sort(function(f1, f2){return f1.Name.localeCompare(f2.Name)});       
                     }
@@ -113,9 +156,10 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
                     return response;
                 });
             }else{
-                return null;
+                return $q.resolve(null);
             }
-        }
+        }else
+            return $q.resolve(null);
         
     };
     
@@ -142,6 +186,11 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     
     var processFacility = function(facility){
         if(facility.Students){
+            
+            facility.Students = facility.Students.map(function(el){
+                el.FullName = el.LastName + " " + el.FirstName;
+                return el;
+            });
             
             self.tmpStudents = facility.Students.filter(function(el){
                 return !el.FullName && el.Soid;
@@ -178,6 +227,8 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
                             return true;
                     });
                     facility.loading = false;
+                    
+                    addStudentsToList(facility.Students);
                 });
             }else{ 
                 facility.Students.sort(function(p1, p2) {
@@ -191,15 +242,24 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
         if(facility.Dropped)
             facility.Dropped = facility.Dropped.map(function(el){
                 el.CreatedOn = getDateStringFromISOString(el.CreatedOn);
+    
+                if(el.LastName && el.FirstName)
+                    el.FullName = el.LastName + " " + el.FirstName;
+    
                 return el;
             }).sort(function(p1, p2){
                 if(p1.FullName && p2.FullName)
-                    return p1.FullName.localeCompare(p2.FullName)
+                    return p1.FullName.localeCompare(p2.FullName);
                 else
                     return true;
             });
+            
             return facility;
-    }
+    };
+    
+    var addStudentsToList = function(newStudents){
+        self.allStudents = self.allStudents.concat(newStudents);
+    };
     
     var addFacility = function(facility){
         self.facilities.push(processFacility(facility));
