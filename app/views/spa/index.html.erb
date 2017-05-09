@@ -229,6 +229,10 @@
       $('#submitInfoBtn').click(function(){
     		ga('send','event','News Letter','Submit Information','Homepage Newsletter Signup');	
     	});
+    	
+      window.setTimeout(function(){
+        $('#carousel').carousel();
+      }, 2000);
 
       $('[data-toggle=tooltip]').hover(function() {
         // on mouseenter

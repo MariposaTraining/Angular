@@ -14,7 +14,7 @@
                         <h4>Credit Card Information</h4>
                         <hr>
                         <div class="form-group" ng-class="{'has-error' : cardInvalid == true}">
-                            <div class="col-md-3"><label>Credit Card</label></div>
+                            <div class="col-md-3"><label>Credit Card Number</label></div>
                             <div class="col-md-7">
                                 <input type="text" class="form-control" maxlength="{{maxLength}}" size="16" data-stripe="number" ng-model="card.cardValidation"  required card-validator ng-change="checkCardValidity()"/>
                             </div>
