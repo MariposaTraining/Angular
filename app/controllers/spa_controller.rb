@@ -218,12 +218,8 @@ class SpaController < ApplicationController
   def api
     endpoint = params[:endpoint]
     
-    logger.debug "----- User agent: #{request.user_agent}" 
-    
     uri = URI("#{API_URL}/#{endpoint}")
-    logger.debug "----- Sent to server -------"
-    logger.debug params
-    
+
     req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
   #  req['token'] = "ZWU0NzE4ODEtN2M0NC00ZDJhLTgxOGItMDc1YzE0YWM0ZDJl"
 
@@ -234,11 +230,6 @@ class SpaController < ApplicationController
     begin
       puts response1.body
       json = JSON.parse(response1.body)
-      
-      if (json.key?('ok') and !json["ok"]) then
-        logger.debug "------- Response -------"
-        logger.debug json
-      end  
       
       # sometimes response contains data object with necessary data
       # but sometimes the response from the server is the object with necessery data
