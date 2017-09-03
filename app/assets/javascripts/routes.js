@@ -1,8 +1,10 @@
 /* global angular */
 
 angular.module('mariposa-training')
-.config(['$stateProvider', '$urlRouterProvider',
-  function($stateProvider, $urlRouterProvider){
+.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
+  function($stateProvider, $urlRouterProvider, $locationProvider){
+  
+  $locationProvider.html5Mode(true);
   
   $stateProvider
     .state('home', {
@@ -313,6 +315,14 @@ angular.module('mariposa-training')
       var state = $injector.get('$state');
       if($location.path().indexOf("Succeed") != -1 || $location.path().indexOf("succeed") != -1)  
         state.go("homeSucceed");
+      else if ($location.path().indexOf("Home/aboutus") != -1)
+        state.go("about");
+      else if ($location.path().indexOf("Longtermcare/individual") != -1)
+        state.go("longtermIndividual");
+      else if ($location.path().indexOf("Home/FAQ") != -1)
+        state.go("faq");
+      else if ($location.path().indexOf("Cart/AnonymousSummary") != -1)
+        state.go("cart");
       else
         state.go("home");
         
