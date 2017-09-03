@@ -27,35 +27,16 @@
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-
+  <!-- Font Awesome -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  
   <!-- Angular -->
   <base href="/">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.js"></script>
-
-  <script>
-    var PLAYER_URL = "<%= @player %>";
-    var SITE_URL = "<%= @site %>";
-    var API_URL = "<%= @api %>";
-  </script>
 
   <%= javascript_include_tag 'application' %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
 </head>
 <body ng-controller="ApplicationCtrl">
-
-  <!--  <div id="browserMessage">
-      <p>Your browser is having difficulty accessing our site. Please download one of the following browsers to access our site.  </p>
-      <p><a href="https://www.google.com/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a> </p>
-      <p>The issue will be resolved shortly. Thanks for your patience. </p>
-      <p>Sincerely,<br>
-        The Mariposa Training team</p>
-    </div> -->
   
     <div class="angular-inside" ng-if="$state.current.name == 'player' || $state.current.name=='playerSucceed'">
       <!-- Player -->
@@ -198,34 +179,9 @@
   
   <script>
     $.material.init();
-    
-    function checkBrowser() { 
-      if((navigator.userAgent.indexOf("Opera") != -1 || navigator.userAgent.indexOf("OPR")) != -1 ){
-          var BROWSER_NAME = "Opera";
-          document.getElementById("browserMessage").style.display="none";
-      }else if(navigator.userAgent.indexOf("Chrome") != -1 ){
-          var BROWSER_NAME = "Chrome";
-          document.getElementById("browserMessage").style.display="none";
-      }else if(navigator.userAgent.indexOf("Safari") != -1){
-          var BROWSER_NAME = "Safari";
-          document.getElementById("browserMessage").style.display="none";
-      }else if(navigator.userAgent.indexOf("Firefox") != -1 ){
-          var BROWSER_NAME = "Firefox";
-          document.getElementById("browserMessage").style.display="none";
-      }else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )){ //IF IE > 10{
-          var BROWSER_NAME = "IE";
-          var divs = document.querySelectorAll(".angular-inside");
-          if(divs)
-            for(var i = 0; i < divs.length; i++){
-              divs[i].style.display = "none";
-            }
-      }
-    }
 
     $(function() {
       
-    //  checkBrowser();
-    
       $('#submitInfoBtn').click(function(){
     		ga('send','event','News Letter','Submit Information','Homepage Newsletter Signup');	
     	});
@@ -233,14 +189,6 @@
       window.setTimeout(function(){
         $('#carousel').carousel();
       }, 2000);
-
-      $('[data-toggle=tooltip]').hover(function() {
-        // on mouseenter
-        $(this).tooltip('show');
-      }, function() {
-        // on mouseleave
-        $(this).tooltip('hide');
-      });
       
       var checkExistEventbrite = setInterval(function() {
         if($('.Toggle.Collapsed').length) {
@@ -251,6 +199,8 @@
           clearInterval(checkExistEventbrite);
         }
       }, 100);
+      
+      
       
     });
   </script>

@@ -12,7 +12,11 @@
 //
 //= require jquery
 //= require bootstrap
+//= require angular.min
 //= require ui-bootstrap.min
+//= require angular-route.min
+//= require angular-animate.min
+//= require angular-sanitize.min
 //= require angular.audio
 //= require ngStorage.min
 //= require material.min
