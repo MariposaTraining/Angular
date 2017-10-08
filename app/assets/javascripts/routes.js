@@ -65,22 +65,22 @@ angular.module('mariposa-training')
       controller: 'ClassDescriptionCtrl'
     })
     .state('longtermIndividual', {
-      url: '/LongTermCare/Individual',
+      url: '/Long-Term-Care/Individual',
       templateUrl: 'assets/templates/main/longtermIndividual.html',
       controller: 'LongtermCtrl'
     })
     .state('longtermFacilities', {
-      url: '/LongTermCare/Facilities',
+      url: '/Long-Term-Care/Facilities',
       templateUrl: 'assets/templates/main/longtermFacilities.html',
       controller: 'LongtermCtrl'
     })
     .state('homecareFacilities', {
-      url: '/HomeHealthCare/Facilities',
+      url: '/Home-Health-Care/Facilities',
       templateUrl: 'assets/templates/main/homecareFacilities.html',
       controller: 'HomecareCtrl'
     })
     .state('homecareIndividual', {
-      url: '/HomeHealthCare/Individual',
+      url: '/Home-Health-Care/Individual',
       templateUrl: 'assets/templates/main/homecareIndividual.html',
       controller: 'HomecareCtrl'
     })
