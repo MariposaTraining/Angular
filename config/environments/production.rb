@@ -43,7 +43,7 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
-  config.ssl_options = {secure_cookies: true, hsts: {subdomains: true, preload: false}, redirect: { status: 301, port: 81 }}
+  config.ssl_options = {secure_cookies: true, hsts: {subdomains: false, preload: false}, redirect: { status: 301, port: 81 }}
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
