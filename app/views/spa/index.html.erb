@@ -62,7 +62,7 @@
         <div ui-view></div>
       </div>
     </div>
-    <div class="angular-inside" ng-if="$state.current.name.indexOf('Succeed') == -1 && $state.current.name.indexOf('LandingPage') == -1 && $state.current.name != 'player' && $state.current.name != 'test'">
+    <div class="angular-inside" ng-if="$state.current.name.indexOf('Succeed') == -1 && $state.current.name != 'player' && $state.current.name != 'test'">
       <!-- Public site -->
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -174,21 +174,6 @@
         </div>
       </div>
 
-    </div>
-    <div class="angular-inside" ng-if="$state.current.name.indexOf('LandingPage') != -1">
-      <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-          <div class="landing-page-logo-container" ng-click="homeLinkClicked()">
-              <%= image_tag "logo.png", class: "landing-logo img-responsive pointer-cursor" %>
-          </div>
-        </div>
-      </nav>
-      
-      <div class="container">
-        <div class="container-fluid">
-          <div ui-view></div>
-        </div>
-      </div>
     </div>
   <script>
     $.material.init();
