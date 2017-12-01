@@ -17,47 +17,83 @@ angular.module('mariposa-training')
                 Account.goToDefaultTab();
             }
           }
+      },
+      data: {
+        metaTitle: "Long Term Care Quality Training & Education - Mariposa",
+        metaDescription: "Mariposa Training is a leading provider of internet-based senior and geriatric healthcare training for administrators, nurses and staff caring for the elderly."
       }
     })
     .state('about', {
       url: '/AboutUs',
       templateUrl: 'assets/templates/footer/about.html',
-      controller: 'HomeCtrl'
+      controller: 'HomeCtrl',
+      data: {
+        metaTitle: "About Us | Quality Training & Education  - Mariposa Training",
+        metaDescription: "Mariposa Training is a leading provider of internet-based senior and geriatric healthcare training for administrators, nurses and staff caring for the elderly."
+      }
     })
     .state('policy', {
       url: '/PrivacyPolicy',
       templateUrl: 'assets/templates/footer/policy.html',
-      controller: 'HomeCtrl'
+      controller: 'HomeCtrl',
+      data: {
+        metaTitle: "Privacy Policy - Mariposa Training",
+        metaDescription: "Mariposa Training is the sole owner of the information collected on this site and we are serious about protecting your privacy."
+      }
     })
     .state('faq', {
       url: '/FAQ',
       templateUrl: 'assets/templates/footer/faq.html',
-      controller: 'HomeCtrl'
+      controller: 'HomeCtrl',
+      data: {
+        metaTitle: "FAQ | Quality Training & Education - Mariposa Training",
+        metaDescription: "How much does it cost? What CEUs do you offer? Questions about our classes and certifications? Take a look at our FAQ!"
+      }
     })
     .state('terms', {
       url: '/Terms&Conditions',
       templateUrl: 'assets/templates/footer/terms.html',
-      controller: 'HomeCtrl'
+      controller: 'HomeCtrl',
+      data: {
+        metaTitle: "Terms & Conditions - Mariposa Training",
+        metaDescription: "Please read these terms and conditions carefully. By your use of this website, you agree to be bound by and comply with the terms and conditions below."
+      }
     })
     .state('contact', {
       url: '/ContactUs',
       templateUrl: 'assets/templates/footer/contact.html',
-      controller: 'HomeCtrl'
+      controller: 'HomeCtrl',
+      data: {
+        metaTitle: "Contact Us | Training & Education - Mariposa Training",
+        metaDescription: "Our goal is to be the best destination for cost-effective web-based training for nursing homes, long term care and other senior care facility staff. Contact us!"
+      }
     })
     .state('classes', {
       url: '/Catalog/Classes',
       templateUrl: 'assets/templates/main/classes.html',
-      controller: 'ClassesCtrl'
+      controller: 'ClassesCtrl',
+      data: {
+        metaTitle: "Classes | Catalog - Mariposa Training",
+        metaDescription: "We have 50+ classes available for long-term care and nursing home professionals. Learn more about our classes and how to earn Continuing Education credits."
+      }
     })
     .state('certifications', {
       url: '/Catalog/Certifications',
       templateUrl: 'assets/templates/main/certifications.html',
-      controller: 'CertificationsCtrl'
+      controller: 'CertificationsCtrl',
+      data: {
+        metaTitle: "Certifications | Catalog - Mariposa Training",
+        metaDescription: "We offer both Level I & II Certificates of Training as a Dementia Care Provider. Gain the knowledge, skill and abilities to help those with dementia thrive."
+      }
     })
     .state('bundles', {
       url: '/Catalog/Bundles',
       templateUrl: 'assets/templates/main/bundles.html',
-      controller: 'BundlesCtrl'
+      controller: 'BundlesCtrl',
+      data: {
+        metaTitle: "Bundles | Catalog - Mariposa Training",
+        metaDescription: "We offer 5 different training bundles. Choose from Dementia Survey Response, Unlimited Training, Leadership Bundle, Nursing Bundle, or Culture Change Bundle."
+      }
     })
     .state('classDescription', {
       url: '/Class/LearnMore/:Soid',
@@ -67,22 +103,38 @@ angular.module('mariposa-training')
     .state('longtermIndividual', {
       url: '/Long-Term-Care/Individual',
       templateUrl: 'assets/templates/main/longtermIndividual.html',
-      controller: 'LongtermCtrl'
+      controller: 'LongtermCtrl',
+      data: {
+        metaTitle: "Individual | Long Term Care - Mariposa Training",
+        metaDescription: "We are experts in educating long term care professionals in nursing homes, skilled nursing, assisted living, and residential care facilities. Register today!"
+      }
     })
     .state('longtermFacilities', {
       url: '/Long-Term-Care/Facilities',
       templateUrl: 'assets/templates/main/longtermFacilities.html',
-      controller: 'LongtermCtrl'
+      controller: 'LongtermCtrl',
+      data: {
+        metaTitle: "Facilities | Long Term Care - Mariposa Training",
+        metaDescription: "We believe the path to great care, a sterling reputation and reduced risk of future litigation begins with great education. Talk to an expert to learn more!"
+      }
     })
     .state('homecareFacilities', {
       url: '/Home-Health-Care/Facilities',
       templateUrl: 'assets/templates/main/homecareFacilities.html',
-      controller: 'HomecareCtrl'
+      controller: 'HomecareCtrl',
+      data: {
+        metaTitle: "Facilities | Home Healthcare - Mariposa Training",
+        metaDescription: "We'll help you remain in compliance with changing state and Federal regulations through \"best in class\" continuing education and record keeping. Learn more!"
+      }
     })
     .state('homecareIndividual', {
       url: '/Home-Health-Care/Individual',
       templateUrl: 'assets/templates/main/homecareIndividual.html',
-      controller: 'HomecareCtrl'
+      controller: 'HomecareCtrl',
+      data: {
+        metaTitle: "Individual | Home Healthcare - Mariposa Training",
+        metaDescription: "We are leading experts in the development of gerontological education for home health & home healthcare professionals. Register and try a free class with us!"
+      }
     })
     .state('whitepapers', {
       url: '/Resources',
@@ -310,6 +362,11 @@ angular.module('mariposa-training')
       templateUrl: 'assets/templates/main/player.html',
       controller: 'PlayerCtrl'
     });
+  /*  .state('dementiaCareLandingPage', {
+      url: '/Dementia-Care',
+      templateUrl: 'assets/templates/landingPages/dementiaCare.html',
+      controller: 'LandingPageCtrl'
+    });*/
     
     $urlRouterProvider.otherwise(function($injector, $location){
       var state = $injector.get('$state');
