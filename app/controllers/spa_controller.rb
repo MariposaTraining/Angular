@@ -5,7 +5,6 @@ class SpaController < ApplicationController
   before_action :set_endpoints
   
   def index
-    byebug
     render :index, layout: false
   end
   
