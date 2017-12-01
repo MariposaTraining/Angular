@@ -1,14 +1,13 @@
 <!doctype html>
-<html ng-app='mariposa-training'>
+<html ng-app='mariposa-training' ng-controller="ApplicationCtrl">
 
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=11">
   <meta charset="utf-8">
   <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
 
-  <title>
-    Mariposa Training
-  </title>
+  <title>{{meta.title}}</title>
+  <meta name="description" content="{{meta.description}}">
 
   <!-- Google Analytics -->
   <script>
@@ -36,7 +35,7 @@
   <%= javascript_include_tag 'application' %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
 </head>
-<body ng-controller="ApplicationCtrl">
+<body>
   
     <div class="angular-inside" ng-if="$state.current.name == 'player' || $state.current.name=='playerSucceed'">
       <!-- Player -->
@@ -63,7 +62,7 @@
         <div ui-view></div>
       </div>
     </div>
-    <div class="angular-inside" ng-if="$state.current.name.indexOf('Succeed') == -1 && $state.current.name != 'player' && $state.current.name != 'test'">
+    <div class="angular-inside" ng-if="$state.current.name.indexOf('Succeed') == -1 && $state.current.name.indexOf('LandingPage') == -1 && $state.current.name != 'player' && $state.current.name != 'test'">
       <!-- Public site -->
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -176,7 +175,21 @@
       </div>
 
     </div>
-  
+    <div class="angular-inside" ng-if="$state.current.name.indexOf('LandingPage') != -1">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="landing-page-logo-container" ng-click="homeLinkClicked()">
+              <%= image_tag "logo.png", class: "landing-logo img-responsive pointer-cursor" %>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="container">
+        <div class="container-fluid">
+          <div ui-view></div>
+        </div>
+      </div>
+    </div>
   <script>
     $.material.init();
 
@@ -199,8 +212,6 @@
           clearInterval(checkExistEventbrite);
         }
       }, 100);
-      
-      
       
     });
   </script>
