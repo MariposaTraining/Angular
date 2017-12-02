@@ -65,8 +65,17 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
     
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
       if($state.current.name != 'classDescription'){
-        $scope.meta.title = $state.current.data.metaTitle;
-        $scope.meta.description = $state.current.data.metaDescription;
+        
+        if($state.current.data != null && $state.current.data.metaTitle != null && $state.current.data.metaDescription != null){
+        
+          $scope.meta.title = $state.current.data.metaTitle;
+          $scope.meta.description = $state.current.data.metaDescription;
+        }else{
+          $scope.meta = {
+            title: "Long Term Care Quality Training & Education - Mariposa",
+            description: "Mariposa Training is a leading provider of internet-based senior and geriatric healthcare training for administrators, nurses and staff caring for the elderly."
+          };
+        }
       }else{
         $scope.meta.title = CLASS_METATAGS[toParams["Soid"]].title;
         $scope.meta.description = CLASS_METATAGS[toParams["Soid"]].description;
