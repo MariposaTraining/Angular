@@ -139,7 +139,11 @@ angular.module('mariposa-training')
     .state('whitepapers', {
       url: '/Resources',
       templateUrl: 'assets/templates/main/resources.html',
-      controller: 'ResourcesCtrl'
+      controller: 'ResourcesCtrl',
+      data: {
+        metaTitle: "Working Fall Prevention | White Paper - Mariposa Training",
+        metaDescription: "Download our white paper \"Fall Prevention: Top 10 Tips to Prevent Falls & Fall-Related Injuries\" to learn more about important fall prevention strategies."
+      }
     })
     .state('blog', {
       url: '/Blog',
