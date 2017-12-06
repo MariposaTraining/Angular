@@ -12,10 +12,9 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
     });
    
     $scope.init = function(){
-      $scope.meta = {
-        title: "Long Term Care Quality Training & Education - Mariposa",
-        description: "Mariposa Training is a leading provider of internet-based senior and geriatric healthcare training for administrators, nurses and staff caring for the elderly."
-      };
+      
+      document.title = "Long Term Care Quality Training & Education - Mariposa";
+      document.querySelector("meta[name=description]").content= "Mariposa Training is a leading provider of internet-based senior and geriatric healthcare training for administrators, nurses and staff caring for the elderly.";
       $scope.Account = Account;
       $scope.Cart = Cart;
       $scope.Transaction = Transaction;
@@ -68,17 +67,15 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
         
         if($state.current.data != null && $state.current.data.metaTitle != null && $state.current.data.metaDescription != null){
         
-          $scope.meta.title = $state.current.data.metaTitle;
-          $scope.meta.description = $state.current.data.metaDescription;
+          document.title = $state.current.data.metaTitle;
+          document.querySelector("meta[name=description]").content = $state.current.data.metaDescription;
         }else{
-          $scope.meta = {
-            title: "Long Term Care Quality Training & Education - Mariposa",
-            description: "Mariposa Training is a leading provider of internet-based senior and geriatric healthcare training for administrators, nurses and staff caring for the elderly."
-          };
+          document.title = "Long Term Care Quality Training & Education - Mariposa";
+          document.querySelector("meta[name=description]").content= "Mariposa Training is a leading provider of internet-based senior and geriatric healthcare training for administrators, nurses and staff caring for the elderly.";
         }
       }else{
-        $scope.meta.title = CLASS_METATAGS[toParams["Soid"]].title;
-        $scope.meta.description = CLASS_METATAGS[toParams["Soid"]].description;
+        document.title = CLASS_METATAGS[toParams["Soid"]].title;
+        document.querySelector("meta[name=description]").content=CLASS_METATAGS[toParams["Soid"]].description;
       }
     });
     
