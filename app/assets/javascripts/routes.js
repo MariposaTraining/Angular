@@ -75,6 +75,9 @@ angular.module('mariposa-training')
       data: {
         metaTitle: "Classes | Catalog - Mariposa Training",
         metaDescription: "We have 50+ classes available for long-term care and nursing home professionals. Learn more about our classes and how to earn Continuing Education credits."
+      },
+      params: {
+        selectedFilter: null
       }
     })
     .state('certifications', {

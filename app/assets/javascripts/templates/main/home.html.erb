@@ -1,27 +1,16 @@
 <div class="row margin-md-bottom">
   <div class="col-lg-9 margin-md-bottom">
-    <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-      <!-- Indicators -->
+    <div class="video-wrapper">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/aVG97hlp3A0?rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <!--  <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="10000">
       <ol class="carousel-indicators hidden-xs">
-        <li data-target="#carousel" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel" data-slide-to="1"></li>
+        <li data-target="#carousel" data-slide-to="0"></li>
+        <li data-target="#carousel" data-slide-to="1" class="active"></li>
       </ol>
 
-      <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <%= image_tag "carouselNew2.png", class: "width100-p" %>
-        <!--  <div class="bg-black white padding-md font-17 row height100">
-            <div class="col-sm-9 padding-lg-top">Become A Certified Dementia Care Provider</div>
-            <div class="col-sm-3">
-              <button class="btn btn-raised bg-active-btn white" ng-click="goGlobal('http://alz.mariposatraining.com/')">Learn More
-                <div class="ripple-container"></div>
-              </button>
-            </div>
-          </div> -->
-        </div>
         <div class="item">
-          <%= image_tag "carouselNew.png", class: "width100-p", style: "max-height: 578px" %>
         <!--  <div class="bg-black white padding-md font-17 row height100">
             <div class="col-sm-9 padding-lg-top">Become A Certified Dementia Care Provider</div>
             <div class="col-sm-3">
@@ -30,13 +19,36 @@
               </button>
             </div>
           </div> -->
-        </div>
-      </div>
-    </div>
+    <!--    </div>
+        <div class="item active">
+          <%= image_tag "carouselNew.png", class: "width100-p", style: "max-height: 476px" %>
+        <!--  <div class="bg-black white padding-md font-17 row height100">
+            <div class="col-sm-9 padding-lg-top">Become A Certified Dementia Care Provider</div>
+            <div class="col-sm-3">
+              <button class="btn btn-raised bg-active-btn white" ng-click="goGlobal('http://alz.mariposatraining.com/')">Learn More
+                <div class="ripple-container"></div>
+              </button>
+            </div>
+          </div> -->
+    <!--    </div>
+  <!--      <div class="item">
+          <div class="embed-responsive embed-responsive-4by3">
+            <iframe width="100%" height="auto" src="https://www.youtube.com/embed/KRoBBInCMt4?rel=0" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div> -->
+  <!--    </div>
+    </div> -->
   </div>
   <div class="col-lg-3 margin-md-bottom visible-lg">
+    <div class="well">
+      <h4 style="margin-top:0px">Classes with CEUs</h4>
+      <hr>
+      <ul class="classes-list-promo">
+        <li ng-repeat="el in classesWithCEUs" class="pointer-cursor" ui-sref="classes({selectedFilter:{{el.filterObject}}})">{{el.text}}</li>
+      </ul>
+    </div>
     <div class="well" id="freeClassWell" ng-controller="RegisterCtrl">
-      <h4 class="margin-none-bottom">Try A Free Class</h4>
+      <h4 class="margin-none-bottom" style="margin-top:0px">Try A Free Class</h4>
       <hr>
       <div class="alert alert-danger" ng-show="registerInvalid">
         <strong>An error occurred!</strong>
@@ -80,7 +92,7 @@
       
         <div class="row">
           <div class="col-sm-12">
-            <button class="btn btn-raised bg-active-btn white btn-block" type="submit" ng-disabled="registerForm.$invalid || disableBtn" id="signUpBtn">
+            <button class="btn btn-raised bg-active-btn white btn-block" type="submit" style="margin:0px" ng-disabled="registerForm.$invalid || disableBtn" id="signUpBtn">
               <span ng-show="!disableBtn">Get Started</span>
               <span ng-show="disableBtn">Signing up... <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i></span>
               <div class="ripple-container"></div>
@@ -89,7 +101,6 @@
         </div>
       </form>
     </div>
-    <div subscription></div>
   </div>
 </div>
 
@@ -142,8 +153,16 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-lg-12 hidden-lg">
+<div class="row hidden-lg">
+  <div class="col-md-6">
+    <div class="well">
+      <h4>Classes with CEUs</h4>
+      <ul>
+        <li ng-repeat="el in classesWithCEUs" class="pointer-cursor" ui-sref="classes({selectedFilter:{{el.filterObject}}})">{{el.text}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
     <div class="well" id="freeClassWellLg" ng-controller="RegisterCtrl">
       <h4 class="margin-none-bottom">Try A Free Class</h4>
       <hr>
@@ -159,37 +178,37 @@
           </div>
         </div>
         <div class="row">
-          <div class="is-empty col-md-6 form-group">
-            <input type="text" class="form-control" id="firstNameTxt" placeholder="First Name" ng-model="info.firstName" required>
+          <div class="is-empty col-md-6 form-group" >
+            <input type="text" class="form-control" id="firstNameTxt2" placeholder="First Name" ng-model="info.firstName" required>
             <span class="material-input"></span>
           </div>
           <div class="is-empty col-md-6 form-group">
-            <input type="text" class="form-control" id="lastNameTxt" placeholder="Last Name" ng-model="info.lastName" required>
+            <input type="text" class="form-control" id="lastNameTxt2" placeholder="Last Name" ng-model="info.lastName" required>
             <span class="material-input"></span>
           </div> 
         </div>
       
         <div class="row">
           <div class="col-sm-12 form-group">
-            <input type="email" class="form-control" id="emailNewTxt" placeholder="Email Address" ng-model="info.emailAddress" required>
+            <input type="email" class="form-control" id="emailNewTxt2" placeholder="Email Address" ng-model="info.emailAddress" required>
             <span class="material-input"></span>
           </div>
         </div>
       
         <div class="row">
           <div class="col-md-6 form-group">
-            <input type="password" class="form-control" placeholder="Password" id="passwordNewTxt" ng-model="info.password" ng-minlength="6" required>
+            <input type="password" class="form-control" placeholder="Password" id="passwordNewTxt2" ng-model="info.password" ng-minlength="6" required>
             <span class="material-input"></span>
           </div>
           <div class="col-md-6 form-group">
-            <input type="password" class="form-control" id="passwordNewConfTxt" placeholder="Confirmation" ng-model="passwordConfirmation" match="info.password" required>
+            <input type="password" class="form-control" id="passwordNewConfTxt2" placeholder="Confirmation" ng-model="passwordConfirmation" match="info.password" required>
             <span class="material-input"></span>
           </div>  
         </div>
       
         <div class="row">
           <div class="col-sm-12">
-            <button class="btn btn-raised bg-active-btn white btn-block" type="submit" ng-disabled="registerForm.$invalid || disableBtn" id="signUpBtn">
+            <button class="btn btn-raised bg-active-btn white btn-block" type="submit" ng-disabled="registerForm.$invalid || disableBtn" id="signUpBtn2">
               <span ng-show="!disableBtn">Get Started</span>
               <span ng-show="disableBtn">Signing up... <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i></span>
               <div class="ripple-container"></div>
@@ -198,7 +217,51 @@
         </div>
       </form>
     </div>
+  </div>
+</div>
+
+<div class="row margin-40-bottom">
+  <div class="col-md-5" style="min-height:170px">
+    <div class="panel panel-default well">
+      <div class="panel-heading font-x-large">Featured Class</div>
+        <div class="panel-body">
+          <div ng-show="featuredSoids.length > featuredClasses.length" class="text-center margin-lg-top-bottom">
+            <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i>
+          </div>
+          <div class="list-group" style="margin-bottom: 0px">
+            <div ng-repeat="featuredClass in featuredClasses" class="list-group-item padding-none margin-md-bottom">
+              <div class="row-picture vertical-align-top" ng-click="showFeaturedClassDetails[featuredClass.id] = !showFeaturedClassDetails[featuredClass.id];">
+                <img class="list-item-icon-larger pointer-cursor" ng-src="{{featuredClass.thumbSrc}}" alt="icon">
+              </div>
+              <div class="row-content">
+                <h4 class="list-group-item-heading" style="font-size: large">
+                  <button class="btn-empty pointer-cursor" ng-click="showFeaturedClassDetails[featuredClass.id] = !showFeaturedClassDetails[featured.id];">
+                    <i class="material-icons vertical-align-middle green rotate" ng-class="{down : showFeaturedClassDetails[e.id]}">play_arrow</i>
+                  </button>
+                  <span class="margin-md pointer-cursor" ng-click="showFeaturedClassDetails[featuredClass.id] = !showFeaturedClassDetails[featuredClass.id];">{{featuredClass.name}}</span>
+                  <button class="btn btn-sm bg-purple btn-raised white" ng-click="learnMore(featuredClass)">Learn More</button>
+                </h4>
+                <div class="list-group-item-text" ng-show="showFeaturedClassDetails[featuredClass.id]">
+                  <hr>
+                  <div>{{featuredClass.description}}</div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <div subscription></div>
+  </div>
+  <div class="col-md-7" style="min-height:170px">
+    <div class="panel panel-default well">
+      <div class="panel-heading font-x-large">Latest From Our Blog</div>
+        <div class="panel-body">
+          <%= video_tag "video1.webm", controls: true, autoplay: false, poster: "videos/14096145.jpg", class: "width100-p", id: "blogVideo" %>
+          <h3 id="videoTitle" style="position: absolute; top: 84px; background: rgba(255,255,255,0.5); padding: 10px;">How to support residents with mental illness</h3>
+          <button class="btn btn-sm bg-purple btn-raised white pull-right" ng-click="goGlobal('http://blog.mariposatraining.com/uncategorized/2018/01/how-to-support-residents-with-mental-illness-video/')">See More</button>
+        </div>
+      </div>
   </div>
 </div>
 

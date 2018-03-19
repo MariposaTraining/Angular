@@ -21,6 +21,9 @@ angular.module('mariposa-training')
             $scope.approvals = Catalog.data.Approvals;
             $scope.topics = Catalog.data.Topics;
             $scope.disciplines = Catalog.data.Disciplines;
+            if($state.params["selectedFilter"] != null && $state.params["selectedFilter"]["Soid"] != "")
+                $scope.filterCoursesByApproval($state.params["selectedFilter"]);
+                
         }else
             Catalog.getClasses().then(function(res){
                 $scope.catalogClasses = res;
@@ -31,10 +34,12 @@ angular.module('mariposa-training')
                 $scope.approvals = Catalog.data.Approvals;
                 $scope.topics = Catalog.data.Topics;
                 $scope.disciplines = Catalog.data.Disciplines;
+                
+                if($state.params["selectedFilter"] != null && $state.params["selectedFilter"]["Soid"] != "")
+                    $scope.filterCoursesByApproval($state.params["selectedFilter"]);
+                    
             });
     };
-   
-    $scope.init();
    
     $scope.learnMore = function(c){
         $state.go('classDescription', {Soid:c.Soid});
@@ -99,5 +104,7 @@ angular.module('mariposa-training')
         $scope.filterName = el.Name;
     //    $scope.currentPage = 1;
     };
+    
+    $scope.init();
     
 }]);
