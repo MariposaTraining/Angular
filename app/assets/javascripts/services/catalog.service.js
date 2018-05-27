@@ -76,8 +76,8 @@ angular.module('mariposa-training').service('Catalog', ['$http', 'Session', 'ITE
                     var tmp = result.data.SqlId;
                     if(tmp < 10) tmp = "0" + tmp;
 
-                    result.data.imageSrc = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/"  + tmp + ".jpg";
-                    result.data.thumbSrc = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/Thumbs/"  + tmp + ".jpg";
+                    result.data.imageSrc = "images/classes/full_size/" + tmp + ".jpg";
+                    result.data.thumbSrc = "images/classes/thumbs/" + tmp + ".jpg";
                     return result.data;
                 });
     };
@@ -142,14 +142,35 @@ angular.module('mariposa-training').service('Catalog', ['$http', 'Session', 'ITE
         if(result.data.hasOwnProperty('data'))
                 result = result.data;
             
+            var IMAGE_SERVER_URL = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/";
+            
             // get classes
             self.data.Classes = result.data.Courses;
             for(var i = 0; i < result.data.Courses.length; i++){
                 var tmp = self.data.Classes[i].SqlId;
                 if(tmp < 10)
                     tmp = "0" + tmp;
-                self.data.Classes[i].imageSrc = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/"  + tmp + ".jpg";
-                self.data.Classes[i].thumbSrc = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/Thumbs/" + tmp + ".jpg";
+                //self.data.Classes[i].imageSrc = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/"  + tmp + ".jpg";
+                //self.data.Classes[i].thumbSrc = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/Thumbs/" + tmp + ".jpg";
+                
+                self.data.Classes[i].imageSrc = "images/classes/full_size/" + tmp + ".jpg";
+                self.data.Classes[i].thumbSrc = "images/classes/thumbs/" + tmp + ".jpg";
+                
+                // $http.post("/GetImage",
+                //     {
+                //         img_type: "thumbs",
+                //         img_name: tmp,
+                //         org_url: IMAGE_SERVER_URL + "Thumbs/" + tmp + ".jpg"
+                //     }
+                // );
+                
+                // $http.post("/GetImage",
+                //     {
+                //         img_type: "full_size",
+                //         img_name: tmp,
+                //         org_url: IMAGE_SERVER_URL + tmp + ".jpg"
+                //     }
+                // );
             }
             
             self.data.Classes.sort(courseComparator);

@@ -228,8 +228,12 @@ class SpaController < ApplicationController
     response1 = http.request(req)
 
     begin
-      puts response1.body
+      #puts response1.body
       json = JSON.parse(response1.body)
+      
+      if(endpoint=='getCatalog')
+        get_images(json)
+      end
       
       # sometimes response contains data object with necessary data
       # but sometimes the response from the server is the object with necessery data
@@ -245,6 +249,52 @@ class SpaController < ApplicationController
       puts error
       render json: {api_response: response1.body}, status: 500
     end
+  end
+  
+  def get_images(json_response)
+    
+    classes = json_response
+    
+    while (classes.key?('data') and classes["data"].is_a?(Hash)) do
+      classes = classes["data"]
+    end
+    
+    classes = classes["Courses"]
+    
+    for cl in classes do
+      
+      tmp = cl["SqlId"]
+
+      if(tmp.to_i<10)
+        tmp = "0" + tmp.to_s
+      end
+      
+      tmp = tmp.to_s
+
+      get_image("thumbs", tmp, "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/Thumbs/"+tmp+".jpg")
+      get_image("full_size", tmp, "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:8000/Content/Pictures/Classes/"+tmp+".jpg")
+      
+    end
+    
+  end
+  
+  def get_image (img_type, img_name, org_url)
+    
+    path = Rails.root.to_s + "/public/images/classes/" + img_type + "/" + img_name.to_s + ".jpg"
+    
+    if ! File.exists?(path)
+    
+      uri = URI.parse(org_url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      
+      response = http.request(
+        Net::HTTP::Get.new(uri.request_uri)
+        )
+        
+      File.open(path, 'wb') { |f| f.write(response.body)}
+    
+    end
+
   end
   
   # GET   /eventbrite
