@@ -40,15 +40,17 @@
     </div> -->
   </div>
   <div class="col-lg-3 margin-md-bottom visible-lg">
-    <div class="well">
-      <h4 style="margin-top:0px">Classes with CEUs</h4>
+    <div class="well pointer-cursor" ui-sref="classDescription({Soid: '5b33cc1eeabbde254c5f2807'})">
+      <%= image_tag "LGBT_Button.png", class: "width100-p" %>
+      <!--<h4 style="margin-top:0px">Classes with CEUs</h4>
       <hr>
       <ul class="classes-list-promo">
         <li ng-repeat="el in classesWithCEUs" class="pointer-cursor" ui-sref="classes({selectedFilter:{{el.filterObject}}})">{{el.text}}</li>
-      </ul>
+      </ul>-->
     </div>
+    
     <div class="well" id="freeClassWell" ng-controller="RegisterCtrl">
-      <h4 class="margin-none-bottom" style="margin-top:0px">Try A Free Class</h4>
+      <h4 class="margin-none-bottom" style="margin-top:0px">Take LGBT Class - Free Now</h4>
       <hr>
       <div class="alert alert-danger" ng-show="registerInvalid">
         <strong>An error occurred!</strong>
@@ -154,17 +156,18 @@
 </div>
 
 <div class="row hidden-lg">
-  <div class="col-md-6">
-    <div class="well">
-      <h4>Classes with CEUs</h4>
+  <div class="col-md-5">
+    <div class="well pointer-cursor" ui-sref="classDescription({Soid: '5b33cc1eeabbde254c5f2807'})">
+      <%= image_tag "LGBT_Button.png", class: "width100-p" %>
+      <!--<h4>Classes with CEUs</h4>
       <ul>
         <li ng-repeat="el in classesWithCEUs" class="pointer-cursor" ui-sref="classes({selectedFilter:{{el.filterObject}}})">{{el.text}}</li>
-      </ul>
+      </ul>-->
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-7">
     <div class="well" id="freeClassWellLg" ng-controller="RegisterCtrl">
-      <h4 class="margin-none-bottom">Try A Free Class</h4>
+      <h4 class="margin-none-bottom">Take LGBT Class - Free Now</h4>
       <hr>
       <div class="alert alert-danger" ng-show="registerInvalid">
         <strong>An error occurred!</strong>

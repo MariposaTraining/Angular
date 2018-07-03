@@ -11,6 +11,8 @@ angular.module('mariposa-training').controller('RegisterCtrl', ['$scope', '$stat
         facilitySoid: ''
     };
     
+    $scope.roles = ["Administrator", "DON", "DSD", "BOM", "SSD", "AD", "Nurse", "CNA", "Medical Director", "Physician"];
+    
     $scope.passwordConfirmation = null;
     
     var processName = function(name){

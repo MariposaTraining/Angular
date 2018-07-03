@@ -27,7 +27,7 @@ angular.module('mariposa-training').controller('HomeCtrl', ['$scope', '$document
   var fillFeaturedClasses = function(){
     $scope.featuredClasses = [];
     
-    $scope.featuredSoids = ["5172bb84dbbf5813546c60ec"];
+    $scope.featuredSoids = ["5b33cc1eeabbde254c5f2807"];
     
     for(var i = 0; i < $scope.featuredSoids.length; i++){
         Catalog.getCourseById($scope.featuredSoids[i]).then(function(result){

@@ -52,7 +52,26 @@
                         <option ng-repeat="s in US_STATES.vals" value="{{s.value}}">{{s.name}}</option>
                     </select>
                 </div>
-                <p>When is your license renewal due?</p>
+                <p>Organization/Facility</p>
+                <div class="form-group">
+                    <input type="text" class="form-control" />
+                </div>
+                <p>Association (select all that apply)</p>
+                <div class="row form-group">
+                    <div class="col-lg-4 form-group">
+                      <input type="checkbox"> CAHF
+                    </div>
+                    <div class="col-lg-4 form-group">
+                      <input type="checkbox"> QCHF
+                    </div>
+                    <div class="col-lg-4 form-group">
+                      <input type="checkbox"> CALTCM
+                    </div>
+                    <div class="col-sm-12 form-group">
+                      <input type="text" class="form-control" placeholder="Other association">
+                    </div>
+                </div>
+                <!--<p>When is your license renewal due?</p>
                 <div class="form-group">
                     <util-date ng-model="licenseRenewalDate"></util-date>
                 </div>
@@ -80,7 +99,7 @@
                             <input type="text" ng-model="facilityCode" class="form-control"/>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="form-group text-right">
                     <button type="button" class="btn btn-success btn-raised" ng-click="submitAdditionalInfo()" ng-disabled='!licenseState'>Submit</button>
                 </div>

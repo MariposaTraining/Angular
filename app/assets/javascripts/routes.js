@@ -368,12 +368,12 @@ angular.module('mariposa-training')
       url: '/Succeed/:lectureName/Video/:lectureSoid/:fullName',
       templateUrl: 'assets/templates/main/player.html',
       controller: 'PlayerCtrl'
-    });
-  /*  .state('dementiaCareLandingPage', {
-      url: '/Dementia-Care',
-      templateUrl: 'assets/templates/landingPages/dementiaCare.html',
+    })
+    .state('lgbtq', {
+      url: '/LGBTQ',
+      templateUrl: 'assets/templates/landingPages/lgbtq.html',
       controller: 'LandingPageCtrl'
-    });*/
+    });
     
     $urlRouterProvider.otherwise(function($injector, $location){
       var state = $injector.get('$state');

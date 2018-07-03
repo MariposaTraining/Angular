@@ -1,0 +1,270 @@
+<div class="angular-inside" id="lgbtq-container">
+  <!-- Public site -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand font-x-large" ng-click="homeLinkClicked()">
+          <%= image_tag "mariposa_square_1080p.jpg", class: "logo img-responsive pointer-cursor" %>
+        </a>
+        <a class="navbar-brand font-x-large" ng-click="homeLinkClicked()">
+          <%= image_tag "QCHFNewLogoCropped.jpg", class: "logo added-logo img-responsive pointer-cursor" %>
+        </a>
+        <a class="navbar-brand font-x-large" ng-click="homeLinkClicked()" style="max-width: 115px">
+          <%= image_tag "advocatesforequity.png", class: "logo img-responsive added-logo pointer-cursor" %>
+        </a>
+        <a class="navbar-brand font-x-large" ng-click="homeLinkClicked()" style="max-width: 95px">
+          <%= image_tag "CALTCMlogo.png", class: "logo img-responsive pointer-cursor" %>
+        </a>
+        <div class="display-inline-block float-right">
+          <div ng-show="Session.userId != null" class="visible-xs display-inline-block float-right text-right padding-md">
+            <div ng-click="reloadPage()" class="pointer-cursor">{{Session.member.ScreenName}}</div>
+            <div>{{Session.member.FacilityName}}</div>
+            <a ng-click="signOut()" class="padding-md rgba-gray" id="signOutRgba">Sign Out</a>
+          </div>
+          <button ng-show="Session.userId == null" class="btn btn-raised bg-active-btn white visible-xs btn-sm pull-right margin-md-right" data-toggle="modal" data-target="#sign-dialog">Sign In
+            <div class="ripple-container"></div>
+          </button>
+          <div ng-show="Cart.getTotalCount() > 0" class="padding-md visible-xs display-inline-block float-right text-left">
+            <div>Cart: <strong>{{Cart.getTotalCount()}}</strong></div>
+            <a ui-sref="cart" class="padding-md rgba-gray" id="checkoutRgba">CHECKOUT <i class="material-icons">shopping_cart</i></a>
+          </div>
+        </div>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav padding-50-left">
+          <li class="hidden-sm hidden-xs width250 padding-md" style="display:none">
+            Need Help? Contact
+            <a href="mailto:support@mariposatraining.com">support@mariposatraining.com</a>
+          </li>
+          <li ng-show="Cart.getTotalCount() > 0" class="padding-md margin-md-left" ng-mouseover="cartDialogVisible = true" ng-mouseleave="cartDialogVisible = false">
+            <div>Cart: <strong>{{Cart.getTotalCount()}}</strong></div>
+            <a ui-sref="cart" class="padding-md">CHECKOUT <i class="material-icons">shopping_cart</i></a>
+          </li>
+        </ul>
+        <ul ng-show="Session.userId == null" class="nav navbar-nav navbar-right text-center">
+          <button class="btn btn-raised bg-active-btn white btn-lg" data-toggle="modal" data-target="#sign-dialog">Sign In
+            <div class="ripple-container"></div>
+          </button>
+        </ul>
+        <ul ng-show="Session.userId != null" class="nav navbar-nav navbar-right text-right">
+          <li>
+            <div ng-click="reloadPage()" class="pointer-cursor">{{Session.member.ScreenName}}</div>
+            <div>{{Session.member.FacilityName}}</div>
+            <a ng-click="signOut()" class="padding-md pointer-cursor">Sign Out</a>
+          </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="row margin-md-bottom well">
+      <div class="col-md-8" id="content">
+        <h2>Building Inclusive and Sensitive Long Term Care Services for LGBTQ Communities</h2>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="speaker-card">
+              <%= image_tag "speaker1.jpeg", class: "speaker-card-img-top" %>
+              <div>
+                <h4>Speaker: Miriam Garfinkel, MA, LMFT</h4>
+                <p>Miriam has been a trainer, educator and practicing psychotherapist for over twenty five years, specializing in the care of LGBTQ people and also the care of people living with HIV.</p>
+              </div>
+            </div>
+            <div class="speaker-card">
+              <%= image_tag "speaker2.PNG", class: "speaker-card-img-top" %>
+              <div>
+                <h4>Speaker: Tim Vincent, MS</h4>
+                <p>Tim has managed a national capacity building assistance program providing training and technical support for the healthcare community as well as training and advocacy for the LGBT community for the past three decades.</p>
+              </div>
+            </div>
+            <p>Tim and Miriam are the creators of Advocates 4 Equity  whose goal is to help individuals and agencies improve their work with LGBTQ people and to increase their sensitivities around issues related gender identity and sexual orientation.</p>
+            <hr>
+          </div>
+        </div>
+        <div>
+          <h3>Class Description</h3>
+          <p>There are over 3 million older adults who identify as lesbian, gay, bisexual and
+          transgender in the U.S. For many, the prospect of long term care provokes fear and anxiety, forcing
+          them to consider “going back into the closet” out of concern about mistreatment by residents and
+          staff.</p>
+          <p>This one hour webinar will describe the required elements for responding to the emerging needs of
+          long term care organizations to provide sensitive and respectful services to LGBT residents. In the
+          webinar we will discuss relevant terminology related to sexual orientation and gender identity, discuss
+          common challenges experienced by LGBT older adults and provide recommendations for honoring
+          patient rights. This webinar will also satisfy new legal requirements for staff and management in long
+          term health care to participate in LGBT sensitivity training.
+          </p>
+        </div>
+        <div>
+          <h3>CEU Info</h3>
+          <p>CME CEU - 1 hour</p>
+          <p>CMD CEU - 1 hour</p>
+          <p>NHA CEU - 1 hour</p>
+          <p>RN CEU - 1 hour</p>
+          <p>LVN CEU - 1 hour</p>
+          <p>CNA CEU - 1 hour</p>
+          <p>NAB CEU - 1 hour</p>
+        </div>
+        <div>
+          <h3>Learning Objectives</h3>
+          <p>
+            Students will be able to:
+            <ol>
+              <li>State common terms associated with sexual orientation, gender identity
+              and gender expression;</li>
+              <li>Improve communication with or about LGBT individuals;</li>
+              <li>Name the health and social challengeshistorically faced by older LGBT persons including discrimination in health care setting;</li>
+              <li>State the importance of professionalism in medical settings and the way caretaker attitudes affect health care access, participation, and resident physical and mental health;</li>
+              <li>Define ways to create a safe and affirming environment;</li>
+              <li>State the legal and professional obligation to treat all patients in a nondiscriminatory manner;</li>
+              <li>Name the legal issues relating to LGBT persons, including but not limited to patients' rights, civil rights, marriage and domestic partner laws, and Nursing Home Reform Act.</li>
+            </ol>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" ng-controller="RegisterCtrl">
+          <h4 class="margin-none-bottom">Register</h4>
+          <hr>
+          <div class="alert alert-danger" ng-show="registerInvalid">
+            <strong>An error occurred!</strong>
+          </div>
+          <form name="registerForm" ng-submit="register()">
+            <div class="row margin-md-bottom" ng-show="showErrorMessage">
+              <div class="col-md-12">
+                <div class="alert alert-danger">
+                  {{errorMessage}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="is-empty col-md-6 form-group" >
+                <div>First Name</div>
+                <input type="text" class="form-control" id="firstNameTxt2" placeholder="" ng-model="info.firstName" required>
+                <span class="material-input"></span>
+              </div>
+              <div class="is-empty col-md-6 form-group">
+                <div>Last Name</div>
+                <input type="text" class="form-control" id="lastNameTxt2" placeholder="" ng-model="info.lastName" required>
+                <span class="material-input"></span>
+              </div> 
+            </div>
+          
+            <div class="row">
+              <div class="col-sm-12 form-group">
+                <div>Email Address</div>
+                <input type="email" class="form-control" id="emailNewTxt2" placeholder="" ng-model="info.emailAddress" required>
+                <span class="material-input"></span>
+              </div>
+            </div>
+          
+            <div class="row">
+              <div class="col-md-6 form-group">            
+                <div>Password</div>
+                <input type="password" class="form-control" placeholder="" id="passwordNewTxt2" ng-model="info.password" ng-minlength="6" required>
+                <span class="material-input"></span>
+              </div>
+              <div class="col-md-6 form-group">
+                <div>Confirmation</div>
+                <input type="password" class="form-control" id="passwordNewConfTxt2" placeholder="" ng-model="passwordConfirmation" match="info.password" required>
+                <span class="material-input"></span>
+              </div>  
+            </div>
+            
+            <div class="row">
+              <div class="col-sm-12 form-group">
+                <div>Association (select all that apply):</div>
+                <div class="col-lg-4 form-group">
+                  <input type="checkbox" ng-model="info.association.cahf"> CAHF
+                </div>
+                <div class="col-lg-4 form-group">
+                  <input type="checkbox" ng-model="info.association.qchf"> QCHF
+                </div>
+                <div class="col-lg-4 form-group">
+                  <input type="checkbox" ng-model="info.association.caltcm"> CALTCM
+                </div>
+                <div class="col-sm-12 form-group">
+                  <input type="text" class="form-control" placeholder="Other association" ng-model="info.association.other">
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-sm-12 form-group">
+                <div>Organization/Facility</div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                      <input type="text" class="form-control" ng-model="info.facility"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-sm-12 form-group">
+                <div>Role in facility (select all that apply):</div>
+                <div class="col-lg-6 form-group" ng-repeat="role in roles track by $index">
+                  <input type="checkbox" ng-model="info.roleInFacility[role]"> {{role}}
+                </div>
+                <div class="col-sm-12 form-group">
+                  <input type="text" class="form-control" placeholder="Other role" ng-model="info.roleInFacility.other">
+                </div>
+              </div>
+            </div>
+          
+            <div class="row">
+              <div class="col-sm-12">
+                <button class="btn btn-raised bg-active-btn white btn-block" type="submit" ng-disabled="registerForm.$invalid || disableBtn" id="signUpBtn2">
+                  <span ng-show="!disableBtn">Register</span>
+                  <span ng-show="disableBtn">Signing up... <i class="fa fa-spinner fa-spin" style="font-size:24px; color: #ff8000"></i></span>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="margin-md-top-bottom">
+          <%= image_tag "LGBT_Button.png", class: "img-responsive" %>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+  
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row text-center">
+        Need Help? Contact <a class="white" href="mailto:support@mariposatraining.com">support@mariposatraining.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sign in / Sign up dialog -->
+  <div id="sign-dialog" class="modal fade in" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="modal-body">
+              <div ng-include="'main/login.html'"></div>
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="modal-body">
+              <div ng-include="'main/register.html'"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close<div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 59.6563px; top: 12px; transform: scale(10.875); background-color: rgb(0, 150, 136);"></div></div></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

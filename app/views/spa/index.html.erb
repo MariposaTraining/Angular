@@ -62,7 +62,10 @@
         <div ui-view></div>
       </div>
     </div>
-    <div class="angular-inside" ng-if="$state.current.name.indexOf('Succeed') == -1 && $state.current.name != 'player' && $state.current.name != 'test'">
+    <div ng-if="$state.current.name=='lgbtq'">
+      <div ui-view></div>
+    </div>
+    <div class="angular-inside" ng-if="$state.current.name.indexOf('Succeed') == -1 && $state.current.name != 'player' && $state.current.name != 'test' && $state.current.name != 'lgbtq'">
       <!-- Public site -->
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">

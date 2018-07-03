@@ -15,7 +15,7 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
                 $scope.studentTypes = res.data.data;
         });
         
-        if($state.current.name == 'accountNew' && $scope.Session.needsInfo){
+        /*if($state.current.name == 'accountNew' && $scope.Session.needsInfo){
             
             $scope.timeZone = $scope.Session.member.TimeZone;
             $scope.studentType = $scope.Session.member.StudentTypeSoid;
@@ -28,18 +28,19 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
         }else if($state.current.name == 'accountNew' && $scope.Session.needsState){
             
             $scope.state = $scope.Session.member.LicenseState;
-            
-            $("#stateInfo").modal('show');
             $scope.Session.setNeedsState(false);
-        }
+            $("#stateInfo").modal('show');
+        }*/
         
         $scope.Account.sortCourses();
+            
+        if(Account.reloadNeeded)
+            Account.reloadMemberObject();
         
-        angular.element($window).bind('focus', function() {
-            if(Account.reloadNeeded)
-                Account.reloadMemberObject();
+        /*angular.element($window).bind('focus', function() {
+                      
         });
-        
+        */
     };
     
     $scope.init();
