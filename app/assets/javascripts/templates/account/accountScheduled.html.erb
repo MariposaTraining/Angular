@@ -13,7 +13,7 @@
                   <img class="list-item-icon-larger pointer-cursor" ng-src="{{c.CourseObject.thumbSrc}}" alt="icon">
                 </div>
                 <div class="row-content">
-                  <h4 class="list-group-item-heading pointer-cursor"><span>{{c.CourseName}}</span><button class="btn btn-sm bg-watch-btn btn-raised white pull-right margin-md" ng-click="playLecture(c)">Watch</button></h4>
+                  <h4 class="list-group-item-heading pointer-cursor"><span ui-sref="classDescription({Soid: c.CourseSoid})">{{c.CourseName}}</span><button class="btn btn-sm bg-watch-btn btn-raised white pull-right margin-md" ng-click="playLecture(c)">Watch</button></h4>
                 <div class="list-group-item-text">
                     <div class="display-inline-block padding-md"><span>{{c.CourseObject.CeuCount}}</span> CEU</div>
                     <div class="display-inline-block padding-md">Scheduled On: <span>{{c.Scheduled}}</span></div>
