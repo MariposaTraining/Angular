@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state', '$q', '$window', 'Account', 'Session', 'PersonalInfo', 'Logger', 'US_STATES', 'TIME_ZONES',
-    function ($scope, $state, $q, $window, Account, Session, PersonalInfo, Logger, US_STATES, TIME_ZONES) {
+angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state', '$timeout', 'TmpStorage', '$q', '$window', 'Account', 'Session', 'PersonalInfo', 'Logger', 'AuthService', 'US_STATES', 'TIME_ZONES',
+    function ($scope, $state, $timeout, TmpStorage, $q, $window, Account, Session, PersonalInfo, Logger, AuthService, US_STATES, TIME_ZONES) {
   
     $scope.init = function(){
         
@@ -10,27 +10,36 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
         $scope.TIME_ZONES = TIME_ZONES;
         $scope.Account = Account;
         
+        $scope.facility = null;
+        $scope.tmpAssoc = null;
+        $scope.assocCheckbox = [];
+        
+        $scope.associations = AuthService.associations;
+        
         PersonalInfo.getStudentTypes().then(function(res){
             if(res.data.ok == true)
                 $scope.studentTypes = res.data.data;
         });
         
-        /*if($state.current.name == 'accountNew' && $scope.Session.needsInfo){
+        if($state.current.name == 'accountNew' && $scope.Session.needsInfo){
             
             $scope.timeZone = $scope.Session.member.TimeZone;
             $scope.studentType = $scope.Session.member.StudentTypeSoid;
             $scope.licenseState = $scope.Session.member.LicenseState;
             $scope.licenseRenewalDate = $scope.Session.member.LicenseRenewalDate;
             
-            $("#studentInfo").modal('show');
-            $scope.Session.setNeedsInfo(false);
+            $timeout(function(){
+                $("#studentInfo").modal({backdrop: 'static', keyboard: false});
+            }, 600);
             
         }else if($state.current.name == 'accountNew' && $scope.Session.needsState){
             
             $scope.state = $scope.Session.member.LicenseState;
             $scope.Session.setNeedsState(false);
-            $("#stateInfo").modal('show');
-        }*/
+            $timeout(function(){
+                $("#stateInfo").modal({backdrop: 'static', keyboard: false});
+            }, 600);
+        }
         
         $scope.Account.sortCourses();
             
@@ -52,6 +61,20 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
         $("#stateInfo").modal('hide');
     };
     
+    var extractActiveAssociations = function(){
+        var assocs = [];
+        
+        for(var i=0; i<$scope.associations.length; i++){
+            if($scope.assocCheckbox[i])
+                assocs.push($scope.associations[i]);
+        }
+        
+        if($scope.tmpAssoc && $scope.tmpAssoc.trim() != "")
+            assocs.push($scope.tmpAssoc.trim());
+            
+        return assocs;
+    };
+    
     $scope.submitAdditionalInfo = function(){
         
         var studentInfo = {
@@ -64,10 +87,21 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
             facilityCode: $scope.facilityCode
         };
         
+        TmpStorage.storeAccountData({
+            facility: $scope.facility,
+            associations: extractActiveAssociations()
+        }, $scope.Session.userId);
+        
+        $scope.facility = null;
+        $scope.tmpAssoc = null;
+        $scope.assocCheckbox = [];
+        
         PersonalInfo.setStudentInfo(studentInfo).then(function(){
             PersonalInfo.loadMemberObject(true);
         });
         $("#studentInfo").modal('hide');
+        $scope.Session.setNeedsInfo(false);
+        $scope.Session.setNeedsState(false);
     };
     
     $scope.closeModal = function(){

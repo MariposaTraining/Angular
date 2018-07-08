@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get   '/class/diploma' => 'spa#diploma'
   get   '/class/succeed' => 'spa#succeed'
   post  '/Log' => 'spa#log'
+  
+  resources :registrations, only: [:create]
 
 # top nav routes
 

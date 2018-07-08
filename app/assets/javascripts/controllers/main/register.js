@@ -3,15 +3,26 @@
 angular.module('mariposa-training').controller('RegisterCtrl', ['$scope', '$state', 'AuthService', 'Account', 'Cart',
     function ($scope, $state, AuthService, Account, Cart) {
   
-    $scope.info = {
-        firstName: null,
-        lastName: null,
-        emailAddress: null,
-        password: null,
-        facilitySoid: ''
+    var clearData = function(){
+        $scope.info = {
+            firstName: '',
+            lastName: '',
+            emailAddress: '',
+            password: '',
+            facilitySoid: '',
+            facility: ''
+        };
+        $scope.tmpAssoc = "";
+        $scope.assocCheckbox = [];
+        $scope.tmpRole = "";
+        $scope.roleCheckbox = [];
+        $scope.passwordConfirmation = '';
     };
     
-    $scope.roles = ["Administrator", "DON", "DSD", "BOM", "SSD", "AD", "Nurse", "CNA", "Medical Director", "Physician"];
+    $scope.roles = AuthService.roles;
+    $scope.associations = AuthService.associations;
+  
+    clearData();
     
     $scope.passwordConfirmation = null;
     
@@ -21,25 +32,65 @@ angular.module('mariposa-training').controller('RegisterCtrl', ['$scope', '$stat
             });
     };
     
+    var extractActiveAssociations = function(){
+        
+        var assocs = [];
+        
+        for(var i=0; i<$scope.associations.length; i++){
+            if($scope.assocCheckbox[i])
+                assocs.push($scope.associations[i]);
+        }
+        
+        if($scope.tmpAssoc.trim() != "")
+            assocs.push($scope.tmpAssoc.trim());
+            
+        return assocs;
+    };
+    
+    var extractActiveRoles = function(){
+        var tmpRoles = [];
+        
+        for(var i=0; i<$scope.roles.length; i++){
+            if($scope.roleCheckbox[i])
+                tmpRoles.push($scope.roles[i]);
+        }
+        
+        if($scope.tmpRole.trim() != "")
+            tmpRoles.push($scope.tmpRole.trim());
+            
+        return tmpRoles;
+    };
+    
     var attemptRegistration = function(){
-        AuthService.register($scope.info)
+        
+        var registrationData = {
+            firstName: $scope.info.firstName,
+            lastName: $scope.info.lastName,
+            emailAddress: $scope.info.emailAddress,
+            password: $scope.info.password,
+            facilitySoid: $scope.info.facilitySoid,
+            facility: $scope.info.facility,
+            associations: extractActiveAssociations(),
+            roles: extractActiveRoles()
+        };
+        
+        AuthService.register(registrationData)
         .then(function success(data){
-            $scope.registerInvalid = false;
-            $scope.info = {
-                firstName: '',
-                lastName: '',
-                emailAddress: '',
-                password: '',
-                facilitySoid: ''
-            };
-            $scope.passwordConfirmation = '';
-            
-            Cart.getCart();
-            
-            $("#sign-dialog").modal('hide');
-            $scope.disableBtn = false;
-            if($state.current.name != 'cart')
-                Account.goToDefaultTab();
+            if(data && data.data && data.data.ok){
+                $scope.registerInvalid = false;
+                
+                clearData();
+                
+                Cart.getCart();
+                
+                $("#sign-dialog").modal('hide');
+                $scope.disableBtn = false;
+                if($state.current.name != 'cart')
+                    Account.goToDefaultTab();
+            }else{
+                $scope.disableBtn = false;
+                $scope.registerInvalid = true;
+            }
         },
         function error(data){
             $scope.disableBtn = false;

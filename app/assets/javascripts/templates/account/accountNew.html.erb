@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div id="studentInfo" class="modal fade in">
+<div id="studentInfo" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header font-larger padding-md-top">
@@ -54,21 +54,15 @@
                 </div>
                 <p>Organization/Facility</p>
                 <div class="form-group">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" ng-model="facility"/>
                 </div>
                 <p>Association (select all that apply)</p>
                 <div class="row form-group">
-                    <div class="col-lg-4 form-group">
-                      <input type="checkbox"> CAHF
-                    </div>
-                    <div class="col-lg-4 form-group">
-                      <input type="checkbox"> QCHF
-                    </div>
-                    <div class="col-lg-4 form-group">
-                      <input type="checkbox"> CALTCM
+                    <div class="col-lg-4 form-group" ng-repeat="assoc in associations track by $index">
+                      <input type="checkbox" ng-model="assocCheckbox[$index]"> {{assoc}}
                     </div>
                     <div class="col-sm-12 form-group">
-                      <input type="text" class="form-control" placeholder="Other association">
+                      <input type="text" class="form-control" placeholder="Other association" ng-model="tmpAssoc">
                     </div>
                 </div>
                 <!--<p>When is your license renewal due?</p>

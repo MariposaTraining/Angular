@@ -1,8 +1,8 @@
 /* global angular */
 
 var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSanitize', 'ngStorage', 'ngAudio'])
-  .controller('ApplicationCtrl', ['$scope', '$state', '$stateParams', '$sessionStorage', '$localStorage', '$rootScope', '$window', 'AuthService', 'Cart', 'Session', 'Catalog', 'Transaction', 'Account', 'Management', 'Layout', 'USER_ROLES', 'NO_ORGANIZATION_SOID',
-  function($scope, $state, $stateParams, $sessionStorage, $localStorage, $rootScope, $window, AuthService, Cart, Session, Catalog, Transaction, Account, Management, Layout, USER_ROLES, NO_ORGANIZATION_SOID){
+  .controller('ApplicationCtrl', ['$scope', '$state', '$stateParams', '$sessionStorage', '$localStorage', '$rootScope', '$window', 'AuthService', 'Cart', 'Session', 'Catalog', 'Transaction', 'Account', 'Management', 'Layout', 'TmpStorage', 'USER_ROLES', 'NO_ORGANIZATION_SOID',
+  function($scope, $state, $stateParams, $sessionStorage, $localStorage, $rootScope, $window, AuthService, Cart, Session, Catalog, Transaction, Account, Management, Layout, TmpStorage, USER_ROLES, NO_ORGANIZATION_SOID){
     
     $rootScope.$state = $state;
       
@@ -61,7 +61,7 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
     $scope.reloadPage = function(){
       $window.location.reload();
     };
-    
+  
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
       if($state.current.name != 'classDescription'){
         
@@ -287,6 +287,10 @@ var app = angular.module('mariposa-training', ['ui.router', 'templates', 'ngSani
       "5172bb85dbbf5813546c62af": {
         title: "Understanding Psychosocial Needs | Classes - Mariposa",
         description: "With the growing number of younger residents within skilled nursing facilities, learn how to identify and meet the psychosocial needs of your younger residents."
+      },
+      "5b33cc1eeabbde254c5f2807": {
+        title: "Building Inclusive and Sensitive Long Term Care Services for LGBTQ Communities",
+        description: "Mariposa Training is a leading provider of internet-based senior and geriatric healthcare training for administrators, nurses and staff caring for the elderly."
       }
     };
     

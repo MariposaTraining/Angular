@@ -177,17 +177,11 @@
             <div class="row">
               <div class="col-sm-12 form-group">
                 <div>Association (select all that apply):</div>
-                <div class="col-lg-4 form-group">
-                  <input type="checkbox" ng-model="info.association.cahf"> CAHF
-                </div>
-                <div class="col-lg-4 form-group">
-                  <input type="checkbox" ng-model="info.association.qchf"> QCHF
-                </div>
-                <div class="col-lg-4 form-group">
-                  <input type="checkbox" ng-model="info.association.caltcm"> CALTCM
+                <div class="col-lg-4 form-group" ng-repeat="assoc in associations track by $index">
+                  <input type="checkbox" ng-click="toggleAssociation(assoc, assocCheckbox[$index])" ng-model="assocCheckbox[$index]"> {{assoc}}
                 </div>
                 <div class="col-sm-12 form-group">
-                  <input type="text" class="form-control" placeholder="Other association" ng-model="info.association.other">
+                  <input type="text" class="form-control" placeholder="Other association" ng-model="tmpAssoc">
                 </div>
               </div>
             </div>
@@ -207,10 +201,10 @@
               <div class="col-sm-12 form-group">
                 <div>Role in facility (select all that apply):</div>
                 <div class="col-lg-6 form-group" ng-repeat="role in roles track by $index">
-                  <input type="checkbox" ng-model="info.roleInFacility[role]"> {{role}}
+                  <input type="checkbox" ng-model="roleCheckbox[$index]"> {{role}}
                 </div>
                 <div class="col-sm-12 form-group">
-                  <input type="text" class="form-control" placeholder="Other role" ng-model="info.roleInFacility.other">
+                  <input type="text" class="form-control" placeholder="Other role" ng-model="tmpRole">
                 </div>
               </div>
             </div>

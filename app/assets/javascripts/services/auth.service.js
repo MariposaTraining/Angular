@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('mariposa-training').service('AuthService', ['$http', '$q', 'Session', 'Account', 'USER_ROLES', 
-  function ($http, $q, Session, Account, USER_ROLES) {
+angular.module('mariposa-training').service('AuthService', ['$http', '$q', 'Session', 'Account', 'TmpStorage', 'USER_ROLES', 
+  function ($http, $q, Session, Account, TmpStorage, USER_ROLES) {
   
   var getMember = function(){
     return $http.post('Api/getMember', {memberSoid: Session.userId}).then(function success(response){
@@ -49,27 +49,35 @@ angular.module('mariposa-training').service('AuthService', ['$http', '$q', 'Sess
         }
       });
   };
+    
+  this.roles = ["Administrator", "DON", "DSD", "BOM", "SSD", "AD", "Nurse", "CNA", "Medical Director", "Physician"];
+  this.associations = ["CAHF", "QCHF", "CALTCM"];
   
   this.checkEmailAddress = function(email){
     return $http
       .post('Api/GetEmailAddressExists', {emailAddress: email});
   };
- 
+  
   this.register = function(info){
       return registerUser(info)
       .then(function success(res) {
-        var userId = res.data.data;
-        var userRoles = ["student"];
-        Session.create(userId, userRoles);
-        
-        return getMember().then(function(response){
-          return getNeeds(response);
-        });
+        if(res.data.ok){
+          var userId = res.data.data;
+          var userRoles = ["student"];
+          Session.create(userId, userRoles);
+          
+          TmpStorage.storeAccountData(info, userId);
+          
+          return getMember().then(function(response){
+            return getNeeds(response);
+          });
+        }else
+          return null;
       }, function(res){
         console.log(res);
         return res;
       });
-  }
+  };
   
   var registerUser = function(info){
     return $http.post('Api/GetRegister', info);

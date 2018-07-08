@@ -15,6 +15,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'angular-rails-templates'
 gem 'angular-ui-router-rails'
 gem 'angular_rails_csrf'
+gem 'pg', '~> 0.17.1'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
