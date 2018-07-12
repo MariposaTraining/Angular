@@ -30,7 +30,7 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
             
             $timeout(function(){
                 $("#studentInfo").modal({backdrop: 'static', keyboard: false});
-            }, 600);
+            }, 1600);
             
         }else if($state.current.name == 'accountNew' && $scope.Session.needsState){
             
@@ -38,7 +38,7 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
             $scope.Session.setNeedsState(false);
             $timeout(function(){
                 $("#stateInfo").modal({backdrop: 'static', keyboard: false});
-            }, 600);
+            }, 1600);
         }
         
         $scope.Account.sortCourses();
