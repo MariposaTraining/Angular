@@ -2,10 +2,18 @@ require 'net/http'
 require "json"
 
 class SpaController < ApplicationController
-  before_action :set_endpoints
+  before_action :set_endpoints, :open_start_page
   
+  def open_start_page
+    if (WORK_MODE == 'maintenance')
+      render:maintenance, layout: false
+    else
+      index()
+    end
+  end
+      
   def index
-    render :index, layout: false
+      render :index, layout: false
   end
   
   # redirection methods for compliance with old blog
