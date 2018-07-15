@@ -2,13 +2,11 @@ require 'net/http'
 require "json"
 
 class SpaController < ApplicationController
-  before_action :set_endpoints, :open_start_page
+  before_action :set_endpoints, :check_work_mode
   
-  def open_start_page
+  def check_work_mode
     if (WORK_MODE == 'maintenance')
       render:maintenance, layout: false
-    else
-      index()
     end
   end
       
