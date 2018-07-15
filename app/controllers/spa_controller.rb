@@ -317,8 +317,6 @@ class SpaController < ApplicationController
   end
   
   def set_endpoints
-    @player = PLAYER_URL
-    @site = SITE_URL
     @api = API_URL
   end
 end
