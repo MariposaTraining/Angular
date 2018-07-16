@@ -277,8 +277,8 @@ class SpaController < ApplicationController
       
       tmp = tmp.to_s
 
-      get_image("thumbs", tmp, "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Content/Pictures/Classes/Thumbs/"+tmp+".jpg")
-      get_image("full_size", tmp, "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Content/Pictures/Classes/"+tmp+".jpg")
+      get_image("thumbs", tmp, BACKEND_URL + "/Content/Pictures/Classes/Thumbs/"+tmp+".jpg")
+      get_image("full_size", tmp, BACKEND_URL + "/Content/Pictures/Classes/"+tmp+".jpg")
       
     end
     

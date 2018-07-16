@@ -1,4 +1,4 @@
-# # global angular
+# # global angular, BACKEND_URL
 # # Create angular service from this model
 angular.module('mariposa-training').factory 'Course', ['$sce', '$http', 'BaseModelClass', ($sce, $http, BaseModelClass) ->
   class Course extends BaseModelClass
@@ -55,13 +55,13 @@ angular.module('mariposa-training').factory 'Course', ['$sce', '$http', 'BaseMod
     slideUrl: (slideNumber) ->
       paddedSqlId = @padNumber @SqlId
       paddedSlideNumber = @padNumber slideNumber
-      "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Content/Presentations/Slides/#{paddedSqlId}/Slides/Slide#{paddedSlideNumber}.JPG"
+      "#{BACKEND_URL}/Content/Presentations/Slides/#{paddedSqlId}/Slides/Slide#{paddedSlideNumber}.JPG"
 
     audioUrl: ->
-      "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Content/Presentations/Audio/#{@Channel}.mp3"
+      "#{BACKEND_URL}/Content/Presentations/Audio/#{@Channel}.mp3"
 
     handoutUrl: ->
-      "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/Content/Presentations/Handout/#{@padNumber @SqlId}.pdf"
+      "#{BACKEND_URL}/Content/Presentations/Handout/#{@padNumber @SqlId}.pdf"
 
     resetSlides: ->
       for slide, i in @Slides

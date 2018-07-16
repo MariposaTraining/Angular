@@ -1,4 +1,4 @@
-/* global angular */
+/* global angular, BACKEND_URL */
 
 angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state', '$q', '$sessionStorage', '$localStorage', '$window', 'Account', 'Session', 'PersonalInfo', 'US_STATES', 'TIME_ZONES',
     function ($scope, $state, $q, $sessionStorage, $localStorage, $window, Account, Session, PersonalInfo, US_STATES, TIME_ZONES) {
@@ -67,10 +67,8 @@ angular.module('mariposa-training').controller('DiplomaCtrl', ['$scope', '$state
                 $scope.errorMessage = null;
                 $scope.enteredName = null;
                 $scope.showNameForm = false;
-                if($state.current.name.indexOf("Succeed") != -1)
-                    $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/documents/ceu/" + response.data.data + ".pdf";
-                else
-                    $scope.link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/documents/ceu/" + response.data.data + ".pdf";
+                $scope.link = BACKEND_URL + "/documents/ceu/" + response.data.data + ".pdf";
+
             }
             }, function error(response){
             $scope.errorMessage = response.data.data;

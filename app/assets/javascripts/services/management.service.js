@@ -1,4 +1,4 @@
-/* global angular */
+/* global angular, BACKEND_URL */
 
 angular.module('mariposa-training').service('Management', ['$http', '$q', '$window', 'Account', 'Session', 'USER_ROLES', 
     function ($http, $q, $window, Account, Session, USER_ROLES) {
@@ -274,7 +274,7 @@ angular.module('mariposa-training').service('Management', ['$http', '$q', '$wind
     
     this.print = function(lectureSoid){
         Account.getDiploma(lectureSoid).then(function(result){
-            var link = "http://ec2-54-67-60-169.us-west-1.compute.amazonaws.com:9000/documents/ceu/" + result.data.data + ".pdf";
+            var link = BACKEND_URL + "/documents/ceu/" + result.data.data + ".pdf";
             $window.open(link);
         });
     };

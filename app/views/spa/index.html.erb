@@ -31,7 +31,9 @@
   
   <!-- Angular -->
   <base href="/">
-
+  <script>
+    var BACKEND_URL= "<%= BACKEND_URL %>";
+  </script>
   <%= javascript_include_tag 'application' %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
 </head>
