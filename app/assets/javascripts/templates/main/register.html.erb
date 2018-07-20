@@ -28,7 +28,7 @@
   <div class="row">
     <div class="form-group label-floating is-empty col-sm-12">
       <label for="emailNewTxt" class="control-label">Email address</label>
-      <input type="email" class="form-control" id="emailNewTxt" ng-model="info.emailAddress" name="emailAddress" required ng-blur="checkEmail(registerForm)">
+      <input type="email" class="form-control" id="emailNewTxt" ng-model="info.emailAddress" name="emailAddress" ng-pattern="emailFormat" required ng-blur="checkEmail(registerForm)">
       <span class="material-input"></span>
     </div>
   </div>

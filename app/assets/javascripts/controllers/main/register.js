@@ -25,6 +25,7 @@ angular.module('mariposa-training').controller('RegisterCtrl', ['$scope', '$stat
     clearData();
     
     $scope.passwordConfirmation = null;
+    $scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
     
     var processName = function(name){
         return name.trim().toLowerCase().replace(/\w\S*/g, function(txt){
