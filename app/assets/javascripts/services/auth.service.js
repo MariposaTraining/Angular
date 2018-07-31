@@ -66,7 +66,7 @@ angular.module('mariposa-training').service('AuthService', ['$http', '$q', 'Sess
           var userRoles = ["student"];
           Session.create(userId, userRoles);
           
-          TmpStorage.storeAccountData(info, userId);
+          //TmpStorage.storeAccountData(info, userId);
           
           return getMember().then(function(response){
             return getNeeds(response);
