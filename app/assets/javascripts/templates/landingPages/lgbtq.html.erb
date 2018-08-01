@@ -61,11 +61,16 @@
   <div class="container">
 
     <div class="row margin-md-bottom well">
-      <div class="col-md-8" id="content">
+      <div class="col-md-12" id="content">
         <h2>Building Inclusive and Sensitive Long Term Care Services for LGBTQ Communities</h2>
         <hr>
+        <div class="margin-lg-top-bottom">
+          <span class="label label-default font-larger">LGBTQ</span>
+          <span class="label label-default font-larger">Healthcare Training Class</span>
+          <span class="label label-indefault font-larger">Skilled Nursing</span>
+        </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-8">
             <div class="speaker-card">
               <%= image_tag "speaker1.jpeg", class: "speaker-card-img-top" %>
               <div>
@@ -81,52 +86,63 @@
               </div>
             </div>
             <p>Tim and Miriam are the creators of Advocates 4 Equity  whose goal is to help individuals and agencies improve their work with LGBTQ people and to increase their sensitivities around issues related gender identity and sexual orientation.</p>
-            <hr>
+          </div>
+          <div class="col-md-4">
+            <div class="margin-md-top-bottom pointer-cursor" ui-sref="classDescription({Soid: '5b33cc1eeabbde254c5f2807'})">
+              <%= image_tag "LGBT_Button.png", class: "img-responsive" %>
+              <a ui-sref="classDescription({Soid: '5b33cc1eeabbde254c5f2807'})" class="btn btn-raised bg-buy-btn white btn-block">Buy Now</a>
+            </div>
           </div>
         </div>
-        <div>
-          <h3>Class Description</h3>
-          <p>There are over 3 million older adults who identify as lesbian, gay, bisexual and
-          transgender in the U.S. For many, the prospect of long term care provokes fear and anxiety, forcing
-          them to consider “going back into the closet” out of concern about mistreatment by residents and
-          staff.</p>
-          <p>This one hour webinar will describe the required elements for responding to the emerging needs of
-          long term care organizations to provide sensitive and respectful services to LGBT residents. In the
-          webinar we will discuss relevant terminology related to sexual orientation and gender identity, discuss
-          common challenges experienced by LGBT older adults and provide recommendations for honoring
-          patient rights. This webinar will also satisfy new legal requirements for staff and management in long
-          term health care to participate in LGBT sensitivity training.
-          </p>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Class Description</h3>
+            <!--<p>There are over 3 million older adults who identify as lesbian, gay, bisexual and
+            transgender in the U.S. For many, the prospect of long term care provokes fear and anxiety, forcing
+            them to consider “going back into the closet” out of concern about mistreatment by residents and
+            staff.</p>
+            <p>This one hour webinar will describe the required elements for responding to the emerging needs of
+            long term care organizations to provide sensitive and respectful services to LGBT residents. In the
+            webinar we will discuss relevant terminology related to sexual orientation and gender identity, discuss
+            common challenges experienced by LGBT older adults and provide recommendations for honoring
+            patient rights. This webinar will also satisfy new legal requirements for staff and management in long
+            term health care to participate in LGBT sensitivity training.
+            </p>-->
+            <p>Mariposa is proud to offer the nation's leading LGBTQ training class for healthcare providers, skilled nursing facilities. hospitals, and medical professionals . Required for all California healthcare professionals, not just skilled nursing professionals, the class is particularly targeted towards the care of our aging population.</p>  
+          </div>
+          
         </div>
-        <div>
-          <h3>CEU Info</h3>
-          <p>CME CEU - 1 hour</p>
-          <p>CMD CEU - 1 hour</p>
-          <p>NHA CEU - 1 hour</p>
-          <p>RN CEU - 1 hour</p>
-          <p>LVN CEU - 1 hour</p>
-          <p>CNA CEU - 1 hour</p>
-          <p>NAB CEU - 1 hour</p>
-        </div>
-        <div>
-          <h3>Learning Objectives</h3>
-          <p>
-            Students will be able to:
-            <ol>
-              <li>State common terms associated with sexual orientation, gender identity
-              and gender expression;</li>
-              <li>Improve communication with or about LGBT individuals;</li>
-              <li>Name the health and social challengeshistorically faced by older LGBT persons including discrimination in health care setting;</li>
-              <li>State the importance of professionalism in medical settings and the way caretaker attitudes affect health care access, participation, and resident physical and mental health;</li>
-              <li>Define ways to create a safe and affirming environment;</li>
-              <li>State the legal and professional obligation to treat all patients in a nondiscriminatory manner;</li>
-              <li>Name the legal issues relating to LGBT persons, including but not limited to patients' rights, civil rights, marriage and domestic partner laws, and Nursing Home Reform Act.</li>
-            </ol>
-          </p>
+        <div class="row">
+          <div class="col-sm-8">
+            <h3>Learning Objectives</h3>
+            <p>Students will be able to:
+              <ol>
+                <li>State common terms associated with sexual orientation, gender identity
+                and gender expression;</li>
+                <li>Improve communication with or about LGBT individuals;</li>
+                <li>Name the health and social challengeshistorically faced by older LGBT persons including discrimination in health care setting;</li>
+                <li>State the importance of professionalism in medical settings and the way caretaker attitudes affect health care access, participation, and resident physical and mental health;</li>
+                <li>Define ways to create a safe and affirming environment;</li>
+                <li>State the legal and professional obligation to treat all patients in a nondiscriminatory manner;</li>
+                <li>Name the legal issues relating to LGBT persons, including but not limited to patients' rights, civil rights, marriage and domestic partner laws, and Nursing Home Reform Act.</li>
+              </ol>
+            </p>
+          </div>
+          <div class="col-sm-4">
+            <h3>CEU Info</h3>
+            <p>CME CEU - 1 hour</p>
+            <p>CMD CEU - 1 hour</p>
+            <p>NHA CEU - 1 hour</p>
+            <p>RN CEU - 1 hour</p>
+            <p>LVN CEU - 1 hour</p>
+            <p>CNA CEU - 1 hour</p>
+            <p>NAB CEU - 1 hour</p>
+          </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card" ng-controller="RegisterCtrl">
+        <!--<div class="card" ng-controller="RegisterCtrl">
           <h4 class="margin-none-bottom">Register</h4>
           <hr>
           <div class="alert alert-danger" ng-show="registerInvalid">
@@ -219,10 +235,7 @@
               </div>
             </div>
           </form>
-        </div>
-        <div class="margin-md-top-bottom">
-          <%= image_tag "LGBT_Button.png", class: "img-responsive" %>
-        </div>
+        </div> -->
       </div>
     </div>
 

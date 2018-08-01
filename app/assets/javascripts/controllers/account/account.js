@@ -42,6 +42,8 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
         }
         
         $scope.Account.sortCourses();
+    
+        $scope.associationsFilled = false;
             
         if(Account.reloadNeeded)
             Account.reloadMemberObject();
@@ -53,6 +55,24 @@ angular.module('mariposa-training').controller('AccountCtrl', ['$scope', '$state
     };
     
     $scope.init();
+    
+    $scope.checkAssociations = function(){
+        
+        var tmp = 0;
+        
+        for(var i = 0; i < $scope.assocCheckbox.length; i++){
+            if($scope.assocCheckbox[i])
+                tmp++;
+        }
+        
+        if($scope.tmpAssoc && $scope.tmpAssoc.trim() != "")
+            tmp++;
+            
+        if(tmp > 0)
+            $scope.associationsFilled = true;
+        else
+            $scope.associationsFilled = false;
+    };
     
     $scope.saveState = function(){
         PersonalInfo.setStudentState($scope.Session.userId, $scope.state).then(function(response){

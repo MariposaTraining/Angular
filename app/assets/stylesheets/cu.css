@@ -27,8 +27,9 @@ body nav.navbar.navbar-default {
     color: white;
 }
 
-.bg-buy-btn,.bundle.well .btn.btn-sm.bg-buy-btn:active,.bundle.well .btn.btn-sm.bg-buy-btn:focus,.bundle.well .btn.btn-sm.bg-buy-btn:hover {
-    background: #48b01d
+.bg-buy-btn, .bg-buy-btn.btn-raised,.bundle.well .btn.btn-sm.bg-buy-btn:active,.bundle.well .btn.btn-sm.bg-buy-btn:focus,.bundle.well .btn.btn-sm.bg-buy-btn:hover, .btn.bg-buy-btn.btn-raised:hover, .bg-buy-btn.btn-raised:active, .bg-buy-btn.btn-raised:focus {
+    background: #48b01d;
+    background-color: #48b01d;
 }
 
 .bg-orange,.btn.bg-orange,.btn:not(.btn-link).bg-orange:focus,.btn:not(.btn-link).bg-orange:hover {
