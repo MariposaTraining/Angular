@@ -145,10 +145,9 @@ class SpaController < ApplicationController
   def post_json (uri_succeed, data_succeed)
     req = Net::HTTP::Post.new(uri_succeed.path, 'Content-Type' => 'application/json')
     req.body = data_succeed
-    Net::HTTP.new(uri_succeed.hostname, uri_succeed.port).start do |http|
-      http.use_ssl = uri_succeed.scheme == "https"
-      http.request(req)
-    end
+    http = Net::HTTP.new(uri_succeed.hostname, uri_succeed.port)
+    http.use_ssl = uri_succeed.scheme == "https"
+    response_succeed = http.request(req)
   end
 
   def get_session_endpoint
@@ -231,31 +230,30 @@ class SpaController < ApplicationController
   #  req['token'] = "ZWU0NzE4ODEtN2M0NC00ZDJhLTgxOGItMDc1YzE0YWM0ZDJl"
 
     req.body = params.to_json
-    Net::HTTP.new(uri.hostname, uri.port).start do |http|
-      http_response = http.request(req)
+    http = Net::HTTP.new(uri.hostname, uri.port)
+    response1 = http.request(req)
 
-      begin
-        #puts http_response.body
-        json = JSON.parse(http_response.body)
+    begin
+      #puts response1.body
+      json = JSON.parse(response1.body)
 
-        if(endpoint=='getCatalog')
-          get_images(json)
-        end
-
-        # sometimes response contains data object with necessary data
-        # but sometimes the response from the server is the object with necessery data
-        # without the wrapper
-
-        if json.key?('data') and json['data'].is_a?(Hash) and json['data'].key?('data') then
-          render json: JSON.parse(http_response.body)['data']
-        else
-          render json: JSON.parse(http_response.body)
-        end
-
-      rescue StandardError => error
-        puts error
-        render json: {api_response: http_response.body}, status: 500
+      if(endpoint=='getCatalog')
+        get_images(json)
       end
+
+      # sometimes response contains data object with necessary data
+      # but sometimes the response from the server is the object with necessery data
+      # without the wrapper
+
+      if json.key?('data') and json['data'].is_a?(Hash) and json['data'].key?('data') then
+        render json: JSON.parse(response1.body)['data']
+      else
+        render json: JSON.parse(response1.body)
+      end
+
+    rescue StandardError => error
+      puts error
+      render json: {api_response: response1.body}, status: 500
     end
   end
 
@@ -291,11 +289,16 @@ class SpaController < ApplicationController
     path = Rails.root.to_s + "/public/images/classes/" + img_type + "/" + img_name.to_s + ".jpg"
 
     if ! File.exists?(path)
+
       uri = URI.parse(org_url)
-      Net::HTTP.new(uri.host, uri.port).start do |http|
-        response = http.request(Net::HTTP::Get.new(uri.request_uri))
-        File.open(path, 'wb') { |f| f.write(response.body)}
-      end
+      http = Net::HTTP.new(uri.host, uri.port)
+
+      response = http.request(
+        Net::HTTP::Get.new(uri.request_uri)
+        )
+
+      File.open(path, 'wb') { |f| f.write(response.body)}
+
     end
 
   end
