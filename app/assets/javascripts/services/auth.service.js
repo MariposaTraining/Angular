@@ -51,7 +51,7 @@ angular.module('mariposa-training').service('AuthService', ['$http', '$q', 'Sess
   };
 
   this.roles = ["Administrator", "DON", "DSD", "BOM", "SSD", "AD", "Nurse", "CNA", "Medical Director", "Physician"];
-  this.associations = ["CAHF", "QCHF", "CALTCM"];
+  this.associations = ["CAHF", "QCHF", "CALTCM", "No Association"];
 
   this.checkEmailAddress = function(email){
     return $http
