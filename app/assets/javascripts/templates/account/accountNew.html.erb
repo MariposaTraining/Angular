@@ -56,13 +56,13 @@
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="facility"/>
                 </div>
-                <p>Association (select all that apply)  <span class="dark-red">(mandatory)</span></p>
+                <p>Association (select all that apply)</p>
                 <div class="row form-group">
                     <div class="col-lg-4 form-group" ng-repeat="assoc in associations track by $index">
-                      <input type="checkbox" ng-model="assocCheckbox[$index]" ng-click="checkAssociations()"> {{assoc}}
+                      <input type="checkbox" ng-model="assocCheckbox[$index]"> {{assoc}}
                     </div>
                     <div class="col-sm-12 form-group">
-                      <input type="text" class="form-control" placeholder="Other association" ng-model="tmpAssoc" ng-keyup="checkAssociations()">
+                      <input type="text" class="form-control" placeholder="Other association" ng-model="tmpAssoc">
                     </div>
                 </div>
                 <!--<p>When is your license renewal due?</p>
@@ -95,7 +95,7 @@
                     </div>
                 </div>-->
                 <div class="form-group text-right">
-                    <button type="button" class="btn btn-success btn-raised" ng-click="submitAdditionalInfo()" ng-disabled='!licenseState || !associationsFilled'>Submit</button>
+                    <button type="button" class="btn btn-success btn-raised" ng-click="submitAdditionalInfo()" ng-disabled='!licenseState'>Submit</button>
                 </div>
             </div>
         </div>
