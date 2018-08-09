@@ -1,13 +1,13 @@
 /* global angular */
 
-angular.module('mariposa-training').service('AuthService', ['$http', '$q', 'Session', 'Account', 'TmpStorage', 'USER_ROLES',
-  function ($http, $q, Session, Account, TmpStorage, USER_ROLES) {
+angular.module('mariposa-training').service('AuthService', ['$http', '$q', 'Api', 'Session', 'Account', 'TmpStorage', 'USER_ROLES',
+  function ($http, $q, Api, Session, Account, TmpStorage, USER_ROLES) {
 
   var getMember = function(){
     return $http.post('Api/getMember', {memberSoid: Session.userId}).then(function success(response){
 
         Session.addMemberObject(response.data.data);
-        Account.processMemberObject(response.data)
+        Account.processMemberObject(response.data);
 
         return response;
       }, function error(response){
@@ -53,29 +53,27 @@ angular.module('mariposa-training').service('AuthService', ['$http', '$q', 'Sess
   this.roles = ["Administrator", "DON", "DSD", "BOM", "SSD", "AD", "Nurse", "CNA", "Medical Director", "Physician"];
   this.associations = ["CAHF", "QCHF", "CALTCM", "No Association"];
 
-  this.checkEmailAddress = function(email){
-    return $http
-      .post('Api/GetEmailAddressExists', {emailAddress: email});
-  };
-
   this.register = function(info){
-      return registerUser(info)
-      .then(function success(res) {
-        if(res.data.ok){
-          var userId = res.data.data;
-          var userRoles = ["student"];
-          Session.create(userId, userRoles);
+      return Api.register(info)
+      .then(function success(res){
+        if(typeof res.data == "string"){
 
-          TmpStorage.storeAccountData(info, userId);
+          var userId = res.data;
+          var userRoles = ["student"];
+
+          Session.create(userId, userRoles, info.EmailAddress);
+          Api.notifyRegistration(userId);
 
           return getMember().then(function(response){
             return getNeeds(response);
+          }, function error(response){
+            console.log(response);
+            return response;
           });
         }else
-          return null;
-      }, function(res){
-        console.log(res);
-        return res;
+          return res.data;
+      }, function error(res){
+        return res.data;
       });
   };
 

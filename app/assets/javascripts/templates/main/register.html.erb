@@ -2,16 +2,10 @@
 <hr>
 <div ng-controller="RegisterCtrl">
   <div class="alert alert-danger" ng-show="registerInvalid">
-    <strong>An error occurred!</strong>
+    <strong ng-if="errorMessage">{{errorMessage}}</strong>
+    <strong ng-if="!errorMessage">An error has occurred.</strong>
   </div>
   <form name="registerForm" ng-submit="register()">
-  <div class="row margin-md-bottom" ng-show="showErrorMessage">
-    <div class="col-md-12">
-      <div class="alert alert-danger">
-        {{errorMessage}}
-      </div>
-    </div>
-  </div>
   <div class="row margin-md-bottom">
     <div class="form-group label-floating is-empty col-md-6">
       <label for="firstNameTxt" class="control-label">First Name</label>
@@ -22,17 +16,17 @@
       <label for="lastNameTxt" class="control-label">Last Name</label>
       <input type="text" class="form-control" id="lastNameTxt" ng-model="info.lastName" required>
       <span class="material-input"></span>
-    </div> 
+    </div>
   </div>
-  
+
   <div class="row">
     <div class="form-group label-floating is-empty col-sm-12">
       <label for="emailNewTxt" class="control-label">Email address</label>
-      <input type="email" class="form-control" id="emailNewTxt" ng-model="info.emailAddress" name="emailAddress" ng-pattern="emailFormat" required ng-blur="checkEmail(registerForm)">
+      <input type="email" class="form-control" id="emailNewTxt" ng-model="info.emailAddress" name="emailAddress" ng-pattern="emailFormat" required>
       <span class="material-input"></span>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="form-group label-floating is-empty col-md-6">
       <label for="passwordNewTxt" class="control-label">Password</label>
@@ -43,9 +37,9 @@
       <label for="passwordNewConfTxt" class="control-label">Confirmation</label>
       <input type="password" class="form-control" id="passwordNewConfTxt"  ng-model="passwordConfirmation" match="info.password" required>
       <span class="material-input"></span>
-    </div>  
+    </div>
   </div>
-  
+
   <div class="row">
     <div class="col-sm-12">
       <button class="btn btn-raised bg-active-btn white btn-block" type="submit" ng-disabled="registerForm.$invalid || disableBtn" id="signUpBtn">
